@@ -1,0 +1,14 @@
+xcb-proto:
+  root: src/main.zig
+  src:
+    github:
+      repo: xcb-proto
+      user: freedesktop
+      ref: 1.12
+mecha:
+  root: /mecha.zig
+  src:
+    github:
+      repo: mecha
+      user: Hejsil
+      ref: master
