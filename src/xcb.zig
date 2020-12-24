@@ -1,9 +1,12 @@
 const std = @import("std");
 const mecha = @import("mecha/mecha.zig");
+const reflect = @import("reflect.zig");
 
 const fmt = std.fmt;
 const fs = std.fs;
+const heap = std.heap;
 const io = std.io;
+const math = std.math;
 const mem = std.mem;
 const net = std.net;
 const os = std.os;
@@ -49,11 +52,11 @@ pub const Extension = struct {
 const Connection = struct {};
 
 pub fn connect() !Connection {
-    const display_str = os.getenv("DISPLAY") orelse error.DisplayNotFound;
+    const display_str = os.getenv("DISPLAY") orelse return error.DisplayNotFound;
     const display = try Display.parse(display_str);
 
     const handle = try display.connect();
-    errdefer handle.deinit();
+    errdefer handle.close();
 
     var hostname_buf: [os.HOST_NAME_MAX]u8 = undefined;
     const hostname = try os.gethostname(&hostname_buf);
@@ -71,37 +74,41 @@ pub fn connect() !Connection {
         if (mem.eql(u8, auth.address, hostname))
             break auth;
     } else return error.AuthNotFound;
+
+    return setup(handle, auth);
 }
 
 fn setup(handle: fs.File, auth: Auth) !Connection {
     const pad = "\x00\x00\x00";
-    try handle.writeAll(&mem.toBytes(SetupRequest{
-        .name_len = @intCast(u16, auth.name.len),
-        .data_len = @intCast(u16, auth.data.len),
-    }));
-    try handle.writeAll(auth.name);
-    try handle.writeAll(pad[0 .. mem.alignForward(auth.name.len, 4) - auth.name.len]);
-    try handle.writeAll(auth.data);
-    try handle.writeAll(pad[0 .. mem.alignForward(auth.data.len, 4) - auth.data.len]);
+    // try handle.writeAll(&mem.toBytes(SetupRequest{
+    //     .name_len = @intCast(u16, auth.name.len),
+    //     .data_len = @intCast(u16, auth.data.len),
+    // }));
+    // try handle.writeAll(auth.name);
+    // try handle.writeAll(pad[0 .. mem.alignForward(auth.name.len, 4) - auth.name.len]);
+    // try handle.writeAll(auth.data);
+    // try handle.writeAll(pad[0 .. mem.alignForward(auth.data.len, 4) - auth.data.len]);
 
     var buf: [math.maxInt(u16) * 4]u8 = undefined;
-    const header = try handler.reader().readStruct(SetupAuthenticate);
+    const header = try handle.reader().readStruct(SetupAuthenticate);
     const setup_buf = buf[0 .. header.length * 4];
-    try hander.readNoEof(setup_buf);
+    try handle.reader().readNoEof(setup_buf);
 
     switch (header.status) {
-        0 => error.SetupFailed,
+        0 => return error.SetupFailed,
         2 => unreachable, // TODO: authenticate
         1 => {},
         else => return error.InvalidStatus,
     }
 
-    const setup = mem.bytesAsValue(Setup, setup_buf[0..@sizeOf(Setup)]);
-    const vendor = setup_buf[@sizeOf(Setup)..][0..setup.vendor_len];
+    // const setup = mem.bytesAsValue(Setup, setup_buf[0..@sizeOf(Setup)]);
+    // const vendor = setup_buf[@sizeOf(Setup)..][0..setup.vendor_len];
 
-    const formats_start = @sizeOf(Setup) + setup.vendor_len;
-    const formats_end = formats_start + setup.pixmap_formats_len * @sizeOf(FORMAT);
-    const formats = mem.bytesAsSlice(FORMAT, setup_buf[formats_start..formats_end]);
+    // const formats_start = @sizeOf(Setup) + setup.vendor_len;
+    // const formats_end = formats_start + setup.pixmap_formats_len * @sizeOf(FORMAT);
+    // const formats = mem.bytesAsSlice(FORMAT, setup_buf[formats_start..formats_end]);
+
+    return undefined;
 }
 
 pub const Display = struct {
@@ -111,12 +118,12 @@ pub const Display = struct {
     screen: u16,
 
     pub fn parse(str: []const u8) !Display {
-        const res = display(str) orelse return error.InvalidDisplay;
-        return .{
-            .host = res.value[0],
-            .protocol = res.value[1],
-            .display = res.value[2],
-            .screen = res.value[3] orelse 0,
+        const result = parseDisplay(str) orelse return error.InvalidDisplay;
+        return Display{
+            .host = result.value[0],
+            .protocol = result.value[1],
+            .display = result.value[2],
+            .screen = result.value[3] orelse 0,
         };
     }
 
@@ -127,14 +134,14 @@ pub const Display = struct {
             return net.tcpConnectToAddress(address);
         } else {
             var buf: [fs.MAX_PATH_BYTES]u8 = undefined;
-            const path = try fmt.bufPrint(&buf, "/tmp/.X11-unix/X{}", .{display.display}) catch unreachable;
-            return try net.connnectUnixSocket(path);
+            const path = fmt.bufPrint(&buf, "/tmp/.X11-unix/X{}", .{display.display}) catch unreachable;
+            return try net.connectUnixSocket(path);
         }
     }
 
     usingnamespace mecha;
 
-    const display = combine(.{
+    const parseDisplay = combine(.{
         protocol,
         host,
         displayId,
@@ -172,11 +179,11 @@ pub const Auth = struct {
         const Read = struct {
             fn string(s: anytype, a: *mem.Allocator) ![]u8 {
                 const len = try s.readIntBig(u16);
-                const res = try a.alloc(u8, len);
-                errdefer a.free(res);
+                const result = try a.alloc(u8, len);
+                errdefer a.free(result);
 
-                try s.readNoEof(res);
-                return res;
+                try s.readNoEof(result);
+                return result;
             }
         };
 
@@ -212,47 +219,20 @@ pub fn openXAuthority() !fs.File {
         return fs.openFileAbsolute(path, .{});
 
     const home = os.getenv("HOME") orelse return error.HomeDirectoryNotFound;
-    const home_dir = try fs.cwd().openDir(home, .{});
+    var home_dir = try fs.cwd().openDir(home, .{});
     defer home_dir.close();
 
-    return dir.openFile(".Xauthority", .{});
+    return home_dir.openFile(".Xauthority", .{});
 }
+
+
 
 fn StructWrapper(comptime T: type) type {
     return struct {
         data: []const u8,
 
         pub fn offsetOf(this: @This(), comptime field_name: ?[]const u8) usize {
-            var res: usize = 0;
-            inline for (@typeInfo(T).Struct.field) |field| {
-                if (field_name) |f| {
-                    if (comptime mem.eql(u8, f, field.name))
-                        return res;
-                }
 
-                switch (@typeInfo(field.field_type)) {
-                    .Pointer => {
-                        const Child = SliceWrapper(field.field_type);
-                        const child = Child{
-                            .data = this.data[res..],
-                            .len = 1, // TODO
-                        };
-                        res += child.size();
-                    },
-                    .Struct => {
-                        const Child = StructWrapper(field.field_type);
-                        const child = Child{ .data = this.data[res..] };
-                        res += child.size();
-                    },
-                    .Union => unreachable,
-                    .Integer => res += @sizeOf(field.field_type),
-                }
-            }
-
-            if (field_name) |f|
-                @compileError("Could not find field '" ++ f ++ "'");
-
-            return res;
         }
 
         pub fn fieldPtr(this: @This(), comptime field_name: []const u8) @TypeOf(@field(@as(T, undefined), field_name)) {
