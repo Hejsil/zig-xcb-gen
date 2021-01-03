@@ -79,20 +79,27 @@ pub fn connect() !Connection {
 }
 
 fn setup(handle: fs.File, auth: Auth) !Connection {
-    const pad = "\x00\x00\x00";
-    // try handle.writeAll(&mem.toBytes(SetupRequest{
-    //     .name_len = @intCast(u16, auth.name.len),
-    //     .data_len = @intCast(u16, auth.data.len),
-    // }));
-    // try handle.writeAll(auth.name);
-    // try handle.writeAll(pad[0 .. mem.alignForward(auth.name.len, 4) - auth.name.len]);
-    // try handle.writeAll(auth.data);
-    // try handle.writeAll(pad[0 .. mem.alignForward(auth.data.len, 4) - auth.data.len]);
+    try reflect.encode(handle.writer(), SetupRequest, .{
+        .byte_order = if (@import("std").builtin.endian == .Big) 0x42 else 0x6c,
+        .pad0 = 0,
+        .protocol_major_version = 11,
+        .protocol_minor_version = 0,
+        .pad1 = [2]u8{ 0, 0 },
+        .authorization_protocol_name = auth.name,
+        .authorization_protocol_data = auth.data,
+    });
+    const SetupAuthenticate2 = extern struct {
+        @"status": u8,
+        @"pad0": [5]u8,
+        @"length": u16,
+    };
 
     var buf: [math.maxInt(u16) * 4]u8 = undefined;
     const header = try handle.reader().readStruct(SetupAuthenticate);
-    const setup_buf = buf[0 .. header.length * 4];
-    try handle.reader().readNoEof(setup_buf);
+    // std.debug.warn("{}\n", .{header});
+
+    // const setup_buf = buf[0 .. header.length * 4];
+    // try handle.reader().readNoEof(setup_buf);
 
     switch (header.status) {
         0 => return error.SetupFailed,
@@ -108,7 +115,7 @@ fn setup(handle: fs.File, auth: Auth) !Connection {
     // const formats_end = formats_start + setup.pixmap_formats_len * @sizeOf(FORMAT);
     // const formats = mem.bytesAsSlice(FORMAT, setup_buf[formats_start..formats_end]);
 
-    return undefined;
+    return @as(Connection, undefined);
 }
 
 pub const Display = struct {
@@ -120,8 +127,8 @@ pub const Display = struct {
     pub fn parse(str: []const u8) !Display {
         const result = parseDisplay(str) orelse return error.InvalidDisplay;
         return Display{
-            .host = result.value[0],
-            .protocol = result.value[1],
+            .protocol = result.value[0] orelse "",
+            .host = result.value[1],
             .display = result.value[2],
             .screen = result.value[3] orelse 0,
         };
@@ -142,22 +149,22 @@ pub const Display = struct {
     usingnamespace mecha;
 
     const parseDisplay = combine(.{
-        protocol,
+        opt(protocol),
         host,
         displayId,
         opt(combine(.{ ascii.char('.'), screenId })),
         eos,
     });
 
-    const protocol = many(combine(.{
-        ascii.not(ascii.char('/')),
+    const protocol = combine(.{
+        many(ascii.not(ascii.char('/'))),
         ascii.char('/'),
-    }));
+    });
 
-    const host = many(combine(.{
-        ascii.not(ascii.char(':')),
+    const host = combine(.{
+        many(ascii.not(ascii.char(':'))),
         ascii.char(':'),
-    }));
+    });
 
     const displayId = int(u16, 10);
     const screenId = int(u16, 10);
@@ -225,37 +232,10 @@ pub fn openXAuthority() !fs.File {
     return home_dir.openFile(".Xauthority", .{});
 }
 
-
-
-fn StructWrapper(comptime T: type) type {
-    return struct {
-        data: []const u8,
-
-        pub fn offsetOf(this: @This(), comptime field_name: ?[]const u8) usize {
-
-        }
-
-        pub fn fieldPtr(this: @This(), comptime field_name: []const u8) @TypeOf(@field(@as(T, undefined), field_name)) {
-            const offset = this.offsetOf(field_name);
-        }
-    };
-}
-
-fn SliceWrapper(comptime T: type) type {
-    return struct {
-        len: usize,
-        data: []const u8,
-
-        pub fn size(this: @This()) usize {
-            var res: usize = 0;
-        }
-    };
-}
-
 test "" {
     @import("std").testing.refAllDecls(@This());
 }
 
-test "" {
-    const file = "/tmp/.X11-unix/X0";
+test "connect" {
+    // const connection = try connect();
 }

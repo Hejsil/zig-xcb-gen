@@ -1,5 +1,7 @@
 const std = @import("std");
 
+const debug = std.debug;
+const io = std.io;
 const mem = std.mem;
 const meta = std.meta;
 const testing = std.testing;
@@ -210,29 +212,142 @@ test "fieldPtr" {
 }
 
 pub fn encode(writer: anytype, comptime T: type, value: anytype) !void {
-    comptime {
-        for (meta.fields(@TypeOf(fields))) |field| {
-            debug.assert(@hasField(T, field.name));
-        }
-    }
+    switch (@typeInfo(T)) {
+        .Int => try writer.writeIntNative(T, value),
+        .Array => |arr| {
+            for (value) |item|
+                try encode(writer, arr.child, item);
+        },
+        .Struct => |str| {
+            // Validate that `T` have the fields `value` have. This ofc, does not mean
+            // that `value` have all the fields `T` have. This will be validated in
+            // the inline loop below.
+            comptime for (meta.fields(@TypeOf(value))) |field| {
+                if (!@hasField(T, field.name))
+                    @compileError("'" ++ @typeName(T) ++ "' does not have field '" ++ field.name ++ "'");
+            };
 
-    inline for (meta.fields(T)) |field| {
-        const Field = field.field_type;
-        const field_info = @typeInfo(Field);
-        if (mem.endsWith(u8, field.name, "_len")) {
-            // If it acts like a slice, then it is a slice
-            const _slice = @field(fields, field.name[0 .. field.name - 4]);
-            const slice = _slice[0.._slice.len];
+            inline for (meta.fields(T)) |field| {
+                const Field = field.field_type;
+                const field_info = @typeInfo(Field);
+                // The `<field_name>_len` field in `T` will be populated with `<field_name>.len`
+                if (comptime mem.endsWith(u8, field.name, "_len")) {
+                    // If it acts like a slice, then it is a slice
+                    const _slice = @field(value, field.name[0 .. field.name.len - 4]);
+                    const slice = _slice[0.._slice.len];
 
-            const casted = @intCast(Field, slice.len);
-            try writer.writeAll(&mem.toBytes(casted));
-        } else if (field_info == .Pointer) {
-            // If it acts like a slice, then it is a slice
-            const _slice = @field(fields, field.name);
-            const slice = _slice[0.._slice.len];
-            comptime debug.assert(@TypeOf(slice[0]) == field_info.Pointer.child);
-        } else {}
+                    const casted = @intCast(Field, slice.len);
+                    try writer.writeIntNative(Field, casted);
+                }
+                // The Pointer fields will have the content of the slice of the
+                // same name in `value` encoded inline.
+                else if (field_info == .Pointer) {
+                    // If it acts like a slice, then it is a slice
+                    const _slice = @field(value, field.name);
+                    const slice = _slice[0.._slice.len];
+
+                    for (slice) |item| {
+                        comptime debug.assert(@TypeOf(item) == field_info.Pointer.child);
+                        try encode(writer, @TypeOf(item), item);
+                    }
+
+                    // TODO: Figure out exaclty what the padding rules are. Right now
+                    //       we just pad byte slices
+                    switch (field_info.Pointer.child) {
+                        u8 => try writer.writeByteNTimes(0, mem.alignForward(slice.len, 4) - slice.len),
+                        else => {},
+                    }
+                } else {
+                    try encode(writer, Field, @field(value, field.name));
+                }
+            }
+        },
+
+        .AnyFrame,
+        .Bool,
+        .BoundFn,
+        .ComptimeFloat,
+        .ComptimeInt,
+        .Enum,
+        .EnumLiteral,
+        .ErrorSet,
+        .ErrorUnion,
+        .Float,
+        .Fn,
+        .Frame,
+        .NoReturn,
+        .Null,
+        .Opaque,
+        .Optional,
+        .Pointer,
+        .Type,
+        .Undefined,
+        .Union,
+        .Vector,
+        .Void,
+        => comptime unreachable,
     }
+}
+
+fn testEncode(expect: []const u8, comptime T: type, value: anytype) void {
+    var buf: [mem.page_size]u8 = undefined;
+    var fbs = io.fixedBufferStream(&buf);
+    encode(fbs.writer(), T, value) catch unreachable;
+    testing.expectEqualSlices(u8, expect, fbs.getWritten());
+}
+
+test "encode" {
+    const S1 = struct {
+        a: u8,
+        b: u16,
+    };
+    testEncode("\x00\x00\x00", S1, .{ .a = 0, .b = 0 });
+    testEncode("\x11\x22\x22", S1, .{ .a = 0x11, .b = 0x2222 });
+
+    const S2 = struct {
+        a_len: u8,
+        a: [*]u8,
+    };
+    testEncode("\x00", S2, .{ .a = [_]u8{} });
+    testEncode("\x03\x01\x02\x03\x00", S2, .{ .a = [_]u8{ 1, 2, 3 } });
+
+    const S3 = struct {
+        q: u8,
+        a_len: u8,
+        b: u8,
+        a: [*]u16,
+    };
+    testEncode("\x00\x00\x00", S3, .{ .q = 0, .b = 0, .a = [_]u16{} });
+    testEncode("\x01\x02\x03\x44\x44\x55\x55", S3, .{
+        .q = 1,
+        .b = 3,
+        .a = [_]u16{ 0x4444, 0x5555 },
+    });
+
+    const S4 = struct {
+        q: u8,
+        a_len: u8,
+        b: u8,
+        c_len: u8,
+        a: [*]u16,
+        h: u8,
+        c: [*]u32,
+    };
+    testEncode("\x00\x00\x00\x00\x00", S4, .{
+        .q = 0,
+        .b = 0,
+        .a = [_]u16{},
+        .h = 0,
+        .c = [_]u32{},
+    });
+    testEncode("\x01\x02\x03\x04\x55\x55\x66\x66\x07\x88\x88\x88\x88" ++
+        "\x99\x99\x99\x99\xaa\xaa\xaa\xaa\xbb\xbb\xbb\xbb", S4, .{
+        .q = 1,
+        .b = 3,
+        .a = [_]u16{ 0x5555, 0x6666 },
+        .h = 7,
+        .c = [_]u32{ 0x88888888, 0x99999999, 0xaaaaaaaa, 0xbbbbbbbb },
+    });
 }
 
 fn FieldType(comptime T: type, comptime field_name: []const u8) type {
