@@ -13,7 +13,7 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -22,7 +22,7 @@ pub const QueryVersionRequest = extern struct {
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -37,7 +37,7 @@ pub const Opencookie = struct {
 };
 
 /// @brief OpenRequest
-pub const OpenRequest = extern struct {
+pub const OpenRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -46,7 +46,7 @@ pub const OpenRequest = extern struct {
 };
 
 /// @brief OpenReply
-pub const OpenReply = extern struct {
+pub const OpenReply = struct {
     @"response_type": u8,
     @"nfd": u8,
     @"sequence": u16,
@@ -55,7 +55,7 @@ pub const OpenReply = extern struct {
 };
 
 /// @brief PixmapFromBufferRequest
-pub const PixmapFromBufferRequest = extern struct {
+pub const PixmapFromBufferRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -75,7 +75,7 @@ pub const BufferFromPixmapcookie = struct {
 };
 
 /// @brief BufferFromPixmapRequest
-pub const BufferFromPixmapRequest = extern struct {
+pub const BufferFromPixmapRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -83,7 +83,7 @@ pub const BufferFromPixmapRequest = extern struct {
 };
 
 /// @brief BufferFromPixmapReply
-pub const BufferFromPixmapReply = extern struct {
+pub const BufferFromPixmapReply = struct {
     @"response_type": u8,
     @"nfd": u8,
     @"sequence": u16,
@@ -98,7 +98,7 @@ pub const BufferFromPixmapReply = extern struct {
 };
 
 /// @brief FenceFromFDRequest
-pub const FenceFromFDRequest = extern struct {
+pub const FenceFromFDRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -114,7 +114,7 @@ pub const FDFromFencecookie = struct {
 };
 
 /// @brief FDFromFenceRequest
-pub const FDFromFenceRequest = extern struct {
+pub const FDFromFenceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -123,7 +123,7 @@ pub const FDFromFenceRequest = extern struct {
 };
 
 /// @brief FDFromFenceReply
-pub const FDFromFenceReply = extern struct {
+pub const FDFromFenceReply = struct {
     @"response_type": u8,
     @"nfd": u8,
     @"sequence": u16,

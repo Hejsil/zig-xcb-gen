@@ -14,7 +14,7 @@ pub const SURFACE = u32;
 pub const SUBPICTURE = u32;
 
 /// @brief SurfaceInfo
-pub const SurfaceInfo = extern struct {
+pub const SurfaceInfo = struct {
     @"id": xcb.xvmc.SURFACE,
     @"chroma_format": u16,
     @"pad0": u16,
@@ -32,14 +32,14 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -54,7 +54,7 @@ pub const ListSurfaceTypescookie = struct {
 };
 
 /// @brief ListSurfaceTypesRequest
-pub const ListSurfaceTypesRequest = extern struct {
+pub const ListSurfaceTypesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -62,14 +62,14 @@ pub const ListSurfaceTypesRequest = extern struct {
 };
 
 /// @brief ListSurfaceTypesReply
-pub const ListSurfaceTypesReply = extern struct {
+pub const ListSurfaceTypesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num": u32,
     @"pad1": [20]u8,
-    @"surfaces": [*]xcb.xvmc.SurfaceInfo,
+    @"surfaces": []xcb.xvmc.SurfaceInfo,
 };
 
 /// @brief CreateContextcookie
@@ -78,7 +78,7 @@ pub const CreateContextcookie = struct {
 };
 
 /// @brief CreateContextRequest
-pub const CreateContextRequest = extern struct {
+pub const CreateContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -91,7 +91,7 @@ pub const CreateContextRequest = extern struct {
 };
 
 /// @brief CreateContextReply
-pub const CreateContextReply = extern struct {
+pub const CreateContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -100,11 +100,11 @@ pub const CreateContextReply = extern struct {
     @"height_actual": u16,
     @"flags_return": u32,
     @"pad1": [20]u8,
-    @"priv_data": [*]u32,
+    @"priv_data": []u32,
 };
 
 /// @brief DestroyContextRequest
-pub const DestroyContextRequest = extern struct {
+pub const DestroyContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -117,7 +117,7 @@ pub const CreateSurfacecookie = struct {
 };
 
 /// @brief CreateSurfaceRequest
-pub const CreateSurfaceRequest = extern struct {
+pub const CreateSurfaceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -126,17 +126,17 @@ pub const CreateSurfaceRequest = extern struct {
 };
 
 /// @brief CreateSurfaceReply
-pub const CreateSurfaceReply = extern struct {
+pub const CreateSurfaceReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"pad1": [24]u8,
-    @"priv_data": [*]u32,
+    @"priv_data": []u32,
 };
 
 /// @brief DestroySurfaceRequest
-pub const DestroySurfaceRequest = extern struct {
+pub const DestroySurfaceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -149,7 +149,7 @@ pub const CreateSubpicturecookie = struct {
 };
 
 /// @brief CreateSubpictureRequest
-pub const CreateSubpictureRequest = extern struct {
+pub const CreateSubpictureRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
@@ -161,7 +161,7 @@ pub const CreateSubpictureRequest = extern struct {
 };
 
 /// @brief CreateSubpictureReply
-pub const CreateSubpictureReply = extern struct {
+pub const CreateSubpictureReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -172,11 +172,11 @@ pub const CreateSubpictureReply = extern struct {
     @"entry_bytes": u16,
     @"component_order": [4]u8,
     @"pad1": [12]u8,
-    @"priv_data": [*]u32,
+    @"priv_data": []u32,
 };
 
 /// @brief DestroySubpictureRequest
-pub const DestroySubpictureRequest = extern struct {
+pub const DestroySubpictureRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
@@ -189,7 +189,7 @@ pub const ListSubpictureTypescookie = struct {
 };
 
 /// @brief ListSubpictureTypesRequest
-pub const ListSubpictureTypesRequest = extern struct {
+pub const ListSubpictureTypesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 8,
     @"length": u16,
@@ -198,14 +198,14 @@ pub const ListSubpictureTypesRequest = extern struct {
 };
 
 /// @brief ListSubpictureTypesReply
-pub const ListSubpictureTypesReply = extern struct {
+pub const ListSubpictureTypesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num": u32,
     @"pad1": [20]u8,
-    @"types": [*]xcb.xv.ImageFormatInfo,
+    @"types": []xcb.xv.ImageFormatInfo,
 };
 
 test "" {

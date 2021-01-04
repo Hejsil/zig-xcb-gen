@@ -31,7 +31,7 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -41,7 +41,7 @@ pub const QueryVersionRequest = extern struct {
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -57,7 +57,7 @@ pub const QueryInfocookie = struct {
 };
 
 /// @brief QueryInfoRequest
-pub const QueryInfoRequest = extern struct {
+pub const QueryInfoRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -65,7 +65,7 @@ pub const QueryInfoRequest = extern struct {
 };
 
 /// @brief QueryInfoReply
-pub const QueryInfoReply = extern struct {
+pub const QueryInfoReply = struct {
     @"response_type": u8,
     @"state": u8,
     @"sequence": u16,
@@ -79,7 +79,7 @@ pub const QueryInfoReply = extern struct {
 };
 
 /// @brief SelectInputRequest
-pub const SelectInputRequest = extern struct {
+pub const SelectInputRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -88,7 +88,7 @@ pub const SelectInputRequest = extern struct {
 };
 
 /// @brief SetAttributesRequest
-pub const SetAttributesRequest = extern struct {
+pub const SetAttributesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -105,7 +105,7 @@ pub const SetAttributesRequest = extern struct {
 };
 
 /// @brief UnsetAttributesRequest
-pub const UnsetAttributesRequest = extern struct {
+pub const UnsetAttributesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -113,7 +113,7 @@ pub const UnsetAttributesRequest = extern struct {
 };
 
 /// @brief SuspendRequest
-pub const SuspendRequest = extern struct {
+pub const SuspendRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -125,7 +125,7 @@ pub const SuspendRequest = extern struct {
 pub const NotifyOpcode = 0;
 
 /// @brief NotifyEvent
-pub const NotifyEvent = extern struct {
+pub const NotifyEvent = struct {
     @"response_type": u8,
     @"state": u8,
     @"sequence": u16,

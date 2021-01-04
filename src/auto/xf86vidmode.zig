@@ -37,7 +37,7 @@ pub const Permission = extern enum(c_uint) {
 };
 
 /// @brief ModeInfo
-pub const ModeInfo = extern struct {
+pub const ModeInfo = struct {
     @"dotclock": xcb.xf86vidmode.DOTCLOCK,
     @"hdisplay": u16,
     @"hsyncstart": u16,
@@ -60,14 +60,14 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -82,7 +82,7 @@ pub const GetModeLinecookie = struct {
 };
 
 /// @brief GetModeLineRequest
-pub const GetModeLineRequest = extern struct {
+pub const GetModeLineRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -91,7 +91,7 @@ pub const GetModeLineRequest = extern struct {
 };
 
 /// @brief GetModeLineReply
-pub const GetModeLineReply = extern struct {
+pub const GetModeLineReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -110,11 +110,11 @@ pub const GetModeLineReply = extern struct {
     @"flags": u32,
     @"pad2": [12]u8,
     @"privsize": u32,
-    @"private": [*]u8,
+    @"private": []u8,
 };
 
 /// @brief ModModeLineRequest
-pub const ModModeLineRequest = extern struct {
+pub const ModModeLineRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -132,11 +132,11 @@ pub const ModModeLineRequest = extern struct {
     @"flags": u32,
     @"pad1": [12]u8,
     @"privsize": u32,
-    @"private": [*]u8,
+    @"private": []const u8,
 };
 
 /// @brief SwitchModeRequest
-pub const SwitchModeRequest = extern struct {
+pub const SwitchModeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -150,7 +150,7 @@ pub const GetMonitorcookie = struct {
 };
 
 /// @brief GetMonitorRequest
-pub const GetMonitorRequest = extern struct {
+pub const GetMonitorRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -159,7 +159,7 @@ pub const GetMonitorRequest = extern struct {
 };
 
 /// @brief GetMonitorReply
-pub const GetMonitorReply = extern struct {
+pub const GetMonitorReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -169,15 +169,15 @@ pub const GetMonitorReply = extern struct {
     @"num_hsync": u8,
     @"num_vsync": u8,
     @"pad1": [20]u8,
-    @"hsync": [*]xcb.xf86vidmode.SYNCRANGE,
-    @"vsync": [*]xcb.xf86vidmode.SYNCRANGE,
-    @"vendor": [*]u8,
-    @"alignment_pad": [*]u8,
-    @"model": [*]u8,
+    @"hsync": []xcb.xf86vidmode.SYNCRANGE,
+    @"vsync": []xcb.xf86vidmode.SYNCRANGE,
+    @"vendor": []u8,
+    @"alignment_pad": []u8,
+    @"model": []u8,
 };
 
 /// @brief LockModeSwitchRequest
-pub const LockModeSwitchRequest = extern struct {
+pub const LockModeSwitchRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -191,7 +191,7 @@ pub const GetAllModeLinescookie = struct {
 };
 
 /// @brief GetAllModeLinesRequest
-pub const GetAllModeLinesRequest = extern struct {
+pub const GetAllModeLinesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
@@ -200,18 +200,18 @@ pub const GetAllModeLinesRequest = extern struct {
 };
 
 /// @brief GetAllModeLinesReply
-pub const GetAllModeLinesReply = extern struct {
+pub const GetAllModeLinesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"modecount": u32,
     @"pad1": [20]u8,
-    @"modeinfo": [*]xcb.xf86vidmode.ModeInfo,
+    @"modeinfo": []xcb.xf86vidmode.ModeInfo,
 };
 
 /// @brief AddModeLineRequest
-pub const AddModeLineRequest = extern struct {
+pub const AddModeLineRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
@@ -243,11 +243,11 @@ pub const AddModeLineRequest = extern struct {
     @"pad2": [2]u8,
     @"after_flags": u32,
     @"pad3": [12]u8,
-    @"private": [*]u8,
+    @"private": []const u8,
 };
 
 /// @brief DeleteModeLineRequest
-pub const DeleteModeLineRequest = extern struct {
+pub const DeleteModeLineRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 8,
     @"length": u16,
@@ -266,7 +266,7 @@ pub const DeleteModeLineRequest = extern struct {
     @"flags": u32,
     @"pad1": [12]u8,
     @"privsize": u32,
-    @"private": [*]u8,
+    @"private": []const u8,
 };
 
 /// @brief ValidateModeLinecookie
@@ -275,7 +275,7 @@ pub const ValidateModeLinecookie = struct {
 };
 
 /// @brief ValidateModeLineRequest
-pub const ValidateModeLineRequest = extern struct {
+pub const ValidateModeLineRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 9,
     @"length": u16,
@@ -294,11 +294,11 @@ pub const ValidateModeLineRequest = extern struct {
     @"flags": u32,
     @"pad1": [12]u8,
     @"privsize": u32,
-    @"private": [*]u8,
+    @"private": []const u8,
 };
 
 /// @brief ValidateModeLineReply
-pub const ValidateModeLineReply = extern struct {
+pub const ValidateModeLineReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -308,7 +308,7 @@ pub const ValidateModeLineReply = extern struct {
 };
 
 /// @brief SwitchToModeRequest
-pub const SwitchToModeRequest = extern struct {
+pub const SwitchToModeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 10,
     @"length": u16,
@@ -327,7 +327,7 @@ pub const SwitchToModeRequest = extern struct {
     @"flags": u32,
     @"pad1": [12]u8,
     @"privsize": u32,
-    @"private": [*]u8,
+    @"private": []const u8,
 };
 
 /// @brief GetViewPortcookie
@@ -336,7 +336,7 @@ pub const GetViewPortcookie = struct {
 };
 
 /// @brief GetViewPortRequest
-pub const GetViewPortRequest = extern struct {
+pub const GetViewPortRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 11,
     @"length": u16,
@@ -345,7 +345,7 @@ pub const GetViewPortRequest = extern struct {
 };
 
 /// @brief GetViewPortReply
-pub const GetViewPortReply = extern struct {
+pub const GetViewPortReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -356,7 +356,7 @@ pub const GetViewPortReply = extern struct {
 };
 
 /// @brief SetViewPortRequest
-pub const SetViewPortRequest = extern struct {
+pub const SetViewPortRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 12,
     @"length": u16,
@@ -372,7 +372,7 @@ pub const GetDotClockscookie = struct {
 };
 
 /// @brief GetDotClocksRequest
-pub const GetDotClocksRequest = extern struct {
+pub const GetDotClocksRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 13,
     @"length": u16,
@@ -381,7 +381,7 @@ pub const GetDotClocksRequest = extern struct {
 };
 
 /// @brief GetDotClocksReply
-pub const GetDotClocksReply = extern struct {
+pub const GetDotClocksReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -390,11 +390,11 @@ pub const GetDotClocksReply = extern struct {
     @"clocks": u32,
     @"maxclocks": u32,
     @"pad1": [12]u8,
-    @"clock": [*]u32,
+    @"clock": []u32,
 };
 
 /// @brief SetClientVersionRequest
-pub const SetClientVersionRequest = extern struct {
+pub const SetClientVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 14,
     @"length": u16,
@@ -403,7 +403,7 @@ pub const SetClientVersionRequest = extern struct {
 };
 
 /// @brief SetGammaRequest
-pub const SetGammaRequest = extern struct {
+pub const SetGammaRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 15,
     @"length": u16,
@@ -421,7 +421,7 @@ pub const GetGammacookie = struct {
 };
 
 /// @brief GetGammaRequest
-pub const GetGammaRequest = extern struct {
+pub const GetGammaRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 16,
     @"length": u16,
@@ -430,7 +430,7 @@ pub const GetGammaRequest = extern struct {
 };
 
 /// @brief GetGammaReply
-pub const GetGammaReply = extern struct {
+pub const GetGammaReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -447,7 +447,7 @@ pub const GetGammaRampcookie = struct {
 };
 
 /// @brief GetGammaRampRequest
-pub const GetGammaRampRequest = extern struct {
+pub const GetGammaRampRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 17,
     @"length": u16,
@@ -456,28 +456,28 @@ pub const GetGammaRampRequest = extern struct {
 };
 
 /// @brief GetGammaRampReply
-pub const GetGammaRampReply = extern struct {
+pub const GetGammaRampReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"size": u16,
     @"pad1": [22]u8,
-    @"red": [*]u16,
-    @"green": [*]u16,
-    @"blue": [*]u16,
+    @"red": []u16,
+    @"green": []u16,
+    @"blue": []u16,
 };
 
 /// @brief SetGammaRampRequest
-pub const SetGammaRampRequest = extern struct {
+pub const SetGammaRampRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 18,
     @"length": u16,
     @"screen": u16,
     @"size": u16,
-    @"red": [*]u16,
-    @"green": [*]u16,
-    @"blue": [*]u16,
+    @"red": []const u16,
+    @"green": []const u16,
+    @"blue": []const u16,
 };
 
 /// @brief GetGammaRampSizecookie
@@ -486,7 +486,7 @@ pub const GetGammaRampSizecookie = struct {
 };
 
 /// @brief GetGammaRampSizeRequest
-pub const GetGammaRampSizeRequest = extern struct {
+pub const GetGammaRampSizeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 19,
     @"length": u16,
@@ -495,7 +495,7 @@ pub const GetGammaRampSizeRequest = extern struct {
 };
 
 /// @brief GetGammaRampSizeReply
-pub const GetGammaRampSizeReply = extern struct {
+pub const GetGammaRampSizeReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -510,7 +510,7 @@ pub const GetPermissionscookie = struct {
 };
 
 /// @brief GetPermissionsRequest
-pub const GetPermissionsRequest = extern struct {
+pub const GetPermissionsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 20,
     @"length": u16,
@@ -519,7 +519,7 @@ pub const GetPermissionsRequest = extern struct {
 };
 
 /// @brief GetPermissionsReply
-pub const GetPermissionsReply = extern struct {
+pub const GetPermissionsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -532,7 +532,7 @@ pub const GetPermissionsReply = extern struct {
 pub const BadClockOpcode = 0;
 
 /// @brief BadClockError
-pub const BadClockError = extern struct {
+pub const BadClockError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -542,7 +542,7 @@ pub const BadClockError = extern struct {
 pub const BadHTimingsOpcode = 1;
 
 /// @brief BadHTimingsError
-pub const BadHTimingsError = extern struct {
+pub const BadHTimingsError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -552,7 +552,7 @@ pub const BadHTimingsError = extern struct {
 pub const BadVTimingsOpcode = 2;
 
 /// @brief BadVTimingsError
-pub const BadVTimingsError = extern struct {
+pub const BadVTimingsError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -562,7 +562,7 @@ pub const BadVTimingsError = extern struct {
 pub const ModeUnsuitableOpcode = 3;
 
 /// @brief ModeUnsuitableError
-pub const ModeUnsuitableError = extern struct {
+pub const ModeUnsuitableError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -572,7 +572,7 @@ pub const ModeUnsuitableError = extern struct {
 pub const ExtensionDisabledOpcode = 4;
 
 /// @brief ExtensionDisabledError
-pub const ExtensionDisabledError = extern struct {
+pub const ExtensionDisabledError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -582,7 +582,7 @@ pub const ExtensionDisabledError = extern struct {
 pub const ClientNotLocalOpcode = 5;
 
 /// @brief ClientNotLocalError
-pub const ClientNotLocalError = extern struct {
+pub const ClientNotLocalError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -592,7 +592,7 @@ pub const ClientNotLocalError = extern struct {
 pub const ZoomLockedOpcode = 6;
 
 /// @brief ZoomLockedError
-pub const ZoomLockedError = extern struct {
+pub const ZoomLockedError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,

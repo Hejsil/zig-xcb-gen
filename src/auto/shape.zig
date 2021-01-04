@@ -29,7 +29,7 @@ pub const SK = extern enum(c_uint) {
 pub const NotifyOpcode = 0;
 
 /// @brief NotifyEvent
-pub const NotifyEvent = extern struct {
+pub const NotifyEvent = struct {
     @"response_type": u8,
     @"shape_kind": xcb.shape.KIND,
     @"sequence": u16,
@@ -49,14 +49,14 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -66,7 +66,7 @@ pub const QueryVersionReply = extern struct {
 };
 
 /// @brief RectanglesRequest
-pub const RectanglesRequest = extern struct {
+pub const RectanglesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -77,11 +77,11 @@ pub const RectanglesRequest = extern struct {
     @"destination_window": xcb.WINDOW,
     @"x_offset": i16,
     @"y_offset": i16,
-    @"rectangles": [*]xcb.RECTANGLE,
+    @"rectangles": []const xcb.RECTANGLE,
 };
 
 /// @brief MaskRequest
-pub const MaskRequest = extern struct {
+pub const MaskRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -95,7 +95,7 @@ pub const MaskRequest = extern struct {
 };
 
 /// @brief CombineRequest
-pub const CombineRequest = extern struct {
+pub const CombineRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -110,7 +110,7 @@ pub const CombineRequest = extern struct {
 };
 
 /// @brief OffsetRequest
-pub const OffsetRequest = extern struct {
+pub const OffsetRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -127,7 +127,7 @@ pub const QueryExtentscookie = struct {
 };
 
 /// @brief QueryExtentsRequest
-pub const QueryExtentsRequest = extern struct {
+pub const QueryExtentsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -135,7 +135,7 @@ pub const QueryExtentsRequest = extern struct {
 };
 
 /// @brief QueryExtentsReply
-pub const QueryExtentsReply = extern struct {
+pub const QueryExtentsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -154,7 +154,7 @@ pub const QueryExtentsReply = extern struct {
 };
 
 /// @brief SelectInputRequest
-pub const SelectInputRequest = extern struct {
+pub const SelectInputRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
@@ -169,7 +169,7 @@ pub const InputSelectedcookie = struct {
 };
 
 /// @brief InputSelectedRequest
-pub const InputSelectedRequest = extern struct {
+pub const InputSelectedRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
@@ -177,7 +177,7 @@ pub const InputSelectedRequest = extern struct {
 };
 
 /// @brief InputSelectedReply
-pub const InputSelectedReply = extern struct {
+pub const InputSelectedReply = struct {
     @"response_type": u8,
     @"enabled": u8,
     @"sequence": u16,
@@ -190,7 +190,7 @@ pub const GetRectanglescookie = struct {
 };
 
 /// @brief GetRectanglesRequest
-pub const GetRectanglesRequest = extern struct {
+pub const GetRectanglesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 8,
     @"length": u16,
@@ -200,14 +200,14 @@ pub const GetRectanglesRequest = extern struct {
 };
 
 /// @brief GetRectanglesReply
-pub const GetRectanglesReply = extern struct {
+pub const GetRectanglesReply = struct {
     @"response_type": u8,
     @"ordering": u8,
     @"sequence": u16,
     @"length": u32,
     @"rectangles_len": u32,
     @"pad0": [20]u8,
-    @"rectangles": [*]xcb.RECTANGLE,
+    @"rectangles": []xcb.RECTANGLE,
 };
 
 test "" {

@@ -8,7 +8,7 @@ const xcb = @import("../xcb.zig");
 pub const id = xcb.Extension{ .name = "XFree86-DRI", .global_id = 0 };
 
 /// @brief DrmClipRect
-pub const DrmClipRect = extern struct {
+pub const DrmClipRect = struct {
     @"x1": i16,
     @"y1": i16,
     @"x2": i16,
@@ -21,14 +21,14 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -44,7 +44,7 @@ pub const QueryDirectRenderingCapablecookie = struct {
 };
 
 /// @brief QueryDirectRenderingCapableRequest
-pub const QueryDirectRenderingCapableRequest = extern struct {
+pub const QueryDirectRenderingCapableRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -52,7 +52,7 @@ pub const QueryDirectRenderingCapableRequest = extern struct {
 };
 
 /// @brief QueryDirectRenderingCapableReply
-pub const QueryDirectRenderingCapableReply = extern struct {
+pub const QueryDirectRenderingCapableReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -66,7 +66,7 @@ pub const OpenConnectioncookie = struct {
 };
 
 /// @brief OpenConnectionRequest
-pub const OpenConnectionRequest = extern struct {
+pub const OpenConnectionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -74,7 +74,7 @@ pub const OpenConnectionRequest = extern struct {
 };
 
 /// @brief OpenConnectionReply
-pub const OpenConnectionReply = extern struct {
+pub const OpenConnectionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -83,11 +83,11 @@ pub const OpenConnectionReply = extern struct {
     @"sarea_handle_high": u32,
     @"bus_id_len": u32,
     @"pad1": [12]u8,
-    @"bus_id": [*]u8,
+    @"bus_id": []u8,
 };
 
 /// @brief CloseConnectionRequest
-pub const CloseConnectionRequest = extern struct {
+pub const CloseConnectionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -100,7 +100,7 @@ pub const GetClientDriverNamecookie = struct {
 };
 
 /// @brief GetClientDriverNameRequest
-pub const GetClientDriverNameRequest = extern struct {
+pub const GetClientDriverNameRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -108,7 +108,7 @@ pub const GetClientDriverNameRequest = extern struct {
 };
 
 /// @brief GetClientDriverNameReply
-pub const GetClientDriverNameReply = extern struct {
+pub const GetClientDriverNameReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -118,7 +118,7 @@ pub const GetClientDriverNameReply = extern struct {
     @"client_driver_patch_version": u32,
     @"client_driver_name_len": u32,
     @"pad1": [8]u8,
-    @"client_driver_name": [*]u8,
+    @"client_driver_name": []u8,
 };
 
 /// @brief CreateContextcookie
@@ -127,7 +127,7 @@ pub const CreateContextcookie = struct {
 };
 
 /// @brief CreateContextRequest
-pub const CreateContextRequest = extern struct {
+pub const CreateContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -137,7 +137,7 @@ pub const CreateContextRequest = extern struct {
 };
 
 /// @brief CreateContextReply
-pub const CreateContextReply = extern struct {
+pub const CreateContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -146,7 +146,7 @@ pub const CreateContextReply = extern struct {
 };
 
 /// @brief DestroyContextRequest
-pub const DestroyContextRequest = extern struct {
+pub const DestroyContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
@@ -160,7 +160,7 @@ pub const CreateDrawablecookie = struct {
 };
 
 /// @brief CreateDrawableRequest
-pub const CreateDrawableRequest = extern struct {
+pub const CreateDrawableRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
@@ -169,7 +169,7 @@ pub const CreateDrawableRequest = extern struct {
 };
 
 /// @brief CreateDrawableReply
-pub const CreateDrawableReply = extern struct {
+pub const CreateDrawableReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -178,7 +178,7 @@ pub const CreateDrawableReply = extern struct {
 };
 
 /// @brief DestroyDrawableRequest
-pub const DestroyDrawableRequest = extern struct {
+pub const DestroyDrawableRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 8,
     @"length": u16,
@@ -192,7 +192,7 @@ pub const GetDrawableInfocookie = struct {
 };
 
 /// @brief GetDrawableInfoRequest
-pub const GetDrawableInfoRequest = extern struct {
+pub const GetDrawableInfoRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 9,
     @"length": u16,
@@ -201,7 +201,7 @@ pub const GetDrawableInfoRequest = extern struct {
 };
 
 /// @brief GetDrawableInfoReply
-pub const GetDrawableInfoReply = extern struct {
+pub const GetDrawableInfoReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -216,8 +216,8 @@ pub const GetDrawableInfoReply = extern struct {
     @"back_x": i16,
     @"back_y": i16,
     @"num_back_clip_rects": u32,
-    @"clip_rects": [*]xcb.xf86dri.DrmClipRect,
-    @"back_clip_rects": [*]xcb.xf86dri.DrmClipRect,
+    @"clip_rects": []xcb.xf86dri.DrmClipRect,
+    @"back_clip_rects": []xcb.xf86dri.DrmClipRect,
 };
 
 /// @brief GetDeviceInfocookie
@@ -226,7 +226,7 @@ pub const GetDeviceInfocookie = struct {
 };
 
 /// @brief GetDeviceInfoRequest
-pub const GetDeviceInfoRequest = extern struct {
+pub const GetDeviceInfoRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 10,
     @"length": u16,
@@ -234,7 +234,7 @@ pub const GetDeviceInfoRequest = extern struct {
 };
 
 /// @brief GetDeviceInfoReply
-pub const GetDeviceInfoReply = extern struct {
+pub const GetDeviceInfoReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -245,7 +245,7 @@ pub const GetDeviceInfoReply = extern struct {
     @"framebuffer_size": u32,
     @"framebuffer_stride": u32,
     @"device_private_size": u32,
-    @"device_private": [*]u32,
+    @"device_private": []u32,
 };
 
 /// @brief AuthConnectioncookie
@@ -254,7 +254,7 @@ pub const AuthConnectioncookie = struct {
 };
 
 /// @brief AuthConnectionRequest
-pub const AuthConnectionRequest = extern struct {
+pub const AuthConnectionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 11,
     @"length": u16,
@@ -263,7 +263,7 @@ pub const AuthConnectionRequest = extern struct {
 };
 
 /// @brief AuthConnectionReply
-pub const AuthConnectionReply = extern struct {
+pub const AuthConnectionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,

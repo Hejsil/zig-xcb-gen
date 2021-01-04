@@ -57,64 +57,64 @@ pub const GrabPortStatus = extern enum(c_uint) {
 };
 
 /// @brief Rational
-pub const Rational = extern struct {
+pub const Rational = struct {
     @"numerator": i32,
     @"denominator": i32,
 };
 
 /// @brief Format
-pub const Format = extern struct {
+pub const Format = struct {
     @"visual": xcb.VISUALID,
     @"depth": u8,
     @"pad0": [3]u8,
 };
 
 /// @brief AdaptorInfo
-pub const AdaptorInfo = extern struct {
+pub const AdaptorInfo = struct {
     @"base_id": xcb.xv.PORT,
     @"name_size": u16,
     @"num_ports": u16,
     @"num_formats": u16,
     @"type": u8,
     @"pad0": u8,
-    @"name": [*]u8,
-    @"formats": [*]xcb.xv.Format,
+    @"name": []u8,
+    @"formats": []xcb.xv.Format,
 };
 
 /// @brief EncodingInfo
-pub const EncodingInfo = extern struct {
+pub const EncodingInfo = struct {
     @"encoding": xcb.xv.ENCODING,
     @"name_size": u16,
     @"width": u16,
     @"height": u16,
     @"pad0": [2]u8,
     @"rate": xcb.xv.Rational,
-    @"name": [*]u8,
+    @"name": []u8,
 };
 
 /// @brief Image
-pub const Image = extern struct {
+pub const Image = struct {
     @"id": u32,
     @"width": u16,
     @"height": u16,
     @"data_size": u32,
     @"num_planes": u32,
-    @"pitches": [*]u32,
-    @"offsets": [*]u32,
-    @"data": [*]u8,
+    @"pitches": []u32,
+    @"offsets": []u32,
+    @"data": []u8,
 };
 
 /// @brief AttributeInfo
-pub const AttributeInfo = extern struct {
+pub const AttributeInfo = struct {
     @"flags": u32,
     @"min": i32,
     @"max": i32,
     @"size": u32,
-    @"name": [*]u8,
+    @"name": []u8,
 };
 
 /// @brief ImageFormatInfo
-pub const ImageFormatInfo = extern struct {
+pub const ImageFormatInfo = struct {
     @"id": u32,
     @"type": u8,
     @"byte_order": u8,
@@ -148,7 +148,7 @@ pub const ImageFormatInfo = extern struct {
 pub const BadPortOpcode = 0;
 
 /// @brief BadPortError
-pub const BadPortError = extern struct {
+pub const BadPortError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -158,7 +158,7 @@ pub const BadPortError = extern struct {
 pub const BadEncodingOpcode = 1;
 
 /// @brief BadEncodingError
-pub const BadEncodingError = extern struct {
+pub const BadEncodingError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -168,7 +168,7 @@ pub const BadEncodingError = extern struct {
 pub const BadControlOpcode = 2;
 
 /// @brief BadControlError
-pub const BadControlError = extern struct {
+pub const BadControlError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -178,7 +178,7 @@ pub const BadControlError = extern struct {
 pub const VideoNotifyOpcode = 0;
 
 /// @brief VideoNotifyEvent
-pub const VideoNotifyEvent = extern struct {
+pub const VideoNotifyEvent = struct {
     @"response_type": u8,
     @"reason": u8,
     @"sequence": u16,
@@ -191,7 +191,7 @@ pub const VideoNotifyEvent = extern struct {
 pub const PortNotifyOpcode = 1;
 
 /// @brief PortNotifyEvent
-pub const PortNotifyEvent = extern struct {
+pub const PortNotifyEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -207,14 +207,14 @@ pub const QueryExtensioncookie = struct {
 };
 
 /// @brief QueryExtensionRequest
-pub const QueryExtensionRequest = extern struct {
+pub const QueryExtensionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
 };
 
 /// @brief QueryExtensionReply
-pub const QueryExtensionReply = extern struct {
+pub const QueryExtensionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -229,7 +229,7 @@ pub const QueryAdaptorscookie = struct {
 };
 
 /// @brief QueryAdaptorsRequest
-pub const QueryAdaptorsRequest = extern struct {
+pub const QueryAdaptorsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -237,14 +237,14 @@ pub const QueryAdaptorsRequest = extern struct {
 };
 
 /// @brief QueryAdaptorsReply
-pub const QueryAdaptorsReply = extern struct {
+pub const QueryAdaptorsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_adaptors": u16,
     @"pad1": [22]u8,
-    @"info": [*]xcb.xv.AdaptorInfo,
+    @"info": []xcb.xv.AdaptorInfo,
 };
 
 /// @brief QueryEncodingscookie
@@ -253,7 +253,7 @@ pub const QueryEncodingscookie = struct {
 };
 
 /// @brief QueryEncodingsRequest
-pub const QueryEncodingsRequest = extern struct {
+pub const QueryEncodingsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -261,14 +261,14 @@ pub const QueryEncodingsRequest = extern struct {
 };
 
 /// @brief QueryEncodingsReply
-pub const QueryEncodingsReply = extern struct {
+pub const QueryEncodingsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_encodings": u16,
     @"pad1": [22]u8,
-    @"info": [*]xcb.xv.EncodingInfo,
+    @"info": []xcb.xv.EncodingInfo,
 };
 
 /// @brief GrabPortcookie
@@ -277,7 +277,7 @@ pub const GrabPortcookie = struct {
 };
 
 /// @brief GrabPortRequest
-pub const GrabPortRequest = extern struct {
+pub const GrabPortRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -286,7 +286,7 @@ pub const GrabPortRequest = extern struct {
 };
 
 /// @brief GrabPortReply
-pub const GrabPortReply = extern struct {
+pub const GrabPortReply = struct {
     @"response_type": u8,
     @"result": u8,
     @"sequence": u16,
@@ -294,7 +294,7 @@ pub const GrabPortReply = extern struct {
 };
 
 /// @brief UngrabPortRequest
-pub const UngrabPortRequest = extern struct {
+pub const UngrabPortRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -303,7 +303,7 @@ pub const UngrabPortRequest = extern struct {
 };
 
 /// @brief PutVideoRequest
-pub const PutVideoRequest = extern struct {
+pub const PutVideoRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -321,7 +321,7 @@ pub const PutVideoRequest = extern struct {
 };
 
 /// @brief PutStillRequest
-pub const PutStillRequest = extern struct {
+pub const PutStillRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
@@ -339,7 +339,7 @@ pub const PutStillRequest = extern struct {
 };
 
 /// @brief GetVideoRequest
-pub const GetVideoRequest = extern struct {
+pub const GetVideoRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
@@ -357,7 +357,7 @@ pub const GetVideoRequest = extern struct {
 };
 
 /// @brief GetStillRequest
-pub const GetStillRequest = extern struct {
+pub const GetStillRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 8,
     @"length": u16,
@@ -375,7 +375,7 @@ pub const GetStillRequest = extern struct {
 };
 
 /// @brief StopVideoRequest
-pub const StopVideoRequest = extern struct {
+pub const StopVideoRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 9,
     @"length": u16,
@@ -384,7 +384,7 @@ pub const StopVideoRequest = extern struct {
 };
 
 /// @brief SelectVideoNotifyRequest
-pub const SelectVideoNotifyRequest = extern struct {
+pub const SelectVideoNotifyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 10,
     @"length": u16,
@@ -394,7 +394,7 @@ pub const SelectVideoNotifyRequest = extern struct {
 };
 
 /// @brief SelectPortNotifyRequest
-pub const SelectPortNotifyRequest = extern struct {
+pub const SelectPortNotifyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 11,
     @"length": u16,
@@ -409,7 +409,7 @@ pub const QueryBestSizecookie = struct {
 };
 
 /// @brief QueryBestSizeRequest
-pub const QueryBestSizeRequest = extern struct {
+pub const QueryBestSizeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 12,
     @"length": u16,
@@ -423,7 +423,7 @@ pub const QueryBestSizeRequest = extern struct {
 };
 
 /// @brief QueryBestSizeReply
-pub const QueryBestSizeReply = extern struct {
+pub const QueryBestSizeReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -433,7 +433,7 @@ pub const QueryBestSizeReply = extern struct {
 };
 
 /// @brief SetPortAttributeRequest
-pub const SetPortAttributeRequest = extern struct {
+pub const SetPortAttributeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 13,
     @"length": u16,
@@ -448,7 +448,7 @@ pub const GetPortAttributecookie = struct {
 };
 
 /// @brief GetPortAttributeRequest
-pub const GetPortAttributeRequest = extern struct {
+pub const GetPortAttributeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 14,
     @"length": u16,
@@ -457,7 +457,7 @@ pub const GetPortAttributeRequest = extern struct {
 };
 
 /// @brief GetPortAttributeReply
-pub const GetPortAttributeReply = extern struct {
+pub const GetPortAttributeReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -471,7 +471,7 @@ pub const QueryPortAttributescookie = struct {
 };
 
 /// @brief QueryPortAttributesRequest
-pub const QueryPortAttributesRequest = extern struct {
+pub const QueryPortAttributesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 15,
     @"length": u16,
@@ -479,7 +479,7 @@ pub const QueryPortAttributesRequest = extern struct {
 };
 
 /// @brief QueryPortAttributesReply
-pub const QueryPortAttributesReply = extern struct {
+pub const QueryPortAttributesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -487,7 +487,7 @@ pub const QueryPortAttributesReply = extern struct {
     @"num_attributes": u32,
     @"text_size": u32,
     @"pad1": [16]u8,
-    @"attributes": [*]xcb.xv.AttributeInfo,
+    @"attributes": []xcb.xv.AttributeInfo,
 };
 
 /// @brief ListImageFormatscookie
@@ -496,7 +496,7 @@ pub const ListImageFormatscookie = struct {
 };
 
 /// @brief ListImageFormatsRequest
-pub const ListImageFormatsRequest = extern struct {
+pub const ListImageFormatsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 16,
     @"length": u16,
@@ -504,14 +504,14 @@ pub const ListImageFormatsRequest = extern struct {
 };
 
 /// @brief ListImageFormatsReply
-pub const ListImageFormatsReply = extern struct {
+pub const ListImageFormatsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_formats": u32,
     @"pad1": [20]u8,
-    @"format": [*]xcb.xv.ImageFormatInfo,
+    @"format": []xcb.xv.ImageFormatInfo,
 };
 
 /// @brief QueryImageAttributescookie
@@ -520,7 +520,7 @@ pub const QueryImageAttributescookie = struct {
 };
 
 /// @brief QueryImageAttributesRequest
-pub const QueryImageAttributesRequest = extern struct {
+pub const QueryImageAttributesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 17,
     @"length": u16,
@@ -531,7 +531,7 @@ pub const QueryImageAttributesRequest = extern struct {
 };
 
 /// @brief QueryImageAttributesReply
-pub const QueryImageAttributesReply = extern struct {
+pub const QueryImageAttributesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -541,12 +541,12 @@ pub const QueryImageAttributesReply = extern struct {
     @"width": u16,
     @"height": u16,
     @"pad1": [12]u8,
-    @"pitches": [*]u32,
-    @"offsets": [*]u32,
+    @"pitches": []u32,
+    @"offsets": []u32,
 };
 
 /// @brief PutImageRequest
-pub const PutImageRequest = extern struct {
+pub const PutImageRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 18,
     @"length": u16,
@@ -564,11 +564,11 @@ pub const PutImageRequest = extern struct {
     @"drw_h": u16,
     @"width": u16,
     @"height": u16,
-    @"data": [*]u8,
+    @"data": []const u8,
 };
 
 /// @brief ShmPutImageRequest
-pub const ShmPutImageRequest = extern struct {
+pub const ShmPutImageRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 19,
     @"length": u16,

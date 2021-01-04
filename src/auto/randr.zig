@@ -19,7 +19,7 @@ pub const PROVIDER = u32;
 pub const BadOutputOpcode = 0;
 
 /// @brief BadOutputError
-pub const BadOutputError = extern struct {
+pub const BadOutputError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -29,7 +29,7 @@ pub const BadOutputError = extern struct {
 pub const BadCrtcOpcode = 1;
 
 /// @brief BadCrtcError
-pub const BadCrtcError = extern struct {
+pub const BadCrtcError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -39,7 +39,7 @@ pub const BadCrtcError = extern struct {
 pub const BadModeOpcode = 2;
 
 /// @brief BadModeError
-pub const BadModeError = extern struct {
+pub const BadModeError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -49,7 +49,7 @@ pub const BadModeError = extern struct {
 pub const BadProviderOpcode = 3;
 
 /// @brief BadProviderError
-pub const BadProviderError = extern struct {
+pub const BadProviderError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -65,7 +65,7 @@ pub const Rotation = extern enum(c_uint) {
 };
 
 /// @brief ScreenSize
-pub const ScreenSize = extern struct {
+pub const ScreenSize = struct {
     @"width": u16,
     @"height": u16,
     @"mwidth": u16,
@@ -73,9 +73,9 @@ pub const ScreenSize = extern struct {
 };
 
 /// @brief RefreshRates
-pub const RefreshRates = extern struct {
+pub const RefreshRates = struct {
     @"nRates": u16,
-    @"rates": [*]u16,
+    @"rates": []u16,
 };
 
 /// @brief QueryVersioncookie
@@ -84,7 +84,7 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -93,7 +93,7 @@ pub const QueryVersionRequest = extern struct {
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -116,7 +116,7 @@ pub const SetScreenConfigcookie = struct {
 };
 
 /// @brief SetScreenConfigRequest
-pub const SetScreenConfigRequest = extern struct {
+pub const SetScreenConfigRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -130,7 +130,7 @@ pub const SetScreenConfigRequest = extern struct {
 };
 
 /// @brief SetScreenConfigReply
-pub const SetScreenConfigReply = extern struct {
+pub const SetScreenConfigReply = struct {
     @"response_type": u8,
     @"status": u8,
     @"sequence": u16,
@@ -153,7 +153,7 @@ pub const NotifyMask = extern enum(c_uint) {
 };
 
 /// @brief SelectInputRequest
-pub const SelectInputRequest = extern struct {
+pub const SelectInputRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -168,7 +168,7 @@ pub const GetScreenInfocookie = struct {
 };
 
 /// @brief GetScreenInfoRequest
-pub const GetScreenInfoRequest = extern struct {
+pub const GetScreenInfoRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -176,7 +176,7 @@ pub const GetScreenInfoRequest = extern struct {
 };
 
 /// @brief GetScreenInfoReply
-pub const GetScreenInfoReply = extern struct {
+pub const GetScreenInfoReply = struct {
     @"response_type": u8,
     @"rotations": u8,
     @"sequence": u16,
@@ -190,8 +190,8 @@ pub const GetScreenInfoReply = extern struct {
     @"rate": u16,
     @"nInfo": u16,
     @"pad0": [2]u8,
-    @"sizes": [*]xcb.randr.ScreenSize,
-    @"rates": [*]xcb.randr.RefreshRates,
+    @"sizes": []xcb.randr.ScreenSize,
+    @"rates": []xcb.randr.RefreshRates,
 };
 
 /// @brief GetScreenSizeRangecookie
@@ -200,7 +200,7 @@ pub const GetScreenSizeRangecookie = struct {
 };
 
 /// @brief GetScreenSizeRangeRequest
-pub const GetScreenSizeRangeRequest = extern struct {
+pub const GetScreenSizeRangeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
@@ -208,7 +208,7 @@ pub const GetScreenSizeRangeRequest = extern struct {
 };
 
 /// @brief GetScreenSizeRangeReply
-pub const GetScreenSizeRangeReply = extern struct {
+pub const GetScreenSizeRangeReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -221,7 +221,7 @@ pub const GetScreenSizeRangeReply = extern struct {
 };
 
 /// @brief SetScreenSizeRequest
-pub const SetScreenSizeRequest = extern struct {
+pub const SetScreenSizeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
@@ -250,7 +250,7 @@ pub const ModeFlag = extern enum(c_uint) {
 };
 
 /// @brief ModeInfo
-pub const ModeInfo = extern struct {
+pub const ModeInfo = struct {
     @"id": u32,
     @"width": u16,
     @"height": u16,
@@ -272,7 +272,7 @@ pub const GetScreenResourcescookie = struct {
 };
 
 /// @brief GetScreenResourcesRequest
-pub const GetScreenResourcesRequest = extern struct {
+pub const GetScreenResourcesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 8,
     @"length": u16,
@@ -280,7 +280,7 @@ pub const GetScreenResourcesRequest = extern struct {
 };
 
 /// @brief GetScreenResourcesReply
-pub const GetScreenResourcesReply = extern struct {
+pub const GetScreenResourcesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -292,10 +292,10 @@ pub const GetScreenResourcesReply = extern struct {
     @"num_modes": u16,
     @"names_len": u16,
     @"pad1": [8]u8,
-    @"crtcs": [*]xcb.randr.CRTC,
-    @"outputs": [*]xcb.randr.OUTPUT,
-    @"modes": [*]xcb.randr.ModeInfo,
-    @"names": [*]u8,
+    @"crtcs": []xcb.randr.CRTC,
+    @"outputs": []xcb.randr.OUTPUT,
+    @"modes": []xcb.randr.ModeInfo,
+    @"names": []u8,
 };
 
 pub const Connection = extern enum(c_uint) {
@@ -310,7 +310,7 @@ pub const GetOutputInfocookie = struct {
 };
 
 /// @brief GetOutputInfoRequest
-pub const GetOutputInfoRequest = extern struct {
+pub const GetOutputInfoRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 9,
     @"length": u16,
@@ -319,7 +319,7 @@ pub const GetOutputInfoRequest = extern struct {
 };
 
 /// @brief GetOutputInfoReply
-pub const GetOutputInfoReply = extern struct {
+pub const GetOutputInfoReply = struct {
     @"response_type": u8,
     @"status": u8,
     @"sequence": u16,
@@ -335,10 +335,10 @@ pub const GetOutputInfoReply = extern struct {
     @"num_preferred": u16,
     @"num_clones": u16,
     @"name_len": u16,
-    @"crtcs": [*]xcb.randr.CRTC,
-    @"modes": [*]xcb.randr.MODE,
-    @"clones": [*]xcb.randr.OUTPUT,
-    @"name": [*]u8,
+    @"crtcs": []xcb.randr.CRTC,
+    @"modes": []xcb.randr.MODE,
+    @"clones": []xcb.randr.OUTPUT,
+    @"name": []u8,
 };
 
 /// @brief ListOutputPropertiescookie
@@ -347,7 +347,7 @@ pub const ListOutputPropertiescookie = struct {
 };
 
 /// @brief ListOutputPropertiesRequest
-pub const ListOutputPropertiesRequest = extern struct {
+pub const ListOutputPropertiesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 10,
     @"length": u16,
@@ -355,14 +355,14 @@ pub const ListOutputPropertiesRequest = extern struct {
 };
 
 /// @brief ListOutputPropertiesReply
-pub const ListOutputPropertiesReply = extern struct {
+pub const ListOutputPropertiesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_atoms": u16,
     @"pad1": [22]u8,
-    @"atoms": [*]xcb.ATOM,
+    @"atoms": []xcb.ATOM,
 };
 
 /// @brief QueryOutputPropertycookie
@@ -371,7 +371,7 @@ pub const QueryOutputPropertycookie = struct {
 };
 
 /// @brief QueryOutputPropertyRequest
-pub const QueryOutputPropertyRequest = extern struct {
+pub const QueryOutputPropertyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 11,
     @"length": u16,
@@ -380,7 +380,7 @@ pub const QueryOutputPropertyRequest = extern struct {
 };
 
 /// @brief QueryOutputPropertyReply
-pub const QueryOutputPropertyReply = extern struct {
+pub const QueryOutputPropertyReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -389,11 +389,11 @@ pub const QueryOutputPropertyReply = extern struct {
     @"range": u8,
     @"immutable": u8,
     @"pad1": [21]u8,
-    @"validValues": [*]i32,
+    @"validValues": []i32,
 };
 
 /// @brief ConfigureOutputPropertyRequest
-pub const ConfigureOutputPropertyRequest = extern struct {
+pub const ConfigureOutputPropertyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 12,
     @"length": u16,
@@ -402,11 +402,11 @@ pub const ConfigureOutputPropertyRequest = extern struct {
     @"pending": u8,
     @"range": u8,
     @"pad0": [2]u8,
-    @"values": [*]i32,
+    @"values": []const i32,
 };
 
 /// @brief ChangeOutputPropertyRequest
-pub const ChangeOutputPropertyRequest = extern struct {
+pub const ChangeOutputPropertyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 13,
     @"length": u16,
@@ -417,11 +417,11 @@ pub const ChangeOutputPropertyRequest = extern struct {
     @"mode": u8,
     @"pad0": [2]u8,
     @"num_units": u32,
-    @"data": [*]u8,
+    @"data": []const u8,
 };
 
 /// @brief DeleteOutputPropertyRequest
-pub const DeleteOutputPropertyRequest = extern struct {
+pub const DeleteOutputPropertyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 14,
     @"length": u16,
@@ -435,7 +435,7 @@ pub const GetOutputPropertycookie = struct {
 };
 
 /// @brief GetOutputPropertyRequest
-pub const GetOutputPropertyRequest = extern struct {
+pub const GetOutputPropertyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 15,
     @"length": u16,
@@ -450,7 +450,7 @@ pub const GetOutputPropertyRequest = extern struct {
 };
 
 /// @brief GetOutputPropertyReply
-pub const GetOutputPropertyReply = extern struct {
+pub const GetOutputPropertyReply = struct {
     @"response_type": u8,
     @"format": u8,
     @"sequence": u16,
@@ -459,7 +459,7 @@ pub const GetOutputPropertyReply = extern struct {
     @"bytes_after": u32,
     @"num_items": u32,
     @"pad0": [12]u8,
-    @"data": [*]u8,
+    @"data": []u8,
 };
 
 /// @brief CreateModecookie
@@ -468,17 +468,17 @@ pub const CreateModecookie = struct {
 };
 
 /// @brief CreateModeRequest
-pub const CreateModeRequest = extern struct {
+pub const CreateModeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 16,
     @"length": u16,
     @"window": xcb.WINDOW,
     @"mode_info": xcb.randr.ModeInfo,
-    @"name": [*]u8,
+    @"name": []const u8,
 };
 
 /// @brief CreateModeReply
-pub const CreateModeReply = extern struct {
+pub const CreateModeReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -488,7 +488,7 @@ pub const CreateModeReply = extern struct {
 };
 
 /// @brief DestroyModeRequest
-pub const DestroyModeRequest = extern struct {
+pub const DestroyModeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 17,
     @"length": u16,
@@ -496,7 +496,7 @@ pub const DestroyModeRequest = extern struct {
 };
 
 /// @brief AddOutputModeRequest
-pub const AddOutputModeRequest = extern struct {
+pub const AddOutputModeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 18,
     @"length": u16,
@@ -505,7 +505,7 @@ pub const AddOutputModeRequest = extern struct {
 };
 
 /// @brief DeleteOutputModeRequest
-pub const DeleteOutputModeRequest = extern struct {
+pub const DeleteOutputModeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 19,
     @"length": u16,
@@ -519,7 +519,7 @@ pub const GetCrtcInfocookie = struct {
 };
 
 /// @brief GetCrtcInfoRequest
-pub const GetCrtcInfoRequest = extern struct {
+pub const GetCrtcInfoRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 20,
     @"length": u16,
@@ -528,7 +528,7 @@ pub const GetCrtcInfoRequest = extern struct {
 };
 
 /// @brief GetCrtcInfoReply
-pub const GetCrtcInfoReply = extern struct {
+pub const GetCrtcInfoReply = struct {
     @"response_type": u8,
     @"status": u8,
     @"sequence": u16,
@@ -543,8 +543,8 @@ pub const GetCrtcInfoReply = extern struct {
     @"rotations": u16,
     @"num_outputs": u16,
     @"num_possible_outputs": u16,
-    @"outputs": [*]xcb.randr.OUTPUT,
-    @"possible": [*]xcb.randr.OUTPUT,
+    @"outputs": []xcb.randr.OUTPUT,
+    @"possible": []xcb.randr.OUTPUT,
 };
 
 /// @brief SetCrtcConfigcookie
@@ -553,7 +553,7 @@ pub const SetCrtcConfigcookie = struct {
 };
 
 /// @brief SetCrtcConfigRequest
-pub const SetCrtcConfigRequest = extern struct {
+pub const SetCrtcConfigRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 21,
     @"length": u16,
@@ -565,11 +565,11 @@ pub const SetCrtcConfigRequest = extern struct {
     @"mode": xcb.randr.MODE,
     @"rotation": u16,
     @"pad0": [2]u8,
-    @"outputs": [*]xcb.randr.OUTPUT,
+    @"outputs": []const xcb.randr.OUTPUT,
 };
 
 /// @brief SetCrtcConfigReply
-pub const SetCrtcConfigReply = extern struct {
+pub const SetCrtcConfigReply = struct {
     @"response_type": u8,
     @"status": u8,
     @"sequence": u16,
@@ -584,7 +584,7 @@ pub const GetCrtcGammaSizecookie = struct {
 };
 
 /// @brief GetCrtcGammaSizeRequest
-pub const GetCrtcGammaSizeRequest = extern struct {
+pub const GetCrtcGammaSizeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 22,
     @"length": u16,
@@ -592,7 +592,7 @@ pub const GetCrtcGammaSizeRequest = extern struct {
 };
 
 /// @brief GetCrtcGammaSizeReply
-pub const GetCrtcGammaSizeReply = extern struct {
+pub const GetCrtcGammaSizeReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -607,7 +607,7 @@ pub const GetCrtcGammacookie = struct {
 };
 
 /// @brief GetCrtcGammaRequest
-pub const GetCrtcGammaRequest = extern struct {
+pub const GetCrtcGammaRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 23,
     @"length": u16,
@@ -615,29 +615,29 @@ pub const GetCrtcGammaRequest = extern struct {
 };
 
 /// @brief GetCrtcGammaReply
-pub const GetCrtcGammaReply = extern struct {
+pub const GetCrtcGammaReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"size": u16,
     @"pad1": [22]u8,
-    @"red": [*]u16,
-    @"green": [*]u16,
-    @"blue": [*]u16,
+    @"red": []u16,
+    @"green": []u16,
+    @"blue": []u16,
 };
 
 /// @brief SetCrtcGammaRequest
-pub const SetCrtcGammaRequest = extern struct {
+pub const SetCrtcGammaRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 24,
     @"length": u16,
     @"crtc": xcb.randr.CRTC,
     @"size": u16,
     @"pad0": [2]u8,
-    @"red": [*]u16,
-    @"green": [*]u16,
-    @"blue": [*]u16,
+    @"red": []const u16,
+    @"green": []const u16,
+    @"blue": []const u16,
 };
 
 /// @brief GetScreenResourcesCurrentcookie
@@ -646,7 +646,7 @@ pub const GetScreenResourcesCurrentcookie = struct {
 };
 
 /// @brief GetScreenResourcesCurrentRequest
-pub const GetScreenResourcesCurrentRequest = extern struct {
+pub const GetScreenResourcesCurrentRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 25,
     @"length": u16,
@@ -654,7 +654,7 @@ pub const GetScreenResourcesCurrentRequest = extern struct {
 };
 
 /// @brief GetScreenResourcesCurrentReply
-pub const GetScreenResourcesCurrentReply = extern struct {
+pub const GetScreenResourcesCurrentReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -666,10 +666,10 @@ pub const GetScreenResourcesCurrentReply = extern struct {
     @"num_modes": u16,
     @"names_len": u16,
     @"pad1": [8]u8,
-    @"crtcs": [*]xcb.randr.CRTC,
-    @"outputs": [*]xcb.randr.OUTPUT,
-    @"modes": [*]xcb.randr.ModeInfo,
-    @"names": [*]u8,
+    @"crtcs": []xcb.randr.CRTC,
+    @"outputs": []xcb.randr.OUTPUT,
+    @"modes": []xcb.randr.ModeInfo,
+    @"names": []u8,
 };
 
 pub const Transform = extern enum(c_uint) {
@@ -680,7 +680,7 @@ pub const Transform = extern enum(c_uint) {
 };
 
 /// @brief SetCrtcTransformRequest
-pub const SetCrtcTransformRequest = extern struct {
+pub const SetCrtcTransformRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 26,
     @"length": u16,
@@ -688,8 +688,8 @@ pub const SetCrtcTransformRequest = extern struct {
     @"transform": xcb.render.TRANSFORM,
     @"filter_len": u16,
     @"pad0": [2]u8,
-    @"filter_name": [*]u8,
-    @"filter_params": [*]xcb.render.FIXED,
+    @"filter_name": []const u8,
+    @"filter_params": []const xcb.render.FIXED,
 };
 
 /// @brief GetCrtcTransformcookie
@@ -698,7 +698,7 @@ pub const GetCrtcTransformcookie = struct {
 };
 
 /// @brief GetCrtcTransformRequest
-pub const GetCrtcTransformRequest = extern struct {
+pub const GetCrtcTransformRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 27,
     @"length": u16,
@@ -706,7 +706,7 @@ pub const GetCrtcTransformRequest = extern struct {
 };
 
 /// @brief GetCrtcTransformReply
-pub const GetCrtcTransformReply = extern struct {
+pub const GetCrtcTransformReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -720,10 +720,10 @@ pub const GetCrtcTransformReply = extern struct {
     @"pending_nparams": u16,
     @"current_len": u16,
     @"current_nparams": u16,
-    @"pending_filter_name": [*]u8,
-    @"pending_params": [*]xcb.render.FIXED,
-    @"current_filter_name": [*]u8,
-    @"current_params": [*]xcb.render.FIXED,
+    @"pending_filter_name": []u8,
+    @"pending_params": []xcb.render.FIXED,
+    @"current_filter_name": []u8,
+    @"current_params": []xcb.render.FIXED,
 };
 
 /// @brief GetPanningcookie
@@ -732,7 +732,7 @@ pub const GetPanningcookie = struct {
 };
 
 /// @brief GetPanningRequest
-pub const GetPanningRequest = extern struct {
+pub const GetPanningRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 28,
     @"length": u16,
@@ -740,7 +740,7 @@ pub const GetPanningRequest = extern struct {
 };
 
 /// @brief GetPanningReply
-pub const GetPanningReply = extern struct {
+pub const GetPanningReply = struct {
     @"response_type": u8,
     @"status": u8,
     @"sequence": u16,
@@ -766,7 +766,7 @@ pub const SetPanningcookie = struct {
 };
 
 /// @brief SetPanningRequest
-pub const SetPanningRequest = extern struct {
+pub const SetPanningRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 29,
     @"length": u16,
@@ -787,7 +787,7 @@ pub const SetPanningRequest = extern struct {
 };
 
 /// @brief SetPanningReply
-pub const SetPanningReply = extern struct {
+pub const SetPanningReply = struct {
     @"response_type": u8,
     @"status": u8,
     @"sequence": u16,
@@ -796,7 +796,7 @@ pub const SetPanningReply = extern struct {
 };
 
 /// @brief SetOutputPrimaryRequest
-pub const SetOutputPrimaryRequest = extern struct {
+pub const SetOutputPrimaryRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 30,
     @"length": u16,
@@ -810,7 +810,7 @@ pub const GetOutputPrimarycookie = struct {
 };
 
 /// @brief GetOutputPrimaryRequest
-pub const GetOutputPrimaryRequest = extern struct {
+pub const GetOutputPrimaryRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 31,
     @"length": u16,
@@ -818,7 +818,7 @@ pub const GetOutputPrimaryRequest = extern struct {
 };
 
 /// @brief GetOutputPrimaryReply
-pub const GetOutputPrimaryReply = extern struct {
+pub const GetOutputPrimaryReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -832,7 +832,7 @@ pub const GetProviderscookie = struct {
 };
 
 /// @brief GetProvidersRequest
-pub const GetProvidersRequest = extern struct {
+pub const GetProvidersRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 32,
     @"length": u16,
@@ -840,7 +840,7 @@ pub const GetProvidersRequest = extern struct {
 };
 
 /// @brief GetProvidersReply
-pub const GetProvidersReply = extern struct {
+pub const GetProvidersReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -848,7 +848,7 @@ pub const GetProvidersReply = extern struct {
     @"timestamp": xcb.TIMESTAMP,
     @"num_providers": u16,
     @"pad1": [18]u8,
-    @"providers": [*]xcb.randr.PROVIDER,
+    @"providers": []xcb.randr.PROVIDER,
 };
 
 pub const ProviderCapability = extern enum(c_uint) {
@@ -864,7 +864,7 @@ pub const GetProviderInfocookie = struct {
 };
 
 /// @brief GetProviderInfoRequest
-pub const GetProviderInfoRequest = extern struct {
+pub const GetProviderInfoRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 33,
     @"length": u16,
@@ -873,7 +873,7 @@ pub const GetProviderInfoRequest = extern struct {
 };
 
 /// @brief GetProviderInfoReply
-pub const GetProviderInfoReply = extern struct {
+pub const GetProviderInfoReply = struct {
     @"response_type": u8,
     @"status": u8,
     @"sequence": u16,
@@ -885,15 +885,15 @@ pub const GetProviderInfoReply = extern struct {
     @"num_associated_providers": u16,
     @"name_len": u16,
     @"pad0": [8]u8,
-    @"crtcs": [*]xcb.randr.CRTC,
-    @"outputs": [*]xcb.randr.OUTPUT,
-    @"associated_providers": [*]xcb.randr.PROVIDER,
-    @"associated_capability": [*]u32,
-    @"name": [*]u8,
+    @"crtcs": []xcb.randr.CRTC,
+    @"outputs": []xcb.randr.OUTPUT,
+    @"associated_providers": []xcb.randr.PROVIDER,
+    @"associated_capability": []u32,
+    @"name": []u8,
 };
 
 /// @brief SetProviderOffloadSinkRequest
-pub const SetProviderOffloadSinkRequest = extern struct {
+pub const SetProviderOffloadSinkRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 34,
     @"length": u16,
@@ -903,7 +903,7 @@ pub const SetProviderOffloadSinkRequest = extern struct {
 };
 
 /// @brief SetProviderOutputSourceRequest
-pub const SetProviderOutputSourceRequest = extern struct {
+pub const SetProviderOutputSourceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 35,
     @"length": u16,
@@ -918,7 +918,7 @@ pub const ListProviderPropertiescookie = struct {
 };
 
 /// @brief ListProviderPropertiesRequest
-pub const ListProviderPropertiesRequest = extern struct {
+pub const ListProviderPropertiesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 36,
     @"length": u16,
@@ -926,14 +926,14 @@ pub const ListProviderPropertiesRequest = extern struct {
 };
 
 /// @brief ListProviderPropertiesReply
-pub const ListProviderPropertiesReply = extern struct {
+pub const ListProviderPropertiesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_atoms": u16,
     @"pad1": [22]u8,
-    @"atoms": [*]xcb.ATOM,
+    @"atoms": []xcb.ATOM,
 };
 
 /// @brief QueryProviderPropertycookie
@@ -942,7 +942,7 @@ pub const QueryProviderPropertycookie = struct {
 };
 
 /// @brief QueryProviderPropertyRequest
-pub const QueryProviderPropertyRequest = extern struct {
+pub const QueryProviderPropertyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 37,
     @"length": u16,
@@ -951,7 +951,7 @@ pub const QueryProviderPropertyRequest = extern struct {
 };
 
 /// @brief QueryProviderPropertyReply
-pub const QueryProviderPropertyReply = extern struct {
+pub const QueryProviderPropertyReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -960,11 +960,11 @@ pub const QueryProviderPropertyReply = extern struct {
     @"range": u8,
     @"immutable": u8,
     @"pad1": [21]u8,
-    @"valid_values": [*]i32,
+    @"valid_values": []i32,
 };
 
 /// @brief ConfigureProviderPropertyRequest
-pub const ConfigureProviderPropertyRequest = extern struct {
+pub const ConfigureProviderPropertyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 38,
     @"length": u16,
@@ -973,11 +973,11 @@ pub const ConfigureProviderPropertyRequest = extern struct {
     @"pending": u8,
     @"range": u8,
     @"pad0": [2]u8,
-    @"values": [*]i32,
+    @"values": []const i32,
 };
 
 /// @brief ChangeProviderPropertyRequest
-pub const ChangeProviderPropertyRequest = extern struct {
+pub const ChangeProviderPropertyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 39,
     @"length": u16,
@@ -988,11 +988,11 @@ pub const ChangeProviderPropertyRequest = extern struct {
     @"mode": u8,
     @"pad0": [2]u8,
     @"num_items": u32,
-    @"data": [*]u8,
+    @"data": []const u8,
 };
 
 /// @brief DeleteProviderPropertyRequest
-pub const DeleteProviderPropertyRequest = extern struct {
+pub const DeleteProviderPropertyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 40,
     @"length": u16,
@@ -1006,7 +1006,7 @@ pub const GetProviderPropertycookie = struct {
 };
 
 /// @brief GetProviderPropertyRequest
-pub const GetProviderPropertyRequest = extern struct {
+pub const GetProviderPropertyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 41,
     @"length": u16,
@@ -1021,7 +1021,7 @@ pub const GetProviderPropertyRequest = extern struct {
 };
 
 /// @brief GetProviderPropertyReply
-pub const GetProviderPropertyReply = extern struct {
+pub const GetProviderPropertyReply = struct {
     @"response_type": u8,
     @"format": u8,
     @"sequence": u16,
@@ -1030,14 +1030,14 @@ pub const GetProviderPropertyReply = extern struct {
     @"bytes_after": u32,
     @"num_items": u32,
     @"pad0": [12]u8,
-    @"data": [*]u8,
+    @"data": []u8,
 };
 
 /// Opcode for ScreenChangeNotify.
 pub const ScreenChangeNotifyOpcode = 0;
 
 /// @brief ScreenChangeNotifyEvent
-pub const ScreenChangeNotifyEvent = extern struct {
+pub const ScreenChangeNotifyEvent = struct {
     @"response_type": u8,
     @"rotation": u8,
     @"sequence": u16,
@@ -1063,7 +1063,7 @@ pub const Notify = extern enum(c_uint) {
 };
 
 /// @brief CrtcChange
-pub const CrtcChange = extern struct {
+pub const CrtcChange = struct {
     @"timestamp": xcb.TIMESTAMP,
     @"window": xcb.WINDOW,
     @"crtc": xcb.randr.CRTC,
@@ -1077,7 +1077,7 @@ pub const CrtcChange = extern struct {
 };
 
 /// @brief OutputChange
-pub const OutputChange = extern struct {
+pub const OutputChange = struct {
     @"timestamp": xcb.TIMESTAMP,
     @"config_timestamp": xcb.TIMESTAMP,
     @"window": xcb.WINDOW,
@@ -1090,7 +1090,7 @@ pub const OutputChange = extern struct {
 };
 
 /// @brief OutputProperty
-pub const OutputProperty = extern struct {
+pub const OutputProperty = struct {
     @"window": xcb.WINDOW,
     @"output": xcb.randr.OUTPUT,
     @"atom": xcb.ATOM,
@@ -1100,7 +1100,7 @@ pub const OutputProperty = extern struct {
 };
 
 /// @brief ProviderChange
-pub const ProviderChange = extern struct {
+pub const ProviderChange = struct {
     @"timestamp": xcb.TIMESTAMP,
     @"window": xcb.WINDOW,
     @"provider": xcb.randr.PROVIDER,
@@ -1108,7 +1108,7 @@ pub const ProviderChange = extern struct {
 };
 
 /// @brief ProviderProperty
-pub const ProviderProperty = extern struct {
+pub const ProviderProperty = struct {
     @"window": xcb.WINDOW,
     @"provider": xcb.randr.PROVIDER,
     @"atom": xcb.ATOM,
@@ -1118,14 +1118,14 @@ pub const ProviderProperty = extern struct {
 };
 
 /// @brief ResourceChange
-pub const ResourceChange = extern struct {
+pub const ResourceChange = struct {
     @"timestamp": xcb.TIMESTAMP,
     @"window": xcb.WINDOW,
     @"pad0": [20]u8,
 };
 
 /// @brief NotifyData
-pub const NotifyData = extern union {
+pub const NotifyData = union {
     @"cc": xcb.randr.CrtcChange,
     @"oc": xcb.randr.OutputChange,
     @"op": xcb.randr.OutputProperty,
@@ -1138,7 +1138,7 @@ pub const NotifyData = extern union {
 pub const NotifyOpcode = 1;
 
 /// @brief NotifyEvent
-pub const NotifyEvent = extern struct {
+pub const NotifyEvent = struct {
     @"response_type": u8,
     @"subCode": u8,
     @"sequence": u16,
@@ -1146,7 +1146,7 @@ pub const NotifyEvent = extern struct {
 };
 
 /// @brief MonitorInfo
-pub const MonitorInfo = extern struct {
+pub const MonitorInfo = struct {
     @"name": xcb.ATOM,
     @"primary": u8,
     @"automatic": u8,
@@ -1157,7 +1157,7 @@ pub const MonitorInfo = extern struct {
     @"height": u16,
     @"width_in_millimeters": u32,
     @"height_in_millimeters": u32,
-    @"outputs": [*]xcb.randr.OUTPUT,
+    @"outputs": []xcb.randr.OUTPUT,
 };
 
 /// @brief GetMonitorscookie
@@ -1166,7 +1166,7 @@ pub const GetMonitorscookie = struct {
 };
 
 /// @brief GetMonitorsRequest
-pub const GetMonitorsRequest = extern struct {
+pub const GetMonitorsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 42,
     @"length": u16,
@@ -1175,7 +1175,7 @@ pub const GetMonitorsRequest = extern struct {
 };
 
 /// @brief GetMonitorsReply
-pub const GetMonitorsReply = extern struct {
+pub const GetMonitorsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1184,11 +1184,11 @@ pub const GetMonitorsReply = extern struct {
     @"nMonitors": u32,
     @"nOutputs": u32,
     @"pad1": [12]u8,
-    @"monitors": [*]xcb.randr.MonitorInfo,
+    @"monitors": []xcb.randr.MonitorInfo,
 };
 
 /// @brief SetMonitorRequest
-pub const SetMonitorRequest = extern struct {
+pub const SetMonitorRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 43,
     @"length": u16,
@@ -1196,7 +1196,7 @@ pub const SetMonitorRequest = extern struct {
 };
 
 /// @brief DeleteMonitorRequest
-pub const DeleteMonitorRequest = extern struct {
+pub const DeleteMonitorRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 44,
     @"length": u16,

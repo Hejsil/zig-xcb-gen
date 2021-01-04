@@ -10,11 +10,11 @@ pub const id = xcb.Extension{ .name = "XpExtension", .global_id = 0 };
 pub const STRING8 = u8;
 
 /// @brief PRINTER
-pub const PRINTER = extern struct {
+pub const PRINTER = struct {
     @"nameLen": u32,
-    @"name": [*]xcb.xprint.STRING8,
+    @"name": []xcb.xprint.STRING8,
     @"descLen": u32,
-    @"description": [*]xcb.xprint.STRING8,
+    @"description": []xcb.xprint.STRING8,
 };
 
 pub const PCONTEXT = u32;
@@ -55,14 +55,14 @@ pub const PrintQueryVersioncookie = struct {
 };
 
 /// @brief PrintQueryVersionRequest
-pub const PrintQueryVersionRequest = extern struct {
+pub const PrintQueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
 };
 
 /// @brief PrintQueryVersionReply
-pub const PrintQueryVersionReply = extern struct {
+pub const PrintQueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -77,48 +77,48 @@ pub const PrintGetPrinterListcookie = struct {
 };
 
 /// @brief PrintGetPrinterListRequest
-pub const PrintGetPrinterListRequest = extern struct {
+pub const PrintGetPrinterListRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
     @"printerNameLen": u32,
     @"localeLen": u32,
-    @"printer_name": [*]xcb.xprint.STRING8,
-    @"locale": [*]xcb.xprint.STRING8,
+    @"printer_name": []const xcb.xprint.STRING8,
+    @"locale": []const xcb.xprint.STRING8,
 };
 
 /// @brief PrintGetPrinterListReply
-pub const PrintGetPrinterListReply = extern struct {
+pub const PrintGetPrinterListReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"listCount": u32,
     @"pad1": [20]u8,
-    @"printers": [*]xcb.xprint.PRINTER,
+    @"printers": []xcb.xprint.PRINTER,
 };
 
 /// @brief PrintRehashPrinterListRequest
-pub const PrintRehashPrinterListRequest = extern struct {
+pub const PrintRehashPrinterListRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 20,
     @"length": u16,
 };
 
 /// @brief CreateContextRequest
-pub const CreateContextRequest = extern struct {
+pub const CreateContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
     @"context_id": u32,
     @"printerNameLen": u32,
     @"localeLen": u32,
-    @"printerName": [*]xcb.xprint.STRING8,
-    @"locale": [*]xcb.xprint.STRING8,
+    @"printerName": []const xcb.xprint.STRING8,
+    @"locale": []const xcb.xprint.STRING8,
 };
 
 /// @brief PrintSetContextRequest
-pub const PrintSetContextRequest = extern struct {
+pub const PrintSetContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -131,14 +131,14 @@ pub const PrintGetContextcookie = struct {
 };
 
 /// @brief PrintGetContextRequest
-pub const PrintGetContextRequest = extern struct {
+pub const PrintGetContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
 };
 
 /// @brief PrintGetContextReply
-pub const PrintGetContextReply = extern struct {
+pub const PrintGetContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -147,7 +147,7 @@ pub const PrintGetContextReply = extern struct {
 };
 
 /// @brief PrintDestroyContextRequest
-pub const PrintDestroyContextRequest = extern struct {
+pub const PrintDestroyContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -160,14 +160,14 @@ pub const PrintGetScreenOfContextcookie = struct {
 };
 
 /// @brief PrintGetScreenOfContextRequest
-pub const PrintGetScreenOfContextRequest = extern struct {
+pub const PrintGetScreenOfContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
 };
 
 /// @brief PrintGetScreenOfContextReply
-pub const PrintGetScreenOfContextReply = extern struct {
+pub const PrintGetScreenOfContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -176,7 +176,7 @@ pub const PrintGetScreenOfContextReply = extern struct {
 };
 
 /// @brief PrintStartJobRequest
-pub const PrintStartJobRequest = extern struct {
+pub const PrintStartJobRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
@@ -184,7 +184,7 @@ pub const PrintStartJobRequest = extern struct {
 };
 
 /// @brief PrintEndJobRequest
-pub const PrintEndJobRequest = extern struct {
+pub const PrintEndJobRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 8,
     @"length": u16,
@@ -192,7 +192,7 @@ pub const PrintEndJobRequest = extern struct {
 };
 
 /// @brief PrintStartDocRequest
-pub const PrintStartDocRequest = extern struct {
+pub const PrintStartDocRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 9,
     @"length": u16,
@@ -200,7 +200,7 @@ pub const PrintStartDocRequest = extern struct {
 };
 
 /// @brief PrintEndDocRequest
-pub const PrintEndDocRequest = extern struct {
+pub const PrintEndDocRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 10,
     @"length": u16,
@@ -208,7 +208,7 @@ pub const PrintEndDocRequest = extern struct {
 };
 
 /// @brief PrintPutDocumentDataRequest
-pub const PrintPutDocumentDataRequest = extern struct {
+pub const PrintPutDocumentDataRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 11,
     @"length": u16,
@@ -216,9 +216,9 @@ pub const PrintPutDocumentDataRequest = extern struct {
     @"len_data": u32,
     @"len_fmt": u16,
     @"len_options": u16,
-    @"data": [*]u8,
-    @"doc_format": [*]xcb.xprint.STRING8,
-    @"options": [*]xcb.xprint.STRING8,
+    @"data": []const u8,
+    @"doc_format": []const xcb.xprint.STRING8,
+    @"options": []const xcb.xprint.STRING8,
 };
 
 /// @brief PrintGetDocumentDatacookie
@@ -227,7 +227,7 @@ pub const PrintGetDocumentDatacookie = struct {
 };
 
 /// @brief PrintGetDocumentDataRequest
-pub const PrintGetDocumentDataRequest = extern struct {
+pub const PrintGetDocumentDataRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 12,
     @"length": u16,
@@ -236,7 +236,7 @@ pub const PrintGetDocumentDataRequest = extern struct {
 };
 
 /// @brief PrintGetDocumentDataReply
-pub const PrintGetDocumentDataReply = extern struct {
+pub const PrintGetDocumentDataReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -245,11 +245,11 @@ pub const PrintGetDocumentDataReply = extern struct {
     @"finished_flag": u32,
     @"dataLen": u32,
     @"pad1": [12]u8,
-    @"data": [*]u8,
+    @"data": []u8,
 };
 
 /// @brief PrintStartPageRequest
-pub const PrintStartPageRequest = extern struct {
+pub const PrintStartPageRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 13,
     @"length": u16,
@@ -257,7 +257,7 @@ pub const PrintStartPageRequest = extern struct {
 };
 
 /// @brief PrintEndPageRequest
-pub const PrintEndPageRequest = extern struct {
+pub const PrintEndPageRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 14,
     @"length": u16,
@@ -266,7 +266,7 @@ pub const PrintEndPageRequest = extern struct {
 };
 
 /// @brief PrintSelectInputRequest
-pub const PrintSelectInputRequest = extern struct {
+pub const PrintSelectInputRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 15,
     @"length": u16,
@@ -280,7 +280,7 @@ pub const PrintInputSelectedcookie = struct {
 };
 
 /// @brief PrintInputSelectedRequest
-pub const PrintInputSelectedRequest = extern struct {
+pub const PrintInputSelectedRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 16,
     @"length": u16,
@@ -288,7 +288,7 @@ pub const PrintInputSelectedRequest = extern struct {
 };
 
 /// @brief PrintInputSelectedReply
-pub const PrintInputSelectedReply = extern struct {
+pub const PrintInputSelectedReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -303,7 +303,7 @@ pub const PrintGetAttributescookie = struct {
 };
 
 /// @brief PrintGetAttributesRequest
-pub const PrintGetAttributesRequest = extern struct {
+pub const PrintGetAttributesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 17,
     @"length": u16,
@@ -313,14 +313,14 @@ pub const PrintGetAttributesRequest = extern struct {
 };
 
 /// @brief PrintGetAttributesReply
-pub const PrintGetAttributesReply = extern struct {
+pub const PrintGetAttributesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"stringLen": u32,
     @"pad1": [20]u8,
-    @"attributes": [*]xcb.xprint.STRING8,
+    @"attributes": []xcb.xprint.STRING8,
 };
 
 /// @brief PrintGetOneAttributescookie
@@ -329,7 +329,7 @@ pub const PrintGetOneAttributescookie = struct {
 };
 
 /// @brief PrintGetOneAttributesRequest
-pub const PrintGetOneAttributesRequest = extern struct {
+pub const PrintGetOneAttributesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 19,
     @"length": u16,
@@ -337,22 +337,22 @@ pub const PrintGetOneAttributesRequest = extern struct {
     @"nameLen": u32,
     @"pool": u8,
     @"pad0": [3]u8,
-    @"name": [*]xcb.xprint.STRING8,
+    @"name": []const xcb.xprint.STRING8,
 };
 
 /// @brief PrintGetOneAttributesReply
-pub const PrintGetOneAttributesReply = extern struct {
+pub const PrintGetOneAttributesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"valueLen": u32,
     @"pad1": [20]u8,
-    @"value": [*]xcb.xprint.STRING8,
+    @"value": []xcb.xprint.STRING8,
 };
 
 /// @brief PrintSetAttributesRequest
-pub const PrintSetAttributesRequest = extern struct {
+pub const PrintSetAttributesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 18,
     @"length": u16,
@@ -361,7 +361,7 @@ pub const PrintSetAttributesRequest = extern struct {
     @"pool": u8,
     @"rule": u8,
     @"pad0": [2]u8,
-    @"attributes": [*]xcb.xprint.STRING8,
+    @"attributes": []const xcb.xprint.STRING8,
 };
 
 /// @brief PrintGetPageDimensionscookie
@@ -370,7 +370,7 @@ pub const PrintGetPageDimensionscookie = struct {
 };
 
 /// @brief PrintGetPageDimensionsRequest
-pub const PrintGetPageDimensionsRequest = extern struct {
+pub const PrintGetPageDimensionsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 21,
     @"length": u16,
@@ -378,7 +378,7 @@ pub const PrintGetPageDimensionsRequest = extern struct {
 };
 
 /// @brief PrintGetPageDimensionsReply
-pub const PrintGetPageDimensionsReply = extern struct {
+pub const PrintGetPageDimensionsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -397,21 +397,21 @@ pub const PrintQueryScreenscookie = struct {
 };
 
 /// @brief PrintQueryScreensRequest
-pub const PrintQueryScreensRequest = extern struct {
+pub const PrintQueryScreensRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 22,
     @"length": u16,
 };
 
 /// @brief PrintQueryScreensReply
-pub const PrintQueryScreensReply = extern struct {
+pub const PrintQueryScreensReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"listCount": u32,
     @"pad1": [20]u8,
-    @"roots": [*]xcb.WINDOW,
+    @"roots": []xcb.WINDOW,
 };
 
 /// @brief PrintSetImageResolutioncookie
@@ -420,7 +420,7 @@ pub const PrintSetImageResolutioncookie = struct {
 };
 
 /// @brief PrintSetImageResolutionRequest
-pub const PrintSetImageResolutionRequest = extern struct {
+pub const PrintSetImageResolutionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 23,
     @"length": u16,
@@ -429,7 +429,7 @@ pub const PrintSetImageResolutionRequest = extern struct {
 };
 
 /// @brief PrintSetImageResolutionReply
-pub const PrintSetImageResolutionReply = extern struct {
+pub const PrintSetImageResolutionReply = struct {
     @"response_type": u8,
     @"status": u8,
     @"sequence": u16,
@@ -443,7 +443,7 @@ pub const PrintGetImageResolutioncookie = struct {
 };
 
 /// @brief PrintGetImageResolutionRequest
-pub const PrintGetImageResolutionRequest = extern struct {
+pub const PrintGetImageResolutionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 24,
     @"length": u16,
@@ -451,7 +451,7 @@ pub const PrintGetImageResolutionRequest = extern struct {
 };
 
 /// @brief PrintGetImageResolutionReply
-pub const PrintGetImageResolutionReply = extern struct {
+pub const PrintGetImageResolutionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -463,7 +463,7 @@ pub const PrintGetImageResolutionReply = extern struct {
 pub const NotifyOpcode = 0;
 
 /// @brief NotifyEvent
-pub const NotifyEvent = extern struct {
+pub const NotifyEvent = struct {
     @"response_type": u8,
     @"detail": u8,
     @"sequence": u16,
@@ -475,7 +475,7 @@ pub const NotifyEvent = extern struct {
 pub const AttributNotifyOpcode = 1;
 
 /// @brief AttributNotifyEvent
-pub const AttributNotifyEvent = extern struct {
+pub const AttributNotifyEvent = struct {
     @"response_type": u8,
     @"detail": u8,
     @"sequence": u16,
@@ -486,7 +486,7 @@ pub const AttributNotifyEvent = extern struct {
 pub const BadContextOpcode = 0;
 
 /// @brief BadContextError
-pub const BadContextError = extern struct {
+pub const BadContextError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -496,7 +496,7 @@ pub const BadContextError = extern struct {
 pub const BadSequenceOpcode = 1;
 
 /// @brief BadSequenceError
-pub const BadSequenceError = extern struct {
+pub const BadSequenceError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,

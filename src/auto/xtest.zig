@@ -13,7 +13,7 @@ pub const GetVersioncookie = struct {
 };
 
 /// @brief GetVersionRequest
-pub const GetVersionRequest = extern struct {
+pub const GetVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -23,7 +23,7 @@ pub const GetVersionRequest = extern struct {
 };
 
 /// @brief GetVersionReply
-pub const GetVersionReply = extern struct {
+pub const GetVersionReply = struct {
     @"response_type": u8,
     @"major_version": u8,
     @"sequence": u16,
@@ -42,7 +42,7 @@ pub const CompareCursorcookie = struct {
 };
 
 /// @brief CompareCursorRequest
-pub const CompareCursorRequest = extern struct {
+pub const CompareCursorRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -51,7 +51,7 @@ pub const CompareCursorRequest = extern struct {
 };
 
 /// @brief CompareCursorReply
-pub const CompareCursorReply = extern struct {
+pub const CompareCursorReply = struct {
     @"response_type": u8,
     @"same": u8,
     @"sequence": u16,
@@ -59,7 +59,7 @@ pub const CompareCursorReply = extern struct {
 };
 
 /// @brief FakeInputRequest
-pub const FakeInputRequest = extern struct {
+pub const FakeInputRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -76,7 +76,7 @@ pub const FakeInputRequest = extern struct {
 };
 
 /// @brief GrabControlRequest
-pub const GrabControlRequest = extern struct {
+pub const GrabControlRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,

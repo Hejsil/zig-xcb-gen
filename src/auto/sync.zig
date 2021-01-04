@@ -41,21 +41,21 @@ pub const CA = extern enum(c_uint) {
 };
 
 /// @brief INT64
-pub const INT64 = extern struct {
+pub const INT64 = struct {
     @"hi": i32,
     @"lo": u32,
 };
 
 /// @brief SYSTEMCOUNTER
-pub const SYSTEMCOUNTER = extern struct {
+pub const SYSTEMCOUNTER = struct {
     @"counter": xcb.sync.COUNTER,
     @"resolution": xcb.sync.INT64,
     @"name_len": u16,
-    @"name": [*]u8,
+    @"name": []u8,
 };
 
 /// @brief TRIGGER
-pub const TRIGGER = extern struct {
+pub const TRIGGER = struct {
     @"counter": xcb.sync.COUNTER,
     @"wait_type": u32,
     @"wait_value": xcb.sync.INT64,
@@ -63,7 +63,7 @@ pub const TRIGGER = extern struct {
 };
 
 /// @brief WAITCONDITION
-pub const WAITCONDITION = extern struct {
+pub const WAITCONDITION = struct {
     @"trigger": xcb.sync.TRIGGER,
     @"event_threshold": xcb.sync.INT64,
 };
@@ -72,7 +72,7 @@ pub const WAITCONDITION = extern struct {
 pub const CounterOpcode = 0;
 
 /// @brief CounterError
-pub const CounterError = extern struct {
+pub const CounterError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -85,7 +85,7 @@ pub const CounterError = extern struct {
 pub const AlarmOpcode = 1;
 
 /// @brief AlarmError
-pub const AlarmError = extern struct {
+pub const AlarmError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -100,7 +100,7 @@ pub const Initializecookie = struct {
 };
 
 /// @brief InitializeRequest
-pub const InitializeRequest = extern struct {
+pub const InitializeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -109,7 +109,7 @@ pub const InitializeRequest = extern struct {
 };
 
 /// @brief InitializeReply
-pub const InitializeReply = extern struct {
+pub const InitializeReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -125,25 +125,25 @@ pub const ListSystemCounterscookie = struct {
 };
 
 /// @brief ListSystemCountersRequest
-pub const ListSystemCountersRequest = extern struct {
+pub const ListSystemCountersRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
 };
 
 /// @brief ListSystemCountersReply
-pub const ListSystemCountersReply = extern struct {
+pub const ListSystemCountersReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"counters_len": u32,
     @"pad1": [20]u8,
-    @"counters": [*]xcb.sync.SYSTEMCOUNTER,
+    @"counters": []xcb.sync.SYSTEMCOUNTER,
 };
 
 /// @brief CreateCounterRequest
-pub const CreateCounterRequest = extern struct {
+pub const CreateCounterRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -152,7 +152,7 @@ pub const CreateCounterRequest = extern struct {
 };
 
 /// @brief DestroyCounterRequest
-pub const DestroyCounterRequest = extern struct {
+pub const DestroyCounterRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
@@ -165,7 +165,7 @@ pub const QueryCountercookie = struct {
 };
 
 /// @brief QueryCounterRequest
-pub const QueryCounterRequest = extern struct {
+pub const QueryCounterRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -173,7 +173,7 @@ pub const QueryCounterRequest = extern struct {
 };
 
 /// @brief QueryCounterReply
-pub const QueryCounterReply = extern struct {
+pub const QueryCounterReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -182,15 +182,15 @@ pub const QueryCounterReply = extern struct {
 };
 
 /// @brief AwaitRequest
-pub const AwaitRequest = extern struct {
+pub const AwaitRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
-    @"wait_list": [*]xcb.sync.WAITCONDITION,
+    @"wait_list": []const xcb.sync.WAITCONDITION,
 };
 
 /// @brief ChangeCounterRequest
-pub const ChangeCounterRequest = extern struct {
+pub const ChangeCounterRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -199,7 +199,7 @@ pub const ChangeCounterRequest = extern struct {
 };
 
 /// @brief SetCounterRequest
-pub const SetCounterRequest = extern struct {
+pub const SetCounterRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -208,7 +208,7 @@ pub const SetCounterRequest = extern struct {
 };
 
 /// @brief CreateAlarmRequest
-pub const CreateAlarmRequest = extern struct {
+pub const CreateAlarmRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 8,
     @"length": u16,
@@ -217,7 +217,7 @@ pub const CreateAlarmRequest = extern struct {
 };
 
 /// @brief ChangeAlarmRequest
-pub const ChangeAlarmRequest = extern struct {
+pub const ChangeAlarmRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 9,
     @"length": u16,
@@ -226,7 +226,7 @@ pub const ChangeAlarmRequest = extern struct {
 };
 
 /// @brief DestroyAlarmRequest
-pub const DestroyAlarmRequest = extern struct {
+pub const DestroyAlarmRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 11,
     @"length": u16,
@@ -239,7 +239,7 @@ pub const QueryAlarmcookie = struct {
 };
 
 /// @brief QueryAlarmRequest
-pub const QueryAlarmRequest = extern struct {
+pub const QueryAlarmRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 10,
     @"length": u16,
@@ -247,7 +247,7 @@ pub const QueryAlarmRequest = extern struct {
 };
 
 /// @brief QueryAlarmReply
-pub const QueryAlarmReply = extern struct {
+pub const QueryAlarmReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -260,7 +260,7 @@ pub const QueryAlarmReply = extern struct {
 };
 
 /// @brief SetPriorityRequest
-pub const SetPriorityRequest = extern struct {
+pub const SetPriorityRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 12,
     @"length": u16,
@@ -274,7 +274,7 @@ pub const GetPrioritycookie = struct {
 };
 
 /// @brief GetPriorityRequest
-pub const GetPriorityRequest = extern struct {
+pub const GetPriorityRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 13,
     @"length": u16,
@@ -282,7 +282,7 @@ pub const GetPriorityRequest = extern struct {
 };
 
 /// @brief GetPriorityReply
-pub const GetPriorityReply = extern struct {
+pub const GetPriorityReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -291,7 +291,7 @@ pub const GetPriorityReply = extern struct {
 };
 
 /// @brief CreateFenceRequest
-pub const CreateFenceRequest = extern struct {
+pub const CreateFenceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 14,
     @"length": u16,
@@ -301,7 +301,7 @@ pub const CreateFenceRequest = extern struct {
 };
 
 /// @brief TriggerFenceRequest
-pub const TriggerFenceRequest = extern struct {
+pub const TriggerFenceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 15,
     @"length": u16,
@@ -309,7 +309,7 @@ pub const TriggerFenceRequest = extern struct {
 };
 
 /// @brief ResetFenceRequest
-pub const ResetFenceRequest = extern struct {
+pub const ResetFenceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 16,
     @"length": u16,
@@ -317,7 +317,7 @@ pub const ResetFenceRequest = extern struct {
 };
 
 /// @brief DestroyFenceRequest
-pub const DestroyFenceRequest = extern struct {
+pub const DestroyFenceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 17,
     @"length": u16,
@@ -330,7 +330,7 @@ pub const QueryFencecookie = struct {
 };
 
 /// @brief QueryFenceRequest
-pub const QueryFenceRequest = extern struct {
+pub const QueryFenceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 18,
     @"length": u16,
@@ -338,7 +338,7 @@ pub const QueryFenceRequest = extern struct {
 };
 
 /// @brief QueryFenceReply
-pub const QueryFenceReply = extern struct {
+pub const QueryFenceReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -348,18 +348,18 @@ pub const QueryFenceReply = extern struct {
 };
 
 /// @brief AwaitFenceRequest
-pub const AwaitFenceRequest = extern struct {
+pub const AwaitFenceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 19,
     @"length": u16,
-    @"fence_list": [*]xcb.sync.FENCE,
+    @"fence_list": []const xcb.sync.FENCE,
 };
 
 /// Opcode for CounterNotify.
 pub const CounterNotifyOpcode = 0;
 
 /// @brief CounterNotifyEvent
-pub const CounterNotifyEvent = extern struct {
+pub const CounterNotifyEvent = struct {
     @"response_type": u8,
     @"kind": u8,
     @"sequence": u16,
@@ -376,7 +376,7 @@ pub const CounterNotifyEvent = extern struct {
 pub const AlarmNotifyOpcode = 1;
 
 /// @brief AlarmNotifyEvent
-pub const AlarmNotifyEvent = extern struct {
+pub const AlarmNotifyEvent = struct {
     @"response_type": u8,
     @"kind": u8,
     @"sequence": u16,

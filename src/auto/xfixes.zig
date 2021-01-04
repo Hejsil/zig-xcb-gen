@@ -13,7 +13,7 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -22,7 +22,7 @@ pub const QueryVersionRequest = extern struct {
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -48,7 +48,7 @@ pub const SaveSetMapping = extern enum(c_uint) {
 };
 
 /// @brief ChangeSaveSetRequest
-pub const ChangeSaveSetRequest = extern struct {
+pub const ChangeSaveSetRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -75,7 +75,7 @@ pub const SelectionEventMask = extern enum(c_uint) {
 pub const SelectionNotifyOpcode = 0;
 
 /// @brief SelectionNotifyEvent
-pub const SelectionNotifyEvent = extern struct {
+pub const SelectionNotifyEvent = struct {
     @"response_type": u8,
     @"subtype": u8,
     @"sequence": u16,
@@ -88,7 +88,7 @@ pub const SelectionNotifyEvent = extern struct {
 };
 
 /// @brief SelectSelectionInputRequest
-pub const SelectSelectionInputRequest = extern struct {
+pub const SelectSelectionInputRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -109,7 +109,7 @@ pub const CursorNotifyMask = extern enum(c_uint) {
 pub const CursorNotifyOpcode = 1;
 
 /// @brief CursorNotifyEvent
-pub const CursorNotifyEvent = extern struct {
+pub const CursorNotifyEvent = struct {
     @"response_type": u8,
     @"subtype": u8,
     @"sequence": u16,
@@ -121,7 +121,7 @@ pub const CursorNotifyEvent = extern struct {
 };
 
 /// @brief SelectCursorInputRequest
-pub const SelectCursorInputRequest = extern struct {
+pub const SelectCursorInputRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -135,14 +135,14 @@ pub const GetCursorImagecookie = struct {
 };
 
 /// @brief GetCursorImageRequest
-pub const GetCursorImageRequest = extern struct {
+pub const GetCursorImageRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
 };
 
 /// @brief GetCursorImageReply
-pub const GetCursorImageReply = extern struct {
+pub const GetCursorImageReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -155,7 +155,7 @@ pub const GetCursorImageReply = extern struct {
     @"yhot": u16,
     @"cursor_serial": u32,
     @"pad1": [8]u8,
-    @"cursor_image": [*]u32,
+    @"cursor_image": []u32,
 };
 
 pub const REGION = u32;
@@ -164,7 +164,7 @@ pub const REGION = u32;
 pub const BadRegionOpcode = 0;
 
 /// @brief BadRegionError
-pub const BadRegionError = extern struct {
+pub const BadRegionError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -175,16 +175,16 @@ pub const Region = extern enum(c_uint) {
 };
 
 /// @brief CreateRegionRequest
-pub const CreateRegionRequest = extern struct {
+pub const CreateRegionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
     @"region": xcb.xfixes.REGION,
-    @"rectangles": [*]xcb.RECTANGLE,
+    @"rectangles": []const xcb.RECTANGLE,
 };
 
 /// @brief CreateRegionFromBitmapRequest
-pub const CreateRegionFromBitmapRequest = extern struct {
+pub const CreateRegionFromBitmapRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
@@ -193,7 +193,7 @@ pub const CreateRegionFromBitmapRequest = extern struct {
 };
 
 /// @brief CreateRegionFromWindowRequest
-pub const CreateRegionFromWindowRequest = extern struct {
+pub const CreateRegionFromWindowRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
@@ -204,7 +204,7 @@ pub const CreateRegionFromWindowRequest = extern struct {
 };
 
 /// @brief CreateRegionFromGCRequest
-pub const CreateRegionFromGCRequest = extern struct {
+pub const CreateRegionFromGCRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 8,
     @"length": u16,
@@ -213,7 +213,7 @@ pub const CreateRegionFromGCRequest = extern struct {
 };
 
 /// @brief CreateRegionFromPictureRequest
-pub const CreateRegionFromPictureRequest = extern struct {
+pub const CreateRegionFromPictureRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 9,
     @"length": u16,
@@ -222,7 +222,7 @@ pub const CreateRegionFromPictureRequest = extern struct {
 };
 
 /// @brief DestroyRegionRequest
-pub const DestroyRegionRequest = extern struct {
+pub const DestroyRegionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 10,
     @"length": u16,
@@ -230,16 +230,16 @@ pub const DestroyRegionRequest = extern struct {
 };
 
 /// @brief SetRegionRequest
-pub const SetRegionRequest = extern struct {
+pub const SetRegionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 11,
     @"length": u16,
     @"region": xcb.xfixes.REGION,
-    @"rectangles": [*]xcb.RECTANGLE,
+    @"rectangles": []const xcb.RECTANGLE,
 };
 
 /// @brief CopyRegionRequest
-pub const CopyRegionRequest = extern struct {
+pub const CopyRegionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 12,
     @"length": u16,
@@ -248,7 +248,7 @@ pub const CopyRegionRequest = extern struct {
 };
 
 /// @brief UnionRegionRequest
-pub const UnionRegionRequest = extern struct {
+pub const UnionRegionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 13,
     @"length": u16,
@@ -258,7 +258,7 @@ pub const UnionRegionRequest = extern struct {
 };
 
 /// @brief IntersectRegionRequest
-pub const IntersectRegionRequest = extern struct {
+pub const IntersectRegionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 14,
     @"length": u16,
@@ -268,7 +268,7 @@ pub const IntersectRegionRequest = extern struct {
 };
 
 /// @brief SubtractRegionRequest
-pub const SubtractRegionRequest = extern struct {
+pub const SubtractRegionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 15,
     @"length": u16,
@@ -278,7 +278,7 @@ pub const SubtractRegionRequest = extern struct {
 };
 
 /// @brief InvertRegionRequest
-pub const InvertRegionRequest = extern struct {
+pub const InvertRegionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 16,
     @"length": u16,
@@ -288,7 +288,7 @@ pub const InvertRegionRequest = extern struct {
 };
 
 /// @brief TranslateRegionRequest
-pub const TranslateRegionRequest = extern struct {
+pub const TranslateRegionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 17,
     @"length": u16,
@@ -298,7 +298,7 @@ pub const TranslateRegionRequest = extern struct {
 };
 
 /// @brief RegionExtentsRequest
-pub const RegionExtentsRequest = extern struct {
+pub const RegionExtentsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 18,
     @"length": u16,
@@ -312,7 +312,7 @@ pub const FetchRegioncookie = struct {
 };
 
 /// @brief FetchRegionRequest
-pub const FetchRegionRequest = extern struct {
+pub const FetchRegionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 19,
     @"length": u16,
@@ -320,18 +320,18 @@ pub const FetchRegionRequest = extern struct {
 };
 
 /// @brief FetchRegionReply
-pub const FetchRegionReply = extern struct {
+pub const FetchRegionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"extents": xcb.RECTANGLE,
     @"pad1": [16]u8,
-    @"rectangles": [*]xcb.RECTANGLE,
+    @"rectangles": []xcb.RECTANGLE,
 };
 
 /// @brief SetGCClipRegionRequest
-pub const SetGCClipRegionRequest = extern struct {
+pub const SetGCClipRegionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 20,
     @"length": u16,
@@ -342,7 +342,7 @@ pub const SetGCClipRegionRequest = extern struct {
 };
 
 /// @brief SetWindowShapeRegionRequest
-pub const SetWindowShapeRegionRequest = extern struct {
+pub const SetWindowShapeRegionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 21,
     @"length": u16,
@@ -355,7 +355,7 @@ pub const SetWindowShapeRegionRequest = extern struct {
 };
 
 /// @brief SetPictureClipRegionRequest
-pub const SetPictureClipRegionRequest = extern struct {
+pub const SetPictureClipRegionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 22,
     @"length": u16,
@@ -366,14 +366,14 @@ pub const SetPictureClipRegionRequest = extern struct {
 };
 
 /// @brief SetCursorNameRequest
-pub const SetCursorNameRequest = extern struct {
+pub const SetCursorNameRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 23,
     @"length": u16,
     @"cursor": xcb.CURSOR,
     @"nbytes": u16,
     @"pad0": [2]u8,
-    @"name": [*]u8,
+    @"name": []const u8,
 };
 
 /// @brief GetCursorNamecookie
@@ -382,7 +382,7 @@ pub const GetCursorNamecookie = struct {
 };
 
 /// @brief GetCursorNameRequest
-pub const GetCursorNameRequest = extern struct {
+pub const GetCursorNameRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 24,
     @"length": u16,
@@ -390,7 +390,7 @@ pub const GetCursorNameRequest = extern struct {
 };
 
 /// @brief GetCursorNameReply
-pub const GetCursorNameReply = extern struct {
+pub const GetCursorNameReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -398,7 +398,7 @@ pub const GetCursorNameReply = extern struct {
     @"atom": xcb.ATOM,
     @"nbytes": u16,
     @"pad1": [18]u8,
-    @"name": [*]u8,
+    @"name": []u8,
 };
 
 /// @brief GetCursorImageAndNamecookie
@@ -407,14 +407,14 @@ pub const GetCursorImageAndNamecookie = struct {
 };
 
 /// @brief GetCursorImageAndNameRequest
-pub const GetCursorImageAndNameRequest = extern struct {
+pub const GetCursorImageAndNameRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 25,
     @"length": u16,
 };
 
 /// @brief GetCursorImageAndNameReply
-pub const GetCursorImageAndNameReply = extern struct {
+pub const GetCursorImageAndNameReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -429,12 +429,12 @@ pub const GetCursorImageAndNameReply = extern struct {
     @"cursor_atom": xcb.ATOM,
     @"nbytes": u16,
     @"pad1": [2]u8,
-    @"cursor_image": [*]u32,
-    @"name": [*]u8,
+    @"cursor_image": []u32,
+    @"name": []u8,
 };
 
 /// @brief ChangeCursorRequest
-pub const ChangeCursorRequest = extern struct {
+pub const ChangeCursorRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 26,
     @"length": u16,
@@ -443,18 +443,18 @@ pub const ChangeCursorRequest = extern struct {
 };
 
 /// @brief ChangeCursorByNameRequest
-pub const ChangeCursorByNameRequest = extern struct {
+pub const ChangeCursorByNameRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 27,
     @"length": u16,
     @"src": xcb.CURSOR,
     @"nbytes": u16,
     @"pad0": [2]u8,
-    @"name": [*]u8,
+    @"name": []const u8,
 };
 
 /// @brief ExpandRegionRequest
-pub const ExpandRegionRequest = extern struct {
+pub const ExpandRegionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 28,
     @"length": u16,
@@ -467,7 +467,7 @@ pub const ExpandRegionRequest = extern struct {
 };
 
 /// @brief HideCursorRequest
-pub const HideCursorRequest = extern struct {
+pub const HideCursorRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 29,
     @"length": u16,
@@ -475,7 +475,7 @@ pub const HideCursorRequest = extern struct {
 };
 
 /// @brief ShowCursorRequest
-pub const ShowCursorRequest = extern struct {
+pub const ShowCursorRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 30,
     @"length": u16,
@@ -492,7 +492,7 @@ pub const BarrierDirections = extern enum(c_uint) {
 };
 
 /// @brief CreatePointerBarrierRequest
-pub const CreatePointerBarrierRequest = extern struct {
+pub const CreatePointerBarrierRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 31,
     @"length": u16,
@@ -505,11 +505,11 @@ pub const CreatePointerBarrierRequest = extern struct {
     @"directions": u32,
     @"pad0": [2]u8,
     @"num_devices": u16,
-    @"devices": [*]u16,
+    @"devices": []const u16,
 };
 
 /// @brief DeletePointerBarrierRequest
-pub const DeletePointerBarrierRequest = extern struct {
+pub const DeletePointerBarrierRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 32,
     @"length": u16,

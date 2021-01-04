@@ -128,7 +128,7 @@ pub const FIXED = i32;
 pub const PictFormatOpcode = 0;
 
 /// @brief PictFormatError
-pub const PictFormatError = extern struct {
+pub const PictFormatError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -138,7 +138,7 @@ pub const PictFormatError = extern struct {
 pub const PictureOpcode = 1;
 
 /// @brief PictureError
-pub const PictureError = extern struct {
+pub const PictureError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -148,7 +148,7 @@ pub const PictureError = extern struct {
 pub const PictOpOpcode = 2;
 
 /// @brief PictOpError
-pub const PictOpError = extern struct {
+pub const PictOpError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -158,7 +158,7 @@ pub const PictOpError = extern struct {
 pub const GlyphSetOpcode = 3;
 
 /// @brief GlyphSetError
-pub const GlyphSetError = extern struct {
+pub const GlyphSetError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -168,14 +168,14 @@ pub const GlyphSetError = extern struct {
 pub const GlyphOpcode = 4;
 
 /// @brief GlyphError
-pub const GlyphError = extern struct {
+pub const GlyphError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
 };
 
 /// @brief DIRECTFORMAT
-pub const DIRECTFORMAT = extern struct {
+pub const DIRECTFORMAT = struct {
     @"red_shift": u16,
     @"red_mask": u16,
     @"green_shift": u16,
@@ -187,7 +187,7 @@ pub const DIRECTFORMAT = extern struct {
 };
 
 /// @brief PICTFORMINFO
-pub const PICTFORMINFO = extern struct {
+pub const PICTFORMINFO = struct {
     @"id": xcb.render.PICTFORMAT,
     @"type": u8,
     @"depth": u8,
@@ -197,29 +197,29 @@ pub const PICTFORMINFO = extern struct {
 };
 
 /// @brief PICTVISUAL
-pub const PICTVISUAL = extern struct {
+pub const PICTVISUAL = struct {
     @"visual": xcb.VISUALID,
     @"format": xcb.render.PICTFORMAT,
 };
 
 /// @brief PICTDEPTH
-pub const PICTDEPTH = extern struct {
+pub const PICTDEPTH = struct {
     @"depth": u8,
     @"pad0": u8,
     @"num_visuals": u16,
     @"pad1": [4]u8,
-    @"visuals": [*]xcb.render.PICTVISUAL,
+    @"visuals": []xcb.render.PICTVISUAL,
 };
 
 /// @brief PICTSCREEN
-pub const PICTSCREEN = extern struct {
+pub const PICTSCREEN = struct {
     @"num_depths": u32,
     @"fallback": xcb.render.PICTFORMAT,
-    @"depths": [*]xcb.render.PICTDEPTH,
+    @"depths": []xcb.render.PICTDEPTH,
 };
 
 /// @brief INDEXVALUE
-pub const INDEXVALUE = extern struct {
+pub const INDEXVALUE = struct {
     @"pixel": u32,
     @"red": u16,
     @"green": u16,
@@ -228,7 +228,7 @@ pub const INDEXVALUE = extern struct {
 };
 
 /// @brief COLOR
-pub const COLOR = extern struct {
+pub const COLOR = struct {
     @"red": u16,
     @"green": u16,
     @"blue": u16,
@@ -236,26 +236,26 @@ pub const COLOR = extern struct {
 };
 
 /// @brief POINTFIX
-pub const POINTFIX = extern struct {
+pub const POINTFIX = struct {
     @"x": xcb.render.FIXED,
     @"y": xcb.render.FIXED,
 };
 
 /// @brief LINEFIX
-pub const LINEFIX = extern struct {
+pub const LINEFIX = struct {
     @"p1": xcb.render.POINTFIX,
     @"p2": xcb.render.POINTFIX,
 };
 
 /// @brief TRIANGLE
-pub const TRIANGLE = extern struct {
+pub const TRIANGLE = struct {
     @"p1": xcb.render.POINTFIX,
     @"p2": xcb.render.POINTFIX,
     @"p3": xcb.render.POINTFIX,
 };
 
 /// @brief TRAPEZOID
-pub const TRAPEZOID = extern struct {
+pub const TRAPEZOID = struct {
     @"top": xcb.render.FIXED,
     @"bottom": xcb.render.FIXED,
     @"left": xcb.render.LINEFIX,
@@ -263,7 +263,7 @@ pub const TRAPEZOID = extern struct {
 };
 
 /// @brief GLYPHINFO
-pub const GLYPHINFO = extern struct {
+pub const GLYPHINFO = struct {
     @"width": u16,
     @"height": u16,
     @"x": i16,
@@ -278,7 +278,7 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -287,7 +287,7 @@ pub const QueryVersionRequest = extern struct {
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -303,14 +303,14 @@ pub const QueryPictFormatscookie = struct {
 };
 
 /// @brief QueryPictFormatsRequest
-pub const QueryPictFormatsRequest = extern struct {
+pub const QueryPictFormatsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
 };
 
 /// @brief QueryPictFormatsReply
-pub const QueryPictFormatsReply = extern struct {
+pub const QueryPictFormatsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -321,9 +321,9 @@ pub const QueryPictFormatsReply = extern struct {
     @"num_visuals": u32,
     @"num_subpixel": u32,
     @"pad1": [4]u8,
-    @"formats": [*]xcb.render.PICTFORMINFO,
-    @"screens": [*]xcb.render.PICTSCREEN,
-    @"subpixels": [*]u32,
+    @"formats": []xcb.render.PICTFORMINFO,
+    @"screens": []xcb.render.PICTSCREEN,
+    @"subpixels": []u32,
 };
 
 /// @brief QueryPictIndexValuescookie
@@ -332,7 +332,7 @@ pub const QueryPictIndexValuescookie = struct {
 };
 
 /// @brief QueryPictIndexValuesRequest
-pub const QueryPictIndexValuesRequest = extern struct {
+pub const QueryPictIndexValuesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -340,18 +340,18 @@ pub const QueryPictIndexValuesRequest = extern struct {
 };
 
 /// @brief QueryPictIndexValuesReply
-pub const QueryPictIndexValuesReply = extern struct {
+pub const QueryPictIndexValuesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_values": u32,
     @"pad1": [20]u8,
-    @"values": [*]xcb.render.INDEXVALUE,
+    @"values": []xcb.render.INDEXVALUE,
 };
 
 /// @brief CreatePictureRequest
-pub const CreatePictureRequest = extern struct {
+pub const CreatePictureRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -362,7 +362,7 @@ pub const CreatePictureRequest = extern struct {
 };
 
 /// @brief ChangePictureRequest
-pub const ChangePictureRequest = extern struct {
+pub const ChangePictureRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -371,18 +371,18 @@ pub const ChangePictureRequest = extern struct {
 };
 
 /// @brief SetPictureClipRectanglesRequest
-pub const SetPictureClipRectanglesRequest = extern struct {
+pub const SetPictureClipRectanglesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
     @"picture": xcb.render.PICTURE,
     @"clip_x_origin": i16,
     @"clip_y_origin": i16,
-    @"rectangles": [*]xcb.RECTANGLE,
+    @"rectangles": []const xcb.RECTANGLE,
 };
 
 /// @brief FreePictureRequest
-pub const FreePictureRequest = extern struct {
+pub const FreePictureRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
@@ -390,7 +390,7 @@ pub const FreePictureRequest = extern struct {
 };
 
 /// @brief CompositeRequest
-pub const CompositeRequest = extern struct {
+pub const CompositeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 8,
     @"length": u16,
@@ -410,7 +410,7 @@ pub const CompositeRequest = extern struct {
 };
 
 /// @brief TrapezoidsRequest
-pub const TrapezoidsRequest = extern struct {
+pub const TrapezoidsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 10,
     @"length": u16,
@@ -421,11 +421,11 @@ pub const TrapezoidsRequest = extern struct {
     @"mask_format": xcb.render.PICTFORMAT,
     @"src_x": i16,
     @"src_y": i16,
-    @"traps": [*]xcb.render.TRAPEZOID,
+    @"traps": []const xcb.render.TRAPEZOID,
 };
 
 /// @brief TrianglesRequest
-pub const TrianglesRequest = extern struct {
+pub const TrianglesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 11,
     @"length": u16,
@@ -436,11 +436,11 @@ pub const TrianglesRequest = extern struct {
     @"mask_format": xcb.render.PICTFORMAT,
     @"src_x": i16,
     @"src_y": i16,
-    @"triangles": [*]xcb.render.TRIANGLE,
+    @"triangles": []const xcb.render.TRIANGLE,
 };
 
 /// @brief TriStripRequest
-pub const TriStripRequest = extern struct {
+pub const TriStripRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 12,
     @"length": u16,
@@ -451,11 +451,11 @@ pub const TriStripRequest = extern struct {
     @"mask_format": xcb.render.PICTFORMAT,
     @"src_x": i16,
     @"src_y": i16,
-    @"points": [*]xcb.render.POINTFIX,
+    @"points": []const xcb.render.POINTFIX,
 };
 
 /// @brief TriFanRequest
-pub const TriFanRequest = extern struct {
+pub const TriFanRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 13,
     @"length": u16,
@@ -466,11 +466,11 @@ pub const TriFanRequest = extern struct {
     @"mask_format": xcb.render.PICTFORMAT,
     @"src_x": i16,
     @"src_y": i16,
-    @"points": [*]xcb.render.POINTFIX,
+    @"points": []const xcb.render.POINTFIX,
 };
 
 /// @brief CreateGlyphSetRequest
-pub const CreateGlyphSetRequest = extern struct {
+pub const CreateGlyphSetRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 17,
     @"length": u16,
@@ -479,7 +479,7 @@ pub const CreateGlyphSetRequest = extern struct {
 };
 
 /// @brief ReferenceGlyphSetRequest
-pub const ReferenceGlyphSetRequest = extern struct {
+pub const ReferenceGlyphSetRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 18,
     @"length": u16,
@@ -488,7 +488,7 @@ pub const ReferenceGlyphSetRequest = extern struct {
 };
 
 /// @brief FreeGlyphSetRequest
-pub const FreeGlyphSetRequest = extern struct {
+pub const FreeGlyphSetRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 19,
     @"length": u16,
@@ -496,28 +496,28 @@ pub const FreeGlyphSetRequest = extern struct {
 };
 
 /// @brief AddGlyphsRequest
-pub const AddGlyphsRequest = extern struct {
+pub const AddGlyphsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 20,
     @"length": u16,
     @"glyphset": xcb.render.GLYPHSET,
     @"glyphs_len": u32,
-    @"glyphids": [*]u32,
-    @"glyphs": [*]xcb.render.GLYPHINFO,
-    @"data": [*]u8,
+    @"glyphids": []const u32,
+    @"glyphs": []const xcb.render.GLYPHINFO,
+    @"data": []const u8,
 };
 
 /// @brief FreeGlyphsRequest
-pub const FreeGlyphsRequest = extern struct {
+pub const FreeGlyphsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 22,
     @"length": u16,
     @"glyphset": xcb.render.GLYPHSET,
-    @"glyphs": [*]xcb.render.GLYPH,
+    @"glyphs": []const xcb.render.GLYPH,
 };
 
 /// @brief CompositeGlyphs8Request
-pub const CompositeGlyphs8Request = extern struct {
+pub const CompositeGlyphs8Request = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 23,
     @"length": u16,
@@ -529,11 +529,11 @@ pub const CompositeGlyphs8Request = extern struct {
     @"glyphset": xcb.render.GLYPHSET,
     @"src_x": i16,
     @"src_y": i16,
-    @"glyphcmds": [*]u8,
+    @"glyphcmds": []const u8,
 };
 
 /// @brief CompositeGlyphs16Request
-pub const CompositeGlyphs16Request = extern struct {
+pub const CompositeGlyphs16Request = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 24,
     @"length": u16,
@@ -545,11 +545,11 @@ pub const CompositeGlyphs16Request = extern struct {
     @"glyphset": xcb.render.GLYPHSET,
     @"src_x": i16,
     @"src_y": i16,
-    @"glyphcmds": [*]u8,
+    @"glyphcmds": []const u8,
 };
 
 /// @brief CompositeGlyphs32Request
-pub const CompositeGlyphs32Request = extern struct {
+pub const CompositeGlyphs32Request = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 25,
     @"length": u16,
@@ -561,11 +561,11 @@ pub const CompositeGlyphs32Request = extern struct {
     @"glyphset": xcb.render.GLYPHSET,
     @"src_x": i16,
     @"src_y": i16,
-    @"glyphcmds": [*]u8,
+    @"glyphcmds": []const u8,
 };
 
 /// @brief FillRectanglesRequest
-pub const FillRectanglesRequest = extern struct {
+pub const FillRectanglesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 26,
     @"length": u16,
@@ -573,11 +573,11 @@ pub const FillRectanglesRequest = extern struct {
     @"pad0": [3]u8,
     @"dst": xcb.render.PICTURE,
     @"color": xcb.render.COLOR,
-    @"rects": [*]xcb.RECTANGLE,
+    @"rects": []const xcb.RECTANGLE,
 };
 
 /// @brief CreateCursorRequest
-pub const CreateCursorRequest = extern struct {
+pub const CreateCursorRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 27,
     @"length": u16,
@@ -588,7 +588,7 @@ pub const CreateCursorRequest = extern struct {
 };
 
 /// @brief TRANSFORM
-pub const TRANSFORM = extern struct {
+pub const TRANSFORM = struct {
     @"matrix11": xcb.render.FIXED,
     @"matrix12": xcb.render.FIXED,
     @"matrix13": xcb.render.FIXED,
@@ -601,7 +601,7 @@ pub const TRANSFORM = extern struct {
 };
 
 /// @brief SetPictureTransformRequest
-pub const SetPictureTransformRequest = extern struct {
+pub const SetPictureTransformRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 28,
     @"length": u16,
@@ -615,7 +615,7 @@ pub const QueryFilterscookie = struct {
 };
 
 /// @brief QueryFiltersRequest
-pub const QueryFiltersRequest = extern struct {
+pub const QueryFiltersRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 29,
     @"length": u16,
@@ -623,7 +623,7 @@ pub const QueryFiltersRequest = extern struct {
 };
 
 /// @brief QueryFiltersReply
-pub const QueryFiltersReply = extern struct {
+pub const QueryFiltersReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -631,63 +631,63 @@ pub const QueryFiltersReply = extern struct {
     @"num_aliases": u32,
     @"num_filters": u32,
     @"pad1": [16]u8,
-    @"aliases": [*]u16,
-    @"filters": [*]xcb.STR,
+    @"aliases": []u16,
+    @"filters": []xcb.STR,
 };
 
 /// @brief SetPictureFilterRequest
-pub const SetPictureFilterRequest = extern struct {
+pub const SetPictureFilterRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 30,
     @"length": u16,
     @"picture": xcb.render.PICTURE,
     @"filter_len": u16,
     @"pad0": [2]u8,
-    @"filter": [*]u8,
-    @"values": [*]xcb.render.FIXED,
+    @"filter": []const u8,
+    @"values": []const xcb.render.FIXED,
 };
 
 /// @brief ANIMCURSORELT
-pub const ANIMCURSORELT = extern struct {
+pub const ANIMCURSORELT = struct {
     @"cursor": xcb.CURSOR,
     @"delay": u32,
 };
 
 /// @brief CreateAnimCursorRequest
-pub const CreateAnimCursorRequest = extern struct {
+pub const CreateAnimCursorRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 31,
     @"length": u16,
     @"cid": xcb.CURSOR,
-    @"cursors": [*]xcb.render.ANIMCURSORELT,
+    @"cursors": []const xcb.render.ANIMCURSORELT,
 };
 
 /// @brief SPANFIX
-pub const SPANFIX = extern struct {
+pub const SPANFIX = struct {
     @"l": xcb.render.FIXED,
     @"r": xcb.render.FIXED,
     @"y": xcb.render.FIXED,
 };
 
 /// @brief TRAP
-pub const TRAP = extern struct {
+pub const TRAP = struct {
     @"top": xcb.render.SPANFIX,
     @"bot": xcb.render.SPANFIX,
 };
 
 /// @brief AddTrapsRequest
-pub const AddTrapsRequest = extern struct {
+pub const AddTrapsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 32,
     @"length": u16,
     @"picture": xcb.render.PICTURE,
     @"x_off": i16,
     @"y_off": i16,
-    @"traps": [*]xcb.render.TRAP,
+    @"traps": []const xcb.render.TRAP,
 };
 
 /// @brief CreateSolidFillRequest
-pub const CreateSolidFillRequest = extern struct {
+pub const CreateSolidFillRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 33,
     @"length": u16,
@@ -696,7 +696,7 @@ pub const CreateSolidFillRequest = extern struct {
 };
 
 /// @brief CreateLinearGradientRequest
-pub const CreateLinearGradientRequest = extern struct {
+pub const CreateLinearGradientRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 34,
     @"length": u16,
@@ -704,12 +704,12 @@ pub const CreateLinearGradientRequest = extern struct {
     @"p1": xcb.render.POINTFIX,
     @"p2": xcb.render.POINTFIX,
     @"num_stops": u32,
-    @"stops": [*]xcb.render.FIXED,
-    @"colors": [*]xcb.render.COLOR,
+    @"stops": []const xcb.render.FIXED,
+    @"colors": []const xcb.render.COLOR,
 };
 
 /// @brief CreateRadialGradientRequest
-pub const CreateRadialGradientRequest = extern struct {
+pub const CreateRadialGradientRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 35,
     @"length": u16,
@@ -719,12 +719,12 @@ pub const CreateRadialGradientRequest = extern struct {
     @"inner_radius": xcb.render.FIXED,
     @"outer_radius": xcb.render.FIXED,
     @"num_stops": u32,
-    @"stops": [*]xcb.render.FIXED,
-    @"colors": [*]xcb.render.COLOR,
+    @"stops": []const xcb.render.FIXED,
+    @"colors": []const xcb.render.COLOR,
 };
 
 /// @brief CreateConicalGradientRequest
-pub const CreateConicalGradientRequest = extern struct {
+pub const CreateConicalGradientRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 36,
     @"length": u16,
@@ -732,8 +732,8 @@ pub const CreateConicalGradientRequest = extern struct {
     @"center": xcb.render.POINTFIX,
     @"angle": xcb.render.FIXED,
     @"num_stops": u32,
-    @"stops": [*]xcb.render.FIXED,
-    @"colors": [*]xcb.render.COLOR,
+    @"stops": []const xcb.render.FIXED,
+    @"colors": []const xcb.render.COLOR,
 };
 
 test "" {

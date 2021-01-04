@@ -48,7 +48,7 @@ pub const CompleteMode = extern enum(c_uint) {
 };
 
 /// @brief Notify
-pub const Notify = extern struct {
+pub const Notify = struct {
     @"window": xcb.WINDOW,
     @"serial": u32,
 };
@@ -59,7 +59,7 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -68,7 +68,7 @@ pub const QueryVersionRequest = extern struct {
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -78,7 +78,7 @@ pub const QueryVersionReply = extern struct {
 };
 
 /// @brief PixmapRequest
-pub const PixmapRequest = extern struct {
+pub const PixmapRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -97,11 +97,11 @@ pub const PixmapRequest = extern struct {
     @"target_msc": u64,
     @"divisor": u64,
     @"remainder": u64,
-    @"notifies": [*]xcb.present.Notify,
+    @"notifies": []const xcb.present.Notify,
 };
 
 /// @brief NotifyMSCRequest
-pub const NotifyMSCRequest = extern struct {
+pub const NotifyMSCRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -116,7 +116,7 @@ pub const NotifyMSCRequest = extern struct {
 pub const EVENT = u32;
 
 /// @brief SelectInputRequest
-pub const SelectInputRequest = extern struct {
+pub const SelectInputRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -131,7 +131,7 @@ pub const QueryCapabilitiescookie = struct {
 };
 
 /// @brief QueryCapabilitiesRequest
-pub const QueryCapabilitiesRequest = extern struct {
+pub const QueryCapabilitiesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -139,7 +139,7 @@ pub const QueryCapabilitiesRequest = extern struct {
 };
 
 /// @brief QueryCapabilitiesReply
-pub const QueryCapabilitiesReply = extern struct {
+pub const QueryCapabilitiesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -151,7 +151,7 @@ pub const QueryCapabilitiesReply = extern struct {
 pub const GenericOpcode = 0;
 
 /// @brief GenericEvent
-pub const GenericEvent = extern struct {
+pub const GenericEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -165,7 +165,7 @@ pub const GenericEvent = extern struct {
 pub const ConfigureNotifyOpcode = 0;
 
 /// @brief ConfigureNotifyEvent
-pub const ConfigureNotifyEvent = extern struct {
+pub const ConfigureNotifyEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -190,7 +190,7 @@ pub const ConfigureNotifyEvent = extern struct {
 pub const CompleteNotifyOpcode = 1;
 
 /// @brief CompleteNotifyEvent
-pub const CompleteNotifyEvent = packed struct {
+pub const CompleteNotifyEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -210,7 +210,7 @@ pub const CompleteNotifyEvent = packed struct {
 pub const IdleNotifyOpcode = 2;
 
 /// @brief IdleNotifyEvent
-pub const IdleNotifyEvent = extern struct {
+pub const IdleNotifyEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -229,7 +229,7 @@ pub const IdleNotifyEvent = extern struct {
 pub const RedirectNotifyOpcode = 3;
 
 /// @brief RedirectNotifyEvent
-pub const RedirectNotifyEvent = packed struct {
+pub const RedirectNotifyEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -257,7 +257,7 @@ pub const RedirectNotifyEvent = packed struct {
     @"target_msc": u64,
     @"divisor": u64,
     @"remainder": u64,
-    @"notifies": [*]xcb.present.Notify,
+    @"notifies": []xcb.present.Notify,
 };
 
 test "" {

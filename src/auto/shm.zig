@@ -13,7 +13,7 @@ pub const SEG = u32;
 pub const CompletionOpcode = 0;
 
 /// @brief CompletionEvent
-pub const CompletionEvent = extern struct {
+pub const CompletionEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -31,14 +31,14 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"shared_pixmaps": u8,
     @"sequence": u16,
@@ -52,7 +52,7 @@ pub const QueryVersionReply = extern struct {
 };
 
 /// @brief AttachRequest
-pub const AttachRequest = extern struct {
+pub const AttachRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -63,7 +63,7 @@ pub const AttachRequest = extern struct {
 };
 
 /// @brief DetachRequest
-pub const DetachRequest = extern struct {
+pub const DetachRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -71,7 +71,7 @@ pub const DetachRequest = extern struct {
 };
 
 /// @brief PutImageRequest
-pub const PutImageRequest = extern struct {
+pub const PutImageRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -99,7 +99,7 @@ pub const GetImagecookie = struct {
 };
 
 /// @brief GetImageRequest
-pub const GetImageRequest = extern struct {
+pub const GetImageRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -116,7 +116,7 @@ pub const GetImageRequest = extern struct {
 };
 
 /// @brief GetImageReply
-pub const GetImageReply = extern struct {
+pub const GetImageReply = struct {
     @"response_type": u8,
     @"depth": u8,
     @"sequence": u16,
@@ -126,7 +126,7 @@ pub const GetImageReply = extern struct {
 };
 
 /// @brief CreatePixmapRequest
-pub const CreatePixmapRequest = extern struct {
+pub const CreatePixmapRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -141,7 +141,7 @@ pub const CreatePixmapRequest = extern struct {
 };
 
 /// @brief AttachFdRequest
-pub const AttachFdRequest = extern struct {
+pub const AttachFdRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
@@ -156,7 +156,7 @@ pub const CreateSegmentcookie = struct {
 };
 
 /// @brief CreateSegmentRequest
-pub const CreateSegmentRequest = extern struct {
+pub const CreateSegmentRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
@@ -167,7 +167,7 @@ pub const CreateSegmentRequest = extern struct {
 };
 
 /// @brief CreateSegmentReply
-pub const CreateSegmentReply = extern struct {
+pub const CreateSegmentReply = struct {
     @"response_type": u8,
     @"nfd": u8,
     @"sequence": u16,

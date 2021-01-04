@@ -13,14 +13,14 @@ pub const Enablecookie = struct {
 };
 
 /// @brief EnableRequest
-pub const EnableRequest = extern struct {
+pub const EnableRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
 };
 
 /// @brief EnableReply
-pub const EnableReply = extern struct {
+pub const EnableReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,

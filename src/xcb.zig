@@ -10,6 +10,7 @@ const math = std.math;
 const mem = std.mem;
 const net = std.net;
 const os = std.os;
+const testing = std.testing;
 
 usingnamespace @import("auto/xproto.zig");
 
@@ -49,9 +50,18 @@ pub const Extension = struct {
     global_id: u32,
 };
 
-const Connection = struct {};
+const Connection = struct {
+    allocator: *mem.Allocator,
+    handle: fs.File,
+    setup: Setup,
 
-pub fn connect() !Connection {
+    pub fn close(conn: Connection) void {
+        conn.handle.close();
+        reflect.free(conn.setup, conn.allocator);
+    }
+};
+
+pub fn connect(allocator: *mem.Allocator) !Connection {
     const display_str = os.getenv("DISPLAY") orelse return error.DisplayNotFound;
     const display = try Display.parse(display_str);
 
@@ -70,57 +80,47 @@ pub fn connect() !Connection {
     const auth = while (Auth.read(xautority.reader(), &fba.allocator) catch |err| switch (err) {
         error.EndOfStream => null,
         else => |e| return e,
-    }) |auth| {
+    }) |auth| : (fba.reset()) {
         if (mem.eql(u8, auth.address, hostname))
             break auth;
     } else return error.AuthNotFound;
 
-    return setup(handle, auth);
+    return setup(allocator, handle, auth);
 }
 
-fn setup(handle: fs.File, auth: Auth) !Connection {
-    try reflect.encode(handle.writer(), SetupRequest, .{
+fn setup(allocator: *mem.Allocator, handle: fs.File, auth: Auth) !Connection {
+    try reflect.encode(handle.writer(), SetupRequest{
         .byte_order = if (@import("std").builtin.endian == .Big) 0x42 else 0x6c,
         .pad0 = 0,
         .protocol_major_version = 11,
         .protocol_minor_version = 0,
         .pad1 = [2]u8{ 0, 0 },
+        .authorization_protocol_name_len = @intCast(u16, auth.name.len),
+        .authorization_protocol_data_len = @intCast(u16, auth.data.len),
         .authorization_protocol_name = auth.name,
         .authorization_protocol_data = auth.data,
     });
-    const SetupAuthenticate2 = extern struct {
-        @"status": u8,
-        @"pad0": [5]u8,
-        @"length": u16,
-    };
 
-    var buf: [math.maxInt(u16) * 4]u8 = undefined;
-    const header = try handle.reader().readStruct(SetupAuthenticate);
-    // std.debug.warn("{}\n", .{header});
+    const result = try reflect.decode(handle.reader(), allocator, Setup);
+    errdefer reflect.free(result, allocator);
 
-    // const setup_buf = buf[0 .. header.length * 4];
-    // try handle.reader().readNoEof(setup_buf);
-
-    switch (header.status) {
+    switch (result.status) {
         0 => return error.SetupFailed,
         2 => unreachable, // TODO: authenticate
         1 => {},
         else => return error.InvalidStatus,
     }
 
-    // const setup = mem.bytesAsValue(Setup, setup_buf[0..@sizeOf(Setup)]);
-    // const vendor = setup_buf[@sizeOf(Setup)..][0..setup.vendor_len];
-
-    // const formats_start = @sizeOf(Setup) + setup.vendor_len;
-    // const formats_end = formats_start + setup.pixmap_formats_len * @sizeOf(FORMAT);
-    // const formats = mem.bytesAsSlice(FORMAT, setup_buf[formats_start..formats_end]);
-
-    return @as(Connection, undefined);
+    return Connection{
+        .allocator = allocator,
+        .handle = handle,
+        .setup = result,
+    };
 }
 
 pub const Display = struct {
-    host: []const u8,
     protocol: []const u8,
+    host: []const u8,
     display: u16,
     screen: u16,
 
@@ -237,5 +237,8 @@ test "" {
 }
 
 test "connect" {
-    // const connection = try connect();
+    const conn = try connect(testing.allocator);
+    defer conn.close();
+    for (conn.setup.@"roots") |root|
+        std.debug.warn("{}\n", .{root});
 }

@@ -8,13 +8,13 @@ const xcb = @import("../xcb.zig");
 pub const id = xcb.Extension{ .name = "X-Resource", .global_id = 0 };
 
 /// @brief Client
-pub const Client = extern struct {
+pub const Client = struct {
     @"resource_base": u32,
     @"resource_mask": u32,
 };
 
 /// @brief Type
-pub const Type = extern struct {
+pub const Type = struct {
     @"resource_type": xcb.ATOM,
     @"count": u32,
 };
@@ -25,26 +25,26 @@ pub const ClientIdMask = extern enum(c_uint) {
 };
 
 /// @brief ClientIdSpec
-pub const ClientIdSpec = extern struct {
+pub const ClientIdSpec = struct {
     @"client": u32,
     @"mask": u32,
 };
 
 /// @brief ClientIdValue
-pub const ClientIdValue = extern struct {
+pub const ClientIdValue = struct {
     @"spec": xcb.res.ClientIdSpec,
     @"length": u32,
-    @"value": [*]u32,
+    @"value": []u32,
 };
 
 /// @brief ResourceIdSpec
-pub const ResourceIdSpec = extern struct {
+pub const ResourceIdSpec = struct {
     @"resource": u32,
     @"type": u32,
 };
 
 /// @brief ResourceSizeSpec
-pub const ResourceSizeSpec = extern struct {
+pub const ResourceSizeSpec = struct {
     @"spec": xcb.res.ResourceIdSpec,
     @"bytes": u32,
     @"ref_count": u32,
@@ -52,10 +52,10 @@ pub const ResourceSizeSpec = extern struct {
 };
 
 /// @brief ResourceSizeValue
-pub const ResourceSizeValue = extern struct {
+pub const ResourceSizeValue = struct {
     @"size": xcb.res.ResourceSizeSpec,
     @"num_cross_references": u32,
-    @"cross_references": [*]xcb.res.ResourceSizeSpec,
+    @"cross_references": []xcb.res.ResourceSizeSpec,
 };
 
 /// @brief QueryVersioncookie
@@ -64,7 +64,7 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -73,7 +73,7 @@ pub const QueryVersionRequest = extern struct {
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -88,21 +88,21 @@ pub const QueryClientscookie = struct {
 };
 
 /// @brief QueryClientsRequest
-pub const QueryClientsRequest = extern struct {
+pub const QueryClientsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
 };
 
 /// @brief QueryClientsReply
-pub const QueryClientsReply = extern struct {
+pub const QueryClientsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_clients": u32,
     @"pad1": [20]u8,
-    @"clients": [*]xcb.res.Client,
+    @"clients": []xcb.res.Client,
 };
 
 /// @brief QueryClientResourcescookie
@@ -111,7 +111,7 @@ pub const QueryClientResourcescookie = struct {
 };
 
 /// @brief QueryClientResourcesRequest
-pub const QueryClientResourcesRequest = extern struct {
+pub const QueryClientResourcesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -119,14 +119,14 @@ pub const QueryClientResourcesRequest = extern struct {
 };
 
 /// @brief QueryClientResourcesReply
-pub const QueryClientResourcesReply = extern struct {
+pub const QueryClientResourcesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_types": u32,
     @"pad1": [20]u8,
-    @"types": [*]xcb.res.Type,
+    @"types": []xcb.res.Type,
 };
 
 /// @brief QueryClientPixmapBytescookie
@@ -135,7 +135,7 @@ pub const QueryClientPixmapBytescookie = struct {
 };
 
 /// @brief QueryClientPixmapBytesRequest
-pub const QueryClientPixmapBytesRequest = extern struct {
+pub const QueryClientPixmapBytesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -143,7 +143,7 @@ pub const QueryClientPixmapBytesRequest = extern struct {
 };
 
 /// @brief QueryClientPixmapBytesReply
-pub const QueryClientPixmapBytesReply = extern struct {
+pub const QueryClientPixmapBytesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -158,23 +158,23 @@ pub const QueryClientIdscookie = struct {
 };
 
 /// @brief QueryClientIdsRequest
-pub const QueryClientIdsRequest = extern struct {
+pub const QueryClientIdsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
     @"num_specs": u32,
-    @"specs": [*]xcb.res.ClientIdSpec,
+    @"specs": []const xcb.res.ClientIdSpec,
 };
 
 /// @brief QueryClientIdsReply
-pub const QueryClientIdsReply = extern struct {
+pub const QueryClientIdsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_ids": u32,
     @"pad1": [20]u8,
-    @"ids": [*]xcb.res.ClientIdValue,
+    @"ids": []xcb.res.ClientIdValue,
 };
 
 /// @brief QueryResourceBytescookie
@@ -183,24 +183,24 @@ pub const QueryResourceBytescookie = struct {
 };
 
 /// @brief QueryResourceBytesRequest
-pub const QueryResourceBytesRequest = extern struct {
+pub const QueryResourceBytesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
     @"client": u32,
     @"num_specs": u32,
-    @"specs": [*]xcb.res.ResourceIdSpec,
+    @"specs": []const xcb.res.ResourceIdSpec,
 };
 
 /// @brief QueryResourceBytesReply
-pub const QueryResourceBytesReply = extern struct {
+pub const QueryResourceBytesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_sizes": u32,
     @"pad1": [20]u8,
-    @"sizes": [*]xcb.res.ResourceSizeValue,
+    @"sizes": []xcb.res.ResourceSizeValue,
 };
 
 test "" {

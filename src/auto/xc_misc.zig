@@ -13,7 +13,7 @@ pub const GetVersioncookie = struct {
 };
 
 /// @brief GetVersionRequest
-pub const GetVersionRequest = extern struct {
+pub const GetVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -22,7 +22,7 @@ pub const GetVersionRequest = extern struct {
 };
 
 /// @brief GetVersionReply
-pub const GetVersionReply = extern struct {
+pub const GetVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -37,14 +37,14 @@ pub const GetXIDRangecookie = struct {
 };
 
 /// @brief GetXIDRangeRequest
-pub const GetXIDRangeRequest = extern struct {
+pub const GetXIDRangeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
 };
 
 /// @brief GetXIDRangeReply
-pub const GetXIDRangeReply = extern struct {
+pub const GetXIDRangeReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -59,7 +59,7 @@ pub const GetXIDListcookie = struct {
 };
 
 /// @brief GetXIDListRequest
-pub const GetXIDListRequest = extern struct {
+pub const GetXIDListRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -67,14 +67,14 @@ pub const GetXIDListRequest = extern struct {
 };
 
 /// @brief GetXIDListReply
-pub const GetXIDListReply = extern struct {
+pub const GetXIDListReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"ids_len": u32,
     @"pad1": [20]u8,
-    @"ids": [*]u32,
+    @"ids": []u32,
 };
 
 test "" {

@@ -18,7 +18,7 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -27,7 +27,7 @@ pub const QueryVersionRequest = extern struct {
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -38,7 +38,7 @@ pub const QueryVersionReply = extern struct {
 };
 
 /// @brief RedirectWindowRequest
-pub const RedirectWindowRequest = extern struct {
+pub const RedirectWindowRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -48,7 +48,7 @@ pub const RedirectWindowRequest = extern struct {
 };
 
 /// @brief RedirectSubwindowsRequest
-pub const RedirectSubwindowsRequest = extern struct {
+pub const RedirectSubwindowsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -58,7 +58,7 @@ pub const RedirectSubwindowsRequest = extern struct {
 };
 
 /// @brief UnredirectWindowRequest
-pub const UnredirectWindowRequest = extern struct {
+pub const UnredirectWindowRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -68,7 +68,7 @@ pub const UnredirectWindowRequest = extern struct {
 };
 
 /// @brief UnredirectSubwindowsRequest
-pub const UnredirectSubwindowsRequest = extern struct {
+pub const UnredirectSubwindowsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -78,7 +78,7 @@ pub const UnredirectSubwindowsRequest = extern struct {
 };
 
 /// @brief CreateRegionFromBorderClipRequest
-pub const CreateRegionFromBorderClipRequest = extern struct {
+pub const CreateRegionFromBorderClipRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -87,7 +87,7 @@ pub const CreateRegionFromBorderClipRequest = extern struct {
 };
 
 /// @brief NameWindowPixmapRequest
-pub const NameWindowPixmapRequest = extern struct {
+pub const NameWindowPixmapRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
@@ -101,7 +101,7 @@ pub const GetOverlayWindowcookie = struct {
 };
 
 /// @brief GetOverlayWindowRequest
-pub const GetOverlayWindowRequest = extern struct {
+pub const GetOverlayWindowRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
@@ -109,7 +109,7 @@ pub const GetOverlayWindowRequest = extern struct {
 };
 
 /// @brief GetOverlayWindowReply
-pub const GetOverlayWindowReply = extern struct {
+pub const GetOverlayWindowReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -119,7 +119,7 @@ pub const GetOverlayWindowReply = extern struct {
 };
 
 /// @brief ReleaseOverlayWindowRequest
-pub const ReleaseOverlayWindowRequest = extern struct {
+pub const ReleaseOverlayWindowRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 8,
     @"length": u16,

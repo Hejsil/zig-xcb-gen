@@ -73,7 +73,7 @@ pub const BadWindowOpcode = 12;
 pub const GLXBadProfileARBOpcode = 13;
 
 /// @brief GenericError
-pub const GenericError = extern struct {
+pub const GenericError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -87,7 +87,7 @@ pub const GenericError = extern struct {
 pub const PbufferClobberOpcode = 0;
 
 /// @brief PbufferClobberEvent
-pub const PbufferClobberEvent = extern struct {
+pub const PbufferClobberEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -108,7 +108,7 @@ pub const PbufferClobberEvent = extern struct {
 pub const BufferSwapCompleteOpcode = 1;
 
 /// @brief BufferSwapCompleteEvent
-pub const BufferSwapCompleteEvent = extern struct {
+pub const BufferSwapCompleteEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -133,16 +133,16 @@ pub const PBCDT = extern enum(c_uint) {
 };
 
 /// @brief RenderRequest
-pub const RenderRequest = extern struct {
+pub const RenderRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
     @"context_tag": xcb.glx.CONTEXT_TAG,
-    @"data": [*]u8,
+    @"data": []const u8,
 };
 
 /// @brief RenderLargeRequest
-pub const RenderLargeRequest = extern struct {
+pub const RenderLargeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -150,11 +150,11 @@ pub const RenderLargeRequest = extern struct {
     @"request_num": u16,
     @"request_total": u16,
     @"data_len": u32,
-    @"data": [*]u8,
+    @"data": []const u8,
 };
 
 /// @brief CreateContextRequest
-pub const CreateContextRequest = extern struct {
+pub const CreateContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -167,7 +167,7 @@ pub const CreateContextRequest = extern struct {
 };
 
 /// @brief DestroyContextRequest
-pub const DestroyContextRequest = extern struct {
+pub const DestroyContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -180,7 +180,7 @@ pub const MakeCurrentcookie = struct {
 };
 
 /// @brief MakeCurrentRequest
-pub const MakeCurrentRequest = extern struct {
+pub const MakeCurrentRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -190,7 +190,7 @@ pub const MakeCurrentRequest = extern struct {
 };
 
 /// @brief MakeCurrentReply
-pub const MakeCurrentReply = extern struct {
+pub const MakeCurrentReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -205,7 +205,7 @@ pub const IsDirectcookie = struct {
 };
 
 /// @brief IsDirectRequest
-pub const IsDirectRequest = extern struct {
+pub const IsDirectRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
@@ -213,7 +213,7 @@ pub const IsDirectRequest = extern struct {
 };
 
 /// @brief IsDirectReply
-pub const IsDirectReply = extern struct {
+pub const IsDirectReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -228,7 +228,7 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
@@ -237,7 +237,7 @@ pub const QueryVersionRequest = extern struct {
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -248,7 +248,7 @@ pub const QueryVersionReply = extern struct {
 };
 
 /// @brief WaitGLRequest
-pub const WaitGLRequest = extern struct {
+pub const WaitGLRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 8,
     @"length": u16,
@@ -256,7 +256,7 @@ pub const WaitGLRequest = extern struct {
 };
 
 /// @brief WaitXRequest
-pub const WaitXRequest = extern struct {
+pub const WaitXRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 9,
     @"length": u16,
@@ -264,7 +264,7 @@ pub const WaitXRequest = extern struct {
 };
 
 /// @brief CopyContextRequest
-pub const CopyContextRequest = extern struct {
+pub const CopyContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 10,
     @"length": u16,
@@ -299,7 +299,7 @@ pub const GC = extern enum(c_uint) {
 };
 
 /// @brief SwapBuffersRequest
-pub const SwapBuffersRequest = extern struct {
+pub const SwapBuffersRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 11,
     @"length": u16,
@@ -308,7 +308,7 @@ pub const SwapBuffersRequest = extern struct {
 };
 
 /// @brief UseXFontRequest
-pub const UseXFontRequest = extern struct {
+pub const UseXFontRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 12,
     @"length": u16,
@@ -320,7 +320,7 @@ pub const UseXFontRequest = extern struct {
 };
 
 /// @brief CreateGLXPixmapRequest
-pub const CreateGLXPixmapRequest = extern struct {
+pub const CreateGLXPixmapRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 13,
     @"length": u16,
@@ -336,7 +336,7 @@ pub const GetVisualConfigscookie = struct {
 };
 
 /// @brief GetVisualConfigsRequest
-pub const GetVisualConfigsRequest = extern struct {
+pub const GetVisualConfigsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 14,
     @"length": u16,
@@ -344,7 +344,7 @@ pub const GetVisualConfigsRequest = extern struct {
 };
 
 /// @brief GetVisualConfigsReply
-pub const GetVisualConfigsReply = extern struct {
+pub const GetVisualConfigsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -352,11 +352,11 @@ pub const GetVisualConfigsReply = extern struct {
     @"num_visuals": u32,
     @"num_properties": u32,
     @"pad1": [16]u8,
-    @"property_list": [*]u32,
+    @"property_list": []u32,
 };
 
 /// @brief DestroyGLXPixmapRequest
-pub const DestroyGLXPixmapRequest = extern struct {
+pub const DestroyGLXPixmapRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 15,
     @"length": u16,
@@ -364,13 +364,13 @@ pub const DestroyGLXPixmapRequest = extern struct {
 };
 
 /// @brief VendorPrivateRequest
-pub const VendorPrivateRequest = extern struct {
+pub const VendorPrivateRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 16,
     @"length": u16,
     @"vendor_code": u32,
     @"context_tag": xcb.glx.CONTEXT_TAG,
-    @"data": [*]u8,
+    @"data": []const u8,
 };
 
 /// @brief VendorPrivateWithReplycookie
@@ -379,24 +379,24 @@ pub const VendorPrivateWithReplycookie = struct {
 };
 
 /// @brief VendorPrivateWithReplyRequest
-pub const VendorPrivateWithReplyRequest = extern struct {
+pub const VendorPrivateWithReplyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 17,
     @"length": u16,
     @"vendor_code": u32,
     @"context_tag": xcb.glx.CONTEXT_TAG,
-    @"data": [*]u8,
+    @"data": []const u8,
 };
 
 /// @brief VendorPrivateWithReplyReply
-pub const VendorPrivateWithReplyReply = extern struct {
+pub const VendorPrivateWithReplyReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"retval": u32,
     @"data1": [24]u8,
-    @"data2": [*]u8,
+    @"data2": []u8,
 };
 
 /// @brief QueryExtensionsStringcookie
@@ -405,7 +405,7 @@ pub const QueryExtensionsStringcookie = struct {
 };
 
 /// @brief QueryExtensionsStringRequest
-pub const QueryExtensionsStringRequest = extern struct {
+pub const QueryExtensionsStringRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 18,
     @"length": u16,
@@ -413,7 +413,7 @@ pub const QueryExtensionsStringRequest = extern struct {
 };
 
 /// @brief QueryExtensionsStringReply
-pub const QueryExtensionsStringReply = extern struct {
+pub const QueryExtensionsStringReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -429,7 +429,7 @@ pub const QueryServerStringcookie = struct {
 };
 
 /// @brief QueryServerStringRequest
-pub const QueryServerStringRequest = extern struct {
+pub const QueryServerStringRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 19,
     @"length": u16,
@@ -438,7 +438,7 @@ pub const QueryServerStringRequest = extern struct {
 };
 
 /// @brief QueryServerStringReply
-pub const QueryServerStringReply = extern struct {
+pub const QueryServerStringReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -446,18 +446,18 @@ pub const QueryServerStringReply = extern struct {
     @"pad1": [4]u8,
     @"str_len": u32,
     @"pad2": [16]u8,
-    @"string": [*]u8,
+    @"string": []u8,
 };
 
 /// @brief ClientInfoRequest
-pub const ClientInfoRequest = extern struct {
+pub const ClientInfoRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 20,
     @"length": u16,
     @"major_version": u32,
     @"minor_version": u32,
     @"str_len": u32,
-    @"string": [*]u8,
+    @"string": []const u8,
 };
 
 /// @brief GetFBConfigscookie
@@ -466,7 +466,7 @@ pub const GetFBConfigscookie = struct {
 };
 
 /// @brief GetFBConfigsRequest
-pub const GetFBConfigsRequest = extern struct {
+pub const GetFBConfigsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 21,
     @"length": u16,
@@ -474,7 +474,7 @@ pub const GetFBConfigsRequest = extern struct {
 };
 
 /// @brief GetFBConfigsReply
-pub const GetFBConfigsReply = extern struct {
+pub const GetFBConfigsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -482,11 +482,11 @@ pub const GetFBConfigsReply = extern struct {
     @"num_FB_configs": u32,
     @"num_properties": u32,
     @"pad1": [16]u8,
-    @"property_list": [*]u32,
+    @"property_list": []u32,
 };
 
 /// @brief CreatePixmapRequest
-pub const CreatePixmapRequest = extern struct {
+pub const CreatePixmapRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 22,
     @"length": u16,
@@ -495,11 +495,11 @@ pub const CreatePixmapRequest = extern struct {
     @"pixmap": xcb.PIXMAP,
     @"glx_pixmap": xcb.glx.PIXMAP,
     @"num_attribs": u32,
-    @"attribs": [*]u32,
+    @"attribs": []const u32,
 };
 
 /// @brief DestroyPixmapRequest
-pub const DestroyPixmapRequest = extern struct {
+pub const DestroyPixmapRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 23,
     @"length": u16,
@@ -507,7 +507,7 @@ pub const DestroyPixmapRequest = extern struct {
 };
 
 /// @brief CreateNewContextRequest
-pub const CreateNewContextRequest = extern struct {
+pub const CreateNewContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 24,
     @"length": u16,
@@ -526,7 +526,7 @@ pub const QueryContextcookie = struct {
 };
 
 /// @brief QueryContextRequest
-pub const QueryContextRequest = extern struct {
+pub const QueryContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 25,
     @"length": u16,
@@ -534,14 +534,14 @@ pub const QueryContextRequest = extern struct {
 };
 
 /// @brief QueryContextReply
-pub const QueryContextReply = extern struct {
+pub const QueryContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_attribs": u32,
     @"pad1": [20]u8,
-    @"attribs": [*]u32,
+    @"attribs": []u32,
 };
 
 /// @brief MakeContextCurrentcookie
@@ -550,7 +550,7 @@ pub const MakeContextCurrentcookie = struct {
 };
 
 /// @brief MakeContextCurrentRequest
-pub const MakeContextCurrentRequest = extern struct {
+pub const MakeContextCurrentRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 26,
     @"length": u16,
@@ -561,7 +561,7 @@ pub const MakeContextCurrentRequest = extern struct {
 };
 
 /// @brief MakeContextCurrentReply
-pub const MakeContextCurrentReply = extern struct {
+pub const MakeContextCurrentReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -571,7 +571,7 @@ pub const MakeContextCurrentReply = extern struct {
 };
 
 /// @brief CreatePbufferRequest
-pub const CreatePbufferRequest = extern struct {
+pub const CreatePbufferRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 27,
     @"length": u16,
@@ -579,11 +579,11 @@ pub const CreatePbufferRequest = extern struct {
     @"fbconfig": xcb.glx.FBCONFIG,
     @"pbuffer": xcb.glx.PBUFFER,
     @"num_attribs": u32,
-    @"attribs": [*]u32,
+    @"attribs": []const u32,
 };
 
 /// @brief DestroyPbufferRequest
-pub const DestroyPbufferRequest = extern struct {
+pub const DestroyPbufferRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 28,
     @"length": u16,
@@ -596,7 +596,7 @@ pub const GetDrawableAttributescookie = struct {
 };
 
 /// @brief GetDrawableAttributesRequest
-pub const GetDrawableAttributesRequest = extern struct {
+pub const GetDrawableAttributesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 29,
     @"length": u16,
@@ -604,28 +604,28 @@ pub const GetDrawableAttributesRequest = extern struct {
 };
 
 /// @brief GetDrawableAttributesReply
-pub const GetDrawableAttributesReply = extern struct {
+pub const GetDrawableAttributesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_attribs": u32,
     @"pad1": [20]u8,
-    @"attribs": [*]u32,
+    @"attribs": []u32,
 };
 
 /// @brief ChangeDrawableAttributesRequest
-pub const ChangeDrawableAttributesRequest = extern struct {
+pub const ChangeDrawableAttributesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 30,
     @"length": u16,
     @"drawable": xcb.glx.DRAWABLE,
     @"num_attribs": u32,
-    @"attribs": [*]u32,
+    @"attribs": []const u32,
 };
 
 /// @brief CreateWindowRequest
-pub const CreateWindowRequest = extern struct {
+pub const CreateWindowRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 31,
     @"length": u16,
@@ -634,11 +634,11 @@ pub const CreateWindowRequest = extern struct {
     @"window": xcb.WINDOW,
     @"glx_window": xcb.glx.WINDOW,
     @"num_attribs": u32,
-    @"attribs": [*]u32,
+    @"attribs": []const u32,
 };
 
 /// @brief DeleteWindowRequest
-pub const DeleteWindowRequest = extern struct {
+pub const DeleteWindowRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 32,
     @"length": u16,
@@ -646,7 +646,7 @@ pub const DeleteWindowRequest = extern struct {
 };
 
 /// @brief SetClientInfoARBRequest
-pub const SetClientInfoARBRequest = extern struct {
+pub const SetClientInfoARBRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 33,
     @"length": u16,
@@ -655,13 +655,13 @@ pub const SetClientInfoARBRequest = extern struct {
     @"num_versions": u32,
     @"gl_str_len": u32,
     @"glx_str_len": u32,
-    @"gl_versions": [*]u32,
-    @"gl_extension_string": [*]u8,
-    @"glx_extension_string": [*]u8,
+    @"gl_versions": []const u32,
+    @"gl_extension_string": []const u8,
+    @"glx_extension_string": []const u8,
 };
 
 /// @brief CreateContextAttribsARBRequest
-pub const CreateContextAttribsARBRequest = extern struct {
+pub const CreateContextAttribsARBRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 34,
     @"length": u16,
@@ -672,11 +672,11 @@ pub const CreateContextAttribsARBRequest = extern struct {
     @"is_direct": u8,
     @"pad0": [3]u8,
     @"num_attribs": u32,
-    @"attribs": [*]u32,
+    @"attribs": []const u32,
 };
 
 /// @brief SetClientInfo2ARBRequest
-pub const SetClientInfo2ARBRequest = extern struct {
+pub const SetClientInfo2ARBRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 35,
     @"length": u16,
@@ -685,13 +685,13 @@ pub const SetClientInfo2ARBRequest = extern struct {
     @"num_versions": u32,
     @"gl_str_len": u32,
     @"glx_str_len": u32,
-    @"gl_versions": [*]u32,
-    @"gl_extension_string": [*]u8,
-    @"glx_extension_string": [*]u8,
+    @"gl_versions": []const u32,
+    @"gl_extension_string": []const u8,
+    @"glx_extension_string": []const u8,
 };
 
 /// @brief NewListRequest
-pub const NewListRequest = extern struct {
+pub const NewListRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 101,
     @"length": u16,
@@ -701,7 +701,7 @@ pub const NewListRequest = extern struct {
 };
 
 /// @brief EndListRequest
-pub const EndListRequest = extern struct {
+pub const EndListRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 102,
     @"length": u16,
@@ -709,7 +709,7 @@ pub const EndListRequest = extern struct {
 };
 
 /// @brief DeleteListsRequest
-pub const DeleteListsRequest = extern struct {
+pub const DeleteListsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 103,
     @"length": u16,
@@ -724,7 +724,7 @@ pub const GenListscookie = struct {
 };
 
 /// @brief GenListsRequest
-pub const GenListsRequest = extern struct {
+pub const GenListsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 104,
     @"length": u16,
@@ -733,7 +733,7 @@ pub const GenListsRequest = extern struct {
 };
 
 /// @brief GenListsReply
-pub const GenListsReply = extern struct {
+pub const GenListsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -742,7 +742,7 @@ pub const GenListsReply = extern struct {
 };
 
 /// @brief FeedbackBufferRequest
-pub const FeedbackBufferRequest = extern struct {
+pub const FeedbackBufferRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 105,
     @"length": u16,
@@ -752,7 +752,7 @@ pub const FeedbackBufferRequest = extern struct {
 };
 
 /// @brief SelectBufferRequest
-pub const SelectBufferRequest = extern struct {
+pub const SelectBufferRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 106,
     @"length": u16,
@@ -766,7 +766,7 @@ pub const RenderModecookie = struct {
 };
 
 /// @brief RenderModeRequest
-pub const RenderModeRequest = extern struct {
+pub const RenderModeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 107,
     @"length": u16,
@@ -775,7 +775,7 @@ pub const RenderModeRequest = extern struct {
 };
 
 /// @brief RenderModeReply
-pub const RenderModeReply = extern struct {
+pub const RenderModeReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -784,7 +784,7 @@ pub const RenderModeReply = extern struct {
     @"n": u32,
     @"new_mode": u32,
     @"pad1": [12]u8,
-    @"data": [*]u32,
+    @"data": []u32,
 };
 
 pub const RM = extern enum(c_uint) {
@@ -799,7 +799,7 @@ pub const Finishcookie = struct {
 };
 
 /// @brief FinishRequest
-pub const FinishRequest = extern struct {
+pub const FinishRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 108,
     @"length": u16,
@@ -807,7 +807,7 @@ pub const FinishRequest = extern struct {
 };
 
 /// @brief FinishReply
-pub const FinishReply = extern struct {
+pub const FinishReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -815,7 +815,7 @@ pub const FinishReply = extern struct {
 };
 
 /// @brief PixelStorefRequest
-pub const PixelStorefRequest = extern struct {
+pub const PixelStorefRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 109,
     @"length": u16,
@@ -825,7 +825,7 @@ pub const PixelStorefRequest = extern struct {
 };
 
 /// @brief PixelStoreiRequest
-pub const PixelStoreiRequest = extern struct {
+pub const PixelStoreiRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 110,
     @"length": u16,
@@ -840,7 +840,7 @@ pub const ReadPixelscookie = struct {
 };
 
 /// @brief ReadPixelsRequest
-pub const ReadPixelsRequest = extern struct {
+pub const ReadPixelsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 111,
     @"length": u16,
@@ -856,13 +856,13 @@ pub const ReadPixelsRequest = extern struct {
 };
 
 /// @brief ReadPixelsReply
-pub const ReadPixelsReply = extern struct {
+pub const ReadPixelsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"pad1": [24]u8,
-    @"data": [*]u8,
+    @"data": []u8,
 };
 
 /// @brief GetBooleanvcookie
@@ -871,7 +871,7 @@ pub const GetBooleanvcookie = struct {
 };
 
 /// @brief GetBooleanvRequest
-pub const GetBooleanvRequest = extern struct {
+pub const GetBooleanvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 112,
     @"length": u16,
@@ -880,7 +880,7 @@ pub const GetBooleanvRequest = extern struct {
 };
 
 /// @brief GetBooleanvReply
-pub const GetBooleanvReply = extern struct {
+pub const GetBooleanvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -889,7 +889,7 @@ pub const GetBooleanvReply = extern struct {
     @"n": u32,
     @"datum": u8,
     @"pad2": [15]u8,
-    @"data": [*]u8,
+    @"data": []u8,
 };
 
 /// @brief GetClipPlanecookie
@@ -898,7 +898,7 @@ pub const GetClipPlanecookie = struct {
 };
 
 /// @brief GetClipPlaneRequest
-pub const GetClipPlaneRequest = extern struct {
+pub const GetClipPlaneRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 113,
     @"length": u16,
@@ -907,13 +907,13 @@ pub const GetClipPlaneRequest = extern struct {
 };
 
 /// @brief GetClipPlaneReply
-pub const GetClipPlaneReply = extern struct {
+pub const GetClipPlaneReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"pad1": [24]u8,
-    @"data": [*]xcb.glx.FLOAT64,
+    @"data": []xcb.glx.FLOAT64,
 };
 
 /// @brief GetDoublevcookie
@@ -922,7 +922,7 @@ pub const GetDoublevcookie = struct {
 };
 
 /// @brief GetDoublevRequest
-pub const GetDoublevRequest = extern struct {
+pub const GetDoublevRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 114,
     @"length": u16,
@@ -931,7 +931,7 @@ pub const GetDoublevRequest = extern struct {
 };
 
 /// @brief GetDoublevReply
-pub const GetDoublevReply = extern struct {
+pub const GetDoublevReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -940,7 +940,7 @@ pub const GetDoublevReply = extern struct {
     @"n": u32,
     @"datum": xcb.glx.FLOAT64,
     @"pad2": [8]u8,
-    @"data": [*]xcb.glx.FLOAT64,
+    @"data": []xcb.glx.FLOAT64,
 };
 
 /// @brief GetErrorcookie
@@ -949,7 +949,7 @@ pub const GetErrorcookie = struct {
 };
 
 /// @brief GetErrorRequest
-pub const GetErrorRequest = extern struct {
+pub const GetErrorRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 115,
     @"length": u16,
@@ -957,7 +957,7 @@ pub const GetErrorRequest = extern struct {
 };
 
 /// @brief GetErrorReply
-pub const GetErrorReply = extern struct {
+pub const GetErrorReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -971,7 +971,7 @@ pub const GetFloatvcookie = struct {
 };
 
 /// @brief GetFloatvRequest
-pub const GetFloatvRequest = extern struct {
+pub const GetFloatvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 116,
     @"length": u16,
@@ -980,7 +980,7 @@ pub const GetFloatvRequest = extern struct {
 };
 
 /// @brief GetFloatvReply
-pub const GetFloatvReply = extern struct {
+pub const GetFloatvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -989,7 +989,7 @@ pub const GetFloatvReply = extern struct {
     @"n": u32,
     @"datum": xcb.glx.FLOAT32,
     @"pad2": [12]u8,
-    @"data": [*]xcb.glx.FLOAT32,
+    @"data": []xcb.glx.FLOAT32,
 };
 
 /// @brief GetIntegervcookie
@@ -998,7 +998,7 @@ pub const GetIntegervcookie = struct {
 };
 
 /// @brief GetIntegervRequest
-pub const GetIntegervRequest = extern struct {
+pub const GetIntegervRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 117,
     @"length": u16,
@@ -1007,7 +1007,7 @@ pub const GetIntegervRequest = extern struct {
 };
 
 /// @brief GetIntegervReply
-pub const GetIntegervReply = extern struct {
+pub const GetIntegervReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1016,7 +1016,7 @@ pub const GetIntegervReply = extern struct {
     @"n": u32,
     @"datum": i32,
     @"pad2": [12]u8,
-    @"data": [*]i32,
+    @"data": []i32,
 };
 
 /// @brief GetLightfvcookie
@@ -1025,7 +1025,7 @@ pub const GetLightfvcookie = struct {
 };
 
 /// @brief GetLightfvRequest
-pub const GetLightfvRequest = extern struct {
+pub const GetLightfvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 118,
     @"length": u16,
@@ -1035,7 +1035,7 @@ pub const GetLightfvRequest = extern struct {
 };
 
 /// @brief GetLightfvReply
-pub const GetLightfvReply = extern struct {
+pub const GetLightfvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1044,7 +1044,7 @@ pub const GetLightfvReply = extern struct {
     @"n": u32,
     @"datum": xcb.glx.FLOAT32,
     @"pad2": [12]u8,
-    @"data": [*]xcb.glx.FLOAT32,
+    @"data": []xcb.glx.FLOAT32,
 };
 
 /// @brief GetLightivcookie
@@ -1053,7 +1053,7 @@ pub const GetLightivcookie = struct {
 };
 
 /// @brief GetLightivRequest
-pub const GetLightivRequest = extern struct {
+pub const GetLightivRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 119,
     @"length": u16,
@@ -1063,7 +1063,7 @@ pub const GetLightivRequest = extern struct {
 };
 
 /// @brief GetLightivReply
-pub const GetLightivReply = extern struct {
+pub const GetLightivReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1072,7 +1072,7 @@ pub const GetLightivReply = extern struct {
     @"n": u32,
     @"datum": i32,
     @"pad2": [12]u8,
-    @"data": [*]i32,
+    @"data": []i32,
 };
 
 /// @brief GetMapdvcookie
@@ -1081,7 +1081,7 @@ pub const GetMapdvcookie = struct {
 };
 
 /// @brief GetMapdvRequest
-pub const GetMapdvRequest = extern struct {
+pub const GetMapdvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 120,
     @"length": u16,
@@ -1091,7 +1091,7 @@ pub const GetMapdvRequest = extern struct {
 };
 
 /// @brief GetMapdvReply
-pub const GetMapdvReply = extern struct {
+pub const GetMapdvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1100,7 +1100,7 @@ pub const GetMapdvReply = extern struct {
     @"n": u32,
     @"datum": xcb.glx.FLOAT64,
     @"pad2": [8]u8,
-    @"data": [*]xcb.glx.FLOAT64,
+    @"data": []xcb.glx.FLOAT64,
 };
 
 /// @brief GetMapfvcookie
@@ -1109,7 +1109,7 @@ pub const GetMapfvcookie = struct {
 };
 
 /// @brief GetMapfvRequest
-pub const GetMapfvRequest = extern struct {
+pub const GetMapfvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 121,
     @"length": u16,
@@ -1119,7 +1119,7 @@ pub const GetMapfvRequest = extern struct {
 };
 
 /// @brief GetMapfvReply
-pub const GetMapfvReply = extern struct {
+pub const GetMapfvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1128,7 +1128,7 @@ pub const GetMapfvReply = extern struct {
     @"n": u32,
     @"datum": xcb.glx.FLOAT32,
     @"pad2": [12]u8,
-    @"data": [*]xcb.glx.FLOAT32,
+    @"data": []xcb.glx.FLOAT32,
 };
 
 /// @brief GetMapivcookie
@@ -1137,7 +1137,7 @@ pub const GetMapivcookie = struct {
 };
 
 /// @brief GetMapivRequest
-pub const GetMapivRequest = extern struct {
+pub const GetMapivRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 122,
     @"length": u16,
@@ -1147,7 +1147,7 @@ pub const GetMapivRequest = extern struct {
 };
 
 /// @brief GetMapivReply
-pub const GetMapivReply = extern struct {
+pub const GetMapivReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1156,7 +1156,7 @@ pub const GetMapivReply = extern struct {
     @"n": u32,
     @"datum": i32,
     @"pad2": [12]u8,
-    @"data": [*]i32,
+    @"data": []i32,
 };
 
 /// @brief GetMaterialfvcookie
@@ -1165,7 +1165,7 @@ pub const GetMaterialfvcookie = struct {
 };
 
 /// @brief GetMaterialfvRequest
-pub const GetMaterialfvRequest = extern struct {
+pub const GetMaterialfvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 123,
     @"length": u16,
@@ -1175,7 +1175,7 @@ pub const GetMaterialfvRequest = extern struct {
 };
 
 /// @brief GetMaterialfvReply
-pub const GetMaterialfvReply = extern struct {
+pub const GetMaterialfvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1184,7 +1184,7 @@ pub const GetMaterialfvReply = extern struct {
     @"n": u32,
     @"datum": xcb.glx.FLOAT32,
     @"pad2": [12]u8,
-    @"data": [*]xcb.glx.FLOAT32,
+    @"data": []xcb.glx.FLOAT32,
 };
 
 /// @brief GetMaterialivcookie
@@ -1193,7 +1193,7 @@ pub const GetMaterialivcookie = struct {
 };
 
 /// @brief GetMaterialivRequest
-pub const GetMaterialivRequest = extern struct {
+pub const GetMaterialivRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 124,
     @"length": u16,
@@ -1203,7 +1203,7 @@ pub const GetMaterialivRequest = extern struct {
 };
 
 /// @brief GetMaterialivReply
-pub const GetMaterialivReply = extern struct {
+pub const GetMaterialivReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1212,7 +1212,7 @@ pub const GetMaterialivReply = extern struct {
     @"n": u32,
     @"datum": i32,
     @"pad2": [12]u8,
-    @"data": [*]i32,
+    @"data": []i32,
 };
 
 /// @brief GetPixelMapfvcookie
@@ -1221,7 +1221,7 @@ pub const GetPixelMapfvcookie = struct {
 };
 
 /// @brief GetPixelMapfvRequest
-pub const GetPixelMapfvRequest = extern struct {
+pub const GetPixelMapfvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 125,
     @"length": u16,
@@ -1230,7 +1230,7 @@ pub const GetPixelMapfvRequest = extern struct {
 };
 
 /// @brief GetPixelMapfvReply
-pub const GetPixelMapfvReply = extern struct {
+pub const GetPixelMapfvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1239,7 +1239,7 @@ pub const GetPixelMapfvReply = extern struct {
     @"n": u32,
     @"datum": xcb.glx.FLOAT32,
     @"pad2": [12]u8,
-    @"data": [*]xcb.glx.FLOAT32,
+    @"data": []xcb.glx.FLOAT32,
 };
 
 /// @brief GetPixelMapuivcookie
@@ -1248,7 +1248,7 @@ pub const GetPixelMapuivcookie = struct {
 };
 
 /// @brief GetPixelMapuivRequest
-pub const GetPixelMapuivRequest = extern struct {
+pub const GetPixelMapuivRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 126,
     @"length": u16,
@@ -1257,7 +1257,7 @@ pub const GetPixelMapuivRequest = extern struct {
 };
 
 /// @brief GetPixelMapuivReply
-pub const GetPixelMapuivReply = extern struct {
+pub const GetPixelMapuivReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1266,7 +1266,7 @@ pub const GetPixelMapuivReply = extern struct {
     @"n": u32,
     @"datum": u32,
     @"pad2": [12]u8,
-    @"data": [*]u32,
+    @"data": []u32,
 };
 
 /// @brief GetPixelMapusvcookie
@@ -1275,7 +1275,7 @@ pub const GetPixelMapusvcookie = struct {
 };
 
 /// @brief GetPixelMapusvRequest
-pub const GetPixelMapusvRequest = extern struct {
+pub const GetPixelMapusvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 127,
     @"length": u16,
@@ -1284,7 +1284,7 @@ pub const GetPixelMapusvRequest = extern struct {
 };
 
 /// @brief GetPixelMapusvReply
-pub const GetPixelMapusvReply = extern struct {
+pub const GetPixelMapusvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1293,7 +1293,7 @@ pub const GetPixelMapusvReply = extern struct {
     @"n": u32,
     @"datum": u16,
     @"pad2": [16]u8,
-    @"data": [*]u16,
+    @"data": []u16,
 };
 
 /// @brief GetPolygonStipplecookie
@@ -1302,7 +1302,7 @@ pub const GetPolygonStipplecookie = struct {
 };
 
 /// @brief GetPolygonStippleRequest
-pub const GetPolygonStippleRequest = extern struct {
+pub const GetPolygonStippleRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 128,
     @"length": u16,
@@ -1311,13 +1311,13 @@ pub const GetPolygonStippleRequest = extern struct {
 };
 
 /// @brief GetPolygonStippleReply
-pub const GetPolygonStippleReply = extern struct {
+pub const GetPolygonStippleReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"pad1": [24]u8,
-    @"data": [*]u8,
+    @"data": []u8,
 };
 
 /// @brief GetStringcookie
@@ -1326,7 +1326,7 @@ pub const GetStringcookie = struct {
 };
 
 /// @brief GetStringRequest
-pub const GetStringRequest = extern struct {
+pub const GetStringRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 129,
     @"length": u16,
@@ -1335,7 +1335,7 @@ pub const GetStringRequest = extern struct {
 };
 
 /// @brief GetStringReply
-pub const GetStringReply = extern struct {
+pub const GetStringReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1343,7 +1343,7 @@ pub const GetStringReply = extern struct {
     @"pad1": [4]u8,
     @"n": u32,
     @"pad2": [16]u8,
-    @"string": [*]u8,
+    @"string": []u8,
 };
 
 /// @brief GetTexEnvfvcookie
@@ -1352,7 +1352,7 @@ pub const GetTexEnvfvcookie = struct {
 };
 
 /// @brief GetTexEnvfvRequest
-pub const GetTexEnvfvRequest = extern struct {
+pub const GetTexEnvfvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 130,
     @"length": u16,
@@ -1362,7 +1362,7 @@ pub const GetTexEnvfvRequest = extern struct {
 };
 
 /// @brief GetTexEnvfvReply
-pub const GetTexEnvfvReply = extern struct {
+pub const GetTexEnvfvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1371,7 +1371,7 @@ pub const GetTexEnvfvReply = extern struct {
     @"n": u32,
     @"datum": xcb.glx.FLOAT32,
     @"pad2": [12]u8,
-    @"data": [*]xcb.glx.FLOAT32,
+    @"data": []xcb.glx.FLOAT32,
 };
 
 /// @brief GetTexEnvivcookie
@@ -1380,7 +1380,7 @@ pub const GetTexEnvivcookie = struct {
 };
 
 /// @brief GetTexEnvivRequest
-pub const GetTexEnvivRequest = extern struct {
+pub const GetTexEnvivRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 131,
     @"length": u16,
@@ -1390,7 +1390,7 @@ pub const GetTexEnvivRequest = extern struct {
 };
 
 /// @brief GetTexEnvivReply
-pub const GetTexEnvivReply = extern struct {
+pub const GetTexEnvivReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1399,7 +1399,7 @@ pub const GetTexEnvivReply = extern struct {
     @"n": u32,
     @"datum": i32,
     @"pad2": [12]u8,
-    @"data": [*]i32,
+    @"data": []i32,
 };
 
 /// @brief GetTexGendvcookie
@@ -1408,7 +1408,7 @@ pub const GetTexGendvcookie = struct {
 };
 
 /// @brief GetTexGendvRequest
-pub const GetTexGendvRequest = extern struct {
+pub const GetTexGendvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 132,
     @"length": u16,
@@ -1418,7 +1418,7 @@ pub const GetTexGendvRequest = extern struct {
 };
 
 /// @brief GetTexGendvReply
-pub const GetTexGendvReply = extern struct {
+pub const GetTexGendvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1427,7 +1427,7 @@ pub const GetTexGendvReply = extern struct {
     @"n": u32,
     @"datum": xcb.glx.FLOAT64,
     @"pad2": [8]u8,
-    @"data": [*]xcb.glx.FLOAT64,
+    @"data": []xcb.glx.FLOAT64,
 };
 
 /// @brief GetTexGenfvcookie
@@ -1436,7 +1436,7 @@ pub const GetTexGenfvcookie = struct {
 };
 
 /// @brief GetTexGenfvRequest
-pub const GetTexGenfvRequest = extern struct {
+pub const GetTexGenfvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 133,
     @"length": u16,
@@ -1446,7 +1446,7 @@ pub const GetTexGenfvRequest = extern struct {
 };
 
 /// @brief GetTexGenfvReply
-pub const GetTexGenfvReply = extern struct {
+pub const GetTexGenfvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1455,7 +1455,7 @@ pub const GetTexGenfvReply = extern struct {
     @"n": u32,
     @"datum": xcb.glx.FLOAT32,
     @"pad2": [12]u8,
-    @"data": [*]xcb.glx.FLOAT32,
+    @"data": []xcb.glx.FLOAT32,
 };
 
 /// @brief GetTexGenivcookie
@@ -1464,7 +1464,7 @@ pub const GetTexGenivcookie = struct {
 };
 
 /// @brief GetTexGenivRequest
-pub const GetTexGenivRequest = extern struct {
+pub const GetTexGenivRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 134,
     @"length": u16,
@@ -1474,7 +1474,7 @@ pub const GetTexGenivRequest = extern struct {
 };
 
 /// @brief GetTexGenivReply
-pub const GetTexGenivReply = extern struct {
+pub const GetTexGenivReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1483,7 +1483,7 @@ pub const GetTexGenivReply = extern struct {
     @"n": u32,
     @"datum": i32,
     @"pad2": [12]u8,
-    @"data": [*]i32,
+    @"data": []i32,
 };
 
 /// @brief GetTexImagecookie
@@ -1492,7 +1492,7 @@ pub const GetTexImagecookie = struct {
 };
 
 /// @brief GetTexImageRequest
-pub const GetTexImageRequest = extern struct {
+pub const GetTexImageRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 135,
     @"length": u16,
@@ -1505,7 +1505,7 @@ pub const GetTexImageRequest = extern struct {
 };
 
 /// @brief GetTexImageReply
-pub const GetTexImageReply = extern struct {
+pub const GetTexImageReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1515,7 +1515,7 @@ pub const GetTexImageReply = extern struct {
     @"height": i32,
     @"depth": i32,
     @"pad2": [4]u8,
-    @"data": [*]u8,
+    @"data": []u8,
 };
 
 /// @brief GetTexParameterfvcookie
@@ -1524,7 +1524,7 @@ pub const GetTexParameterfvcookie = struct {
 };
 
 /// @brief GetTexParameterfvRequest
-pub const GetTexParameterfvRequest = extern struct {
+pub const GetTexParameterfvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 136,
     @"length": u16,
@@ -1534,7 +1534,7 @@ pub const GetTexParameterfvRequest = extern struct {
 };
 
 /// @brief GetTexParameterfvReply
-pub const GetTexParameterfvReply = extern struct {
+pub const GetTexParameterfvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1543,7 +1543,7 @@ pub const GetTexParameterfvReply = extern struct {
     @"n": u32,
     @"datum": xcb.glx.FLOAT32,
     @"pad2": [12]u8,
-    @"data": [*]xcb.glx.FLOAT32,
+    @"data": []xcb.glx.FLOAT32,
 };
 
 /// @brief GetTexParameterivcookie
@@ -1552,7 +1552,7 @@ pub const GetTexParameterivcookie = struct {
 };
 
 /// @brief GetTexParameterivRequest
-pub const GetTexParameterivRequest = extern struct {
+pub const GetTexParameterivRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 137,
     @"length": u16,
@@ -1562,7 +1562,7 @@ pub const GetTexParameterivRequest = extern struct {
 };
 
 /// @brief GetTexParameterivReply
-pub const GetTexParameterivReply = extern struct {
+pub const GetTexParameterivReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1571,7 +1571,7 @@ pub const GetTexParameterivReply = extern struct {
     @"n": u32,
     @"datum": i32,
     @"pad2": [12]u8,
-    @"data": [*]i32,
+    @"data": []i32,
 };
 
 /// @brief GetTexLevelParameterfvcookie
@@ -1580,7 +1580,7 @@ pub const GetTexLevelParameterfvcookie = struct {
 };
 
 /// @brief GetTexLevelParameterfvRequest
-pub const GetTexLevelParameterfvRequest = extern struct {
+pub const GetTexLevelParameterfvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 138,
     @"length": u16,
@@ -1591,7 +1591,7 @@ pub const GetTexLevelParameterfvRequest = extern struct {
 };
 
 /// @brief GetTexLevelParameterfvReply
-pub const GetTexLevelParameterfvReply = extern struct {
+pub const GetTexLevelParameterfvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1600,7 +1600,7 @@ pub const GetTexLevelParameterfvReply = extern struct {
     @"n": u32,
     @"datum": xcb.glx.FLOAT32,
     @"pad2": [12]u8,
-    @"data": [*]xcb.glx.FLOAT32,
+    @"data": []xcb.glx.FLOAT32,
 };
 
 /// @brief GetTexLevelParameterivcookie
@@ -1609,7 +1609,7 @@ pub const GetTexLevelParameterivcookie = struct {
 };
 
 /// @brief GetTexLevelParameterivRequest
-pub const GetTexLevelParameterivRequest = extern struct {
+pub const GetTexLevelParameterivRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 139,
     @"length": u16,
@@ -1620,7 +1620,7 @@ pub const GetTexLevelParameterivRequest = extern struct {
 };
 
 /// @brief GetTexLevelParameterivReply
-pub const GetTexLevelParameterivReply = extern struct {
+pub const GetTexLevelParameterivReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1629,7 +1629,7 @@ pub const GetTexLevelParameterivReply = extern struct {
     @"n": u32,
     @"datum": i32,
     @"pad2": [12]u8,
-    @"data": [*]i32,
+    @"data": []i32,
 };
 
 /// @brief IsEnabledcookie
@@ -1638,7 +1638,7 @@ pub const IsEnabledcookie = struct {
 };
 
 /// @brief IsEnabledRequest
-pub const IsEnabledRequest = extern struct {
+pub const IsEnabledRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 140,
     @"length": u16,
@@ -1647,7 +1647,7 @@ pub const IsEnabledRequest = extern struct {
 };
 
 /// @brief IsEnabledReply
-pub const IsEnabledReply = extern struct {
+pub const IsEnabledReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1661,7 +1661,7 @@ pub const IsListcookie = struct {
 };
 
 /// @brief IsListRequest
-pub const IsListRequest = extern struct {
+pub const IsListRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 141,
     @"length": u16,
@@ -1670,7 +1670,7 @@ pub const IsListRequest = extern struct {
 };
 
 /// @brief IsListReply
-pub const IsListReply = extern struct {
+pub const IsListReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1679,7 +1679,7 @@ pub const IsListReply = extern struct {
 };
 
 /// @brief FlushRequest
-pub const FlushRequest = extern struct {
+pub const FlushRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 142,
     @"length": u16,
@@ -1692,34 +1692,34 @@ pub const AreTexturesResidentcookie = struct {
 };
 
 /// @brief AreTexturesResidentRequest
-pub const AreTexturesResidentRequest = extern struct {
+pub const AreTexturesResidentRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 143,
     @"length": u16,
     @"context_tag": xcb.glx.CONTEXT_TAG,
     @"n": i32,
-    @"textures": [*]u32,
+    @"textures": []const u32,
 };
 
 /// @brief AreTexturesResidentReply
-pub const AreTexturesResidentReply = extern struct {
+pub const AreTexturesResidentReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"ret_val": xcb.glx.BOOL32,
     @"pad1": [20]u8,
-    @"data": [*]u8,
+    @"data": []u8,
 };
 
 /// @brief DeleteTexturesRequest
-pub const DeleteTexturesRequest = extern struct {
+pub const DeleteTexturesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 144,
     @"length": u16,
     @"context_tag": xcb.glx.CONTEXT_TAG,
     @"n": i32,
-    @"textures": [*]u32,
+    @"textures": []const u32,
 };
 
 /// @brief GenTexturescookie
@@ -1728,7 +1728,7 @@ pub const GenTexturescookie = struct {
 };
 
 /// @brief GenTexturesRequest
-pub const GenTexturesRequest = extern struct {
+pub const GenTexturesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 145,
     @"length": u16,
@@ -1737,13 +1737,13 @@ pub const GenTexturesRequest = extern struct {
 };
 
 /// @brief GenTexturesReply
-pub const GenTexturesReply = extern struct {
+pub const GenTexturesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"pad1": [24]u8,
-    @"data": [*]u32,
+    @"data": []u32,
 };
 
 /// @brief IsTexturecookie
@@ -1752,7 +1752,7 @@ pub const IsTexturecookie = struct {
 };
 
 /// @brief IsTextureRequest
-pub const IsTextureRequest = extern struct {
+pub const IsTextureRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 146,
     @"length": u16,
@@ -1761,7 +1761,7 @@ pub const IsTextureRequest = extern struct {
 };
 
 /// @brief IsTextureReply
-pub const IsTextureReply = extern struct {
+pub const IsTextureReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1775,7 +1775,7 @@ pub const GetColorTablecookie = struct {
 };
 
 /// @brief GetColorTableRequest
-pub const GetColorTableRequest = extern struct {
+pub const GetColorTableRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 147,
     @"length": u16,
@@ -1787,7 +1787,7 @@ pub const GetColorTableRequest = extern struct {
 };
 
 /// @brief GetColorTableReply
-pub const GetColorTableReply = extern struct {
+pub const GetColorTableReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1795,7 +1795,7 @@ pub const GetColorTableReply = extern struct {
     @"pad1": [8]u8,
     @"width": i32,
     @"pad2": [12]u8,
-    @"data": [*]u8,
+    @"data": []u8,
 };
 
 /// @brief GetColorTableParameterfvcookie
@@ -1804,7 +1804,7 @@ pub const GetColorTableParameterfvcookie = struct {
 };
 
 /// @brief GetColorTableParameterfvRequest
-pub const GetColorTableParameterfvRequest = extern struct {
+pub const GetColorTableParameterfvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 148,
     @"length": u16,
@@ -1814,7 +1814,7 @@ pub const GetColorTableParameterfvRequest = extern struct {
 };
 
 /// @brief GetColorTableParameterfvReply
-pub const GetColorTableParameterfvReply = extern struct {
+pub const GetColorTableParameterfvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1823,7 +1823,7 @@ pub const GetColorTableParameterfvReply = extern struct {
     @"n": u32,
     @"datum": xcb.glx.FLOAT32,
     @"pad2": [12]u8,
-    @"data": [*]xcb.glx.FLOAT32,
+    @"data": []xcb.glx.FLOAT32,
 };
 
 /// @brief GetColorTableParameterivcookie
@@ -1832,7 +1832,7 @@ pub const GetColorTableParameterivcookie = struct {
 };
 
 /// @brief GetColorTableParameterivRequest
-pub const GetColorTableParameterivRequest = extern struct {
+pub const GetColorTableParameterivRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 149,
     @"length": u16,
@@ -1842,7 +1842,7 @@ pub const GetColorTableParameterivRequest = extern struct {
 };
 
 /// @brief GetColorTableParameterivReply
-pub const GetColorTableParameterivReply = extern struct {
+pub const GetColorTableParameterivReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1851,7 +1851,7 @@ pub const GetColorTableParameterivReply = extern struct {
     @"n": u32,
     @"datum": i32,
     @"pad2": [12]u8,
-    @"data": [*]i32,
+    @"data": []i32,
 };
 
 /// @brief GetConvolutionFiltercookie
@@ -1860,7 +1860,7 @@ pub const GetConvolutionFiltercookie = struct {
 };
 
 /// @brief GetConvolutionFilterRequest
-pub const GetConvolutionFilterRequest = extern struct {
+pub const GetConvolutionFilterRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 150,
     @"length": u16,
@@ -1872,7 +1872,7 @@ pub const GetConvolutionFilterRequest = extern struct {
 };
 
 /// @brief GetConvolutionFilterReply
-pub const GetConvolutionFilterReply = extern struct {
+pub const GetConvolutionFilterReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1881,7 +1881,7 @@ pub const GetConvolutionFilterReply = extern struct {
     @"width": i32,
     @"height": i32,
     @"pad2": [8]u8,
-    @"data": [*]u8,
+    @"data": []u8,
 };
 
 /// @brief GetConvolutionParameterfvcookie
@@ -1890,7 +1890,7 @@ pub const GetConvolutionParameterfvcookie = struct {
 };
 
 /// @brief GetConvolutionParameterfvRequest
-pub const GetConvolutionParameterfvRequest = extern struct {
+pub const GetConvolutionParameterfvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 151,
     @"length": u16,
@@ -1900,7 +1900,7 @@ pub const GetConvolutionParameterfvRequest = extern struct {
 };
 
 /// @brief GetConvolutionParameterfvReply
-pub const GetConvolutionParameterfvReply = extern struct {
+pub const GetConvolutionParameterfvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1909,7 +1909,7 @@ pub const GetConvolutionParameterfvReply = extern struct {
     @"n": u32,
     @"datum": xcb.glx.FLOAT32,
     @"pad2": [12]u8,
-    @"data": [*]xcb.glx.FLOAT32,
+    @"data": []xcb.glx.FLOAT32,
 };
 
 /// @brief GetConvolutionParameterivcookie
@@ -1918,7 +1918,7 @@ pub const GetConvolutionParameterivcookie = struct {
 };
 
 /// @brief GetConvolutionParameterivRequest
-pub const GetConvolutionParameterivRequest = extern struct {
+pub const GetConvolutionParameterivRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 152,
     @"length": u16,
@@ -1928,7 +1928,7 @@ pub const GetConvolutionParameterivRequest = extern struct {
 };
 
 /// @brief GetConvolutionParameterivReply
-pub const GetConvolutionParameterivReply = extern struct {
+pub const GetConvolutionParameterivReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1937,7 +1937,7 @@ pub const GetConvolutionParameterivReply = extern struct {
     @"n": u32,
     @"datum": i32,
     @"pad2": [12]u8,
-    @"data": [*]i32,
+    @"data": []i32,
 };
 
 /// @brief GetSeparableFiltercookie
@@ -1946,7 +1946,7 @@ pub const GetSeparableFiltercookie = struct {
 };
 
 /// @brief GetSeparableFilterRequest
-pub const GetSeparableFilterRequest = extern struct {
+pub const GetSeparableFilterRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 153,
     @"length": u16,
@@ -1958,7 +1958,7 @@ pub const GetSeparableFilterRequest = extern struct {
 };
 
 /// @brief GetSeparableFilterReply
-pub const GetSeparableFilterReply = extern struct {
+pub const GetSeparableFilterReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1967,7 +1967,7 @@ pub const GetSeparableFilterReply = extern struct {
     @"row_w": i32,
     @"col_h": i32,
     @"pad2": [8]u8,
-    @"rows_and_cols": [*]u8,
+    @"rows_and_cols": []u8,
 };
 
 /// @brief GetHistogramcookie
@@ -1976,7 +1976,7 @@ pub const GetHistogramcookie = struct {
 };
 
 /// @brief GetHistogramRequest
-pub const GetHistogramRequest = extern struct {
+pub const GetHistogramRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 154,
     @"length": u16,
@@ -1989,7 +1989,7 @@ pub const GetHistogramRequest = extern struct {
 };
 
 /// @brief GetHistogramReply
-pub const GetHistogramReply = extern struct {
+pub const GetHistogramReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1997,7 +1997,7 @@ pub const GetHistogramReply = extern struct {
     @"pad1": [8]u8,
     @"width": i32,
     @"pad2": [12]u8,
-    @"data": [*]u8,
+    @"data": []u8,
 };
 
 /// @brief GetHistogramParameterfvcookie
@@ -2006,7 +2006,7 @@ pub const GetHistogramParameterfvcookie = struct {
 };
 
 /// @brief GetHistogramParameterfvRequest
-pub const GetHistogramParameterfvRequest = extern struct {
+pub const GetHistogramParameterfvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 155,
     @"length": u16,
@@ -2016,7 +2016,7 @@ pub const GetHistogramParameterfvRequest = extern struct {
 };
 
 /// @brief GetHistogramParameterfvReply
-pub const GetHistogramParameterfvReply = extern struct {
+pub const GetHistogramParameterfvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -2025,7 +2025,7 @@ pub const GetHistogramParameterfvReply = extern struct {
     @"n": u32,
     @"datum": xcb.glx.FLOAT32,
     @"pad2": [12]u8,
-    @"data": [*]xcb.glx.FLOAT32,
+    @"data": []xcb.glx.FLOAT32,
 };
 
 /// @brief GetHistogramParameterivcookie
@@ -2034,7 +2034,7 @@ pub const GetHistogramParameterivcookie = struct {
 };
 
 /// @brief GetHistogramParameterivRequest
-pub const GetHistogramParameterivRequest = extern struct {
+pub const GetHistogramParameterivRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 156,
     @"length": u16,
@@ -2044,7 +2044,7 @@ pub const GetHistogramParameterivRequest = extern struct {
 };
 
 /// @brief GetHistogramParameterivReply
-pub const GetHistogramParameterivReply = extern struct {
+pub const GetHistogramParameterivReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -2053,7 +2053,7 @@ pub const GetHistogramParameterivReply = extern struct {
     @"n": u32,
     @"datum": i32,
     @"pad2": [12]u8,
-    @"data": [*]i32,
+    @"data": []i32,
 };
 
 /// @brief GetMinmaxcookie
@@ -2062,7 +2062,7 @@ pub const GetMinmaxcookie = struct {
 };
 
 /// @brief GetMinmaxRequest
-pub const GetMinmaxRequest = extern struct {
+pub const GetMinmaxRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 157,
     @"length": u16,
@@ -2075,13 +2075,13 @@ pub const GetMinmaxRequest = extern struct {
 };
 
 /// @brief GetMinmaxReply
-pub const GetMinmaxReply = extern struct {
+pub const GetMinmaxReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"pad1": [24]u8,
-    @"data": [*]u8,
+    @"data": []u8,
 };
 
 /// @brief GetMinmaxParameterfvcookie
@@ -2090,7 +2090,7 @@ pub const GetMinmaxParameterfvcookie = struct {
 };
 
 /// @brief GetMinmaxParameterfvRequest
-pub const GetMinmaxParameterfvRequest = extern struct {
+pub const GetMinmaxParameterfvRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 158,
     @"length": u16,
@@ -2100,7 +2100,7 @@ pub const GetMinmaxParameterfvRequest = extern struct {
 };
 
 /// @brief GetMinmaxParameterfvReply
-pub const GetMinmaxParameterfvReply = extern struct {
+pub const GetMinmaxParameterfvReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -2109,7 +2109,7 @@ pub const GetMinmaxParameterfvReply = extern struct {
     @"n": u32,
     @"datum": xcb.glx.FLOAT32,
     @"pad2": [12]u8,
-    @"data": [*]xcb.glx.FLOAT32,
+    @"data": []xcb.glx.FLOAT32,
 };
 
 /// @brief GetMinmaxParameterivcookie
@@ -2118,7 +2118,7 @@ pub const GetMinmaxParameterivcookie = struct {
 };
 
 /// @brief GetMinmaxParameterivRequest
-pub const GetMinmaxParameterivRequest = extern struct {
+pub const GetMinmaxParameterivRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 159,
     @"length": u16,
@@ -2128,7 +2128,7 @@ pub const GetMinmaxParameterivRequest = extern struct {
 };
 
 /// @brief GetMinmaxParameterivReply
-pub const GetMinmaxParameterivReply = extern struct {
+pub const GetMinmaxParameterivReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -2137,7 +2137,7 @@ pub const GetMinmaxParameterivReply = extern struct {
     @"n": u32,
     @"datum": i32,
     @"pad2": [12]u8,
-    @"data": [*]i32,
+    @"data": []i32,
 };
 
 /// @brief GetCompressedTexImageARBcookie
@@ -2146,7 +2146,7 @@ pub const GetCompressedTexImageARBcookie = struct {
 };
 
 /// @brief GetCompressedTexImageARBRequest
-pub const GetCompressedTexImageARBRequest = extern struct {
+pub const GetCompressedTexImageARBRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 160,
     @"length": u16,
@@ -2156,7 +2156,7 @@ pub const GetCompressedTexImageARBRequest = extern struct {
 };
 
 /// @brief GetCompressedTexImageARBReply
-pub const GetCompressedTexImageARBReply = extern struct {
+pub const GetCompressedTexImageARBReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -2164,17 +2164,17 @@ pub const GetCompressedTexImageARBReply = extern struct {
     @"pad1": [8]u8,
     @"size": i32,
     @"pad2": [12]u8,
-    @"data": [*]u8,
+    @"data": []u8,
 };
 
 /// @brief DeleteQueriesARBRequest
-pub const DeleteQueriesARBRequest = extern struct {
+pub const DeleteQueriesARBRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 161,
     @"length": u16,
     @"context_tag": xcb.glx.CONTEXT_TAG,
     @"n": i32,
-    @"ids": [*]u32,
+    @"ids": []const u32,
 };
 
 /// @brief GenQueriesARBcookie
@@ -2183,7 +2183,7 @@ pub const GenQueriesARBcookie = struct {
 };
 
 /// @brief GenQueriesARBRequest
-pub const GenQueriesARBRequest = extern struct {
+pub const GenQueriesARBRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 162,
     @"length": u16,
@@ -2192,13 +2192,13 @@ pub const GenQueriesARBRequest = extern struct {
 };
 
 /// @brief GenQueriesARBReply
-pub const GenQueriesARBReply = extern struct {
+pub const GenQueriesARBReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"pad1": [24]u8,
-    @"data": [*]u32,
+    @"data": []u32,
 };
 
 /// @brief IsQueryARBcookie
@@ -2207,7 +2207,7 @@ pub const IsQueryARBcookie = struct {
 };
 
 /// @brief IsQueryARBRequest
-pub const IsQueryARBRequest = extern struct {
+pub const IsQueryARBRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 163,
     @"length": u16,
@@ -2216,7 +2216,7 @@ pub const IsQueryARBRequest = extern struct {
 };
 
 /// @brief IsQueryARBReply
-pub const IsQueryARBReply = extern struct {
+pub const IsQueryARBReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -2230,7 +2230,7 @@ pub const GetQueryivARBcookie = struct {
 };
 
 /// @brief GetQueryivARBRequest
-pub const GetQueryivARBRequest = extern struct {
+pub const GetQueryivARBRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 164,
     @"length": u16,
@@ -2240,7 +2240,7 @@ pub const GetQueryivARBRequest = extern struct {
 };
 
 /// @brief GetQueryivARBReply
-pub const GetQueryivARBReply = extern struct {
+pub const GetQueryivARBReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -2249,7 +2249,7 @@ pub const GetQueryivARBReply = extern struct {
     @"n": u32,
     @"datum": i32,
     @"pad2": [12]u8,
-    @"data": [*]i32,
+    @"data": []i32,
 };
 
 /// @brief GetQueryObjectivARBcookie
@@ -2258,7 +2258,7 @@ pub const GetQueryObjectivARBcookie = struct {
 };
 
 /// @brief GetQueryObjectivARBRequest
-pub const GetQueryObjectivARBRequest = extern struct {
+pub const GetQueryObjectivARBRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 165,
     @"length": u16,
@@ -2268,7 +2268,7 @@ pub const GetQueryObjectivARBRequest = extern struct {
 };
 
 /// @brief GetQueryObjectivARBReply
-pub const GetQueryObjectivARBReply = extern struct {
+pub const GetQueryObjectivARBReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -2277,7 +2277,7 @@ pub const GetQueryObjectivARBReply = extern struct {
     @"n": u32,
     @"datum": i32,
     @"pad2": [12]u8,
-    @"data": [*]i32,
+    @"data": []i32,
 };
 
 /// @brief GetQueryObjectuivARBcookie
@@ -2286,7 +2286,7 @@ pub const GetQueryObjectuivARBcookie = struct {
 };
 
 /// @brief GetQueryObjectuivARBRequest
-pub const GetQueryObjectuivARBRequest = extern struct {
+pub const GetQueryObjectuivARBRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 166,
     @"length": u16,
@@ -2296,7 +2296,7 @@ pub const GetQueryObjectuivARBRequest = extern struct {
 };
 
 /// @brief GetQueryObjectuivARBReply
-pub const GetQueryObjectuivARBReply = extern struct {
+pub const GetQueryObjectuivARBReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -2305,7 +2305,7 @@ pub const GetQueryObjectuivARBReply = extern struct {
     @"n": u32,
     @"datum": u32,
     @"pad2": [12]u8,
-    @"data": [*]u32,
+    @"data": []u32,
 };
 
 test "" {

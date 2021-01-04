@@ -13,7 +13,7 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -22,7 +22,7 @@ pub const QueryVersionRequest = extern struct {
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -38,7 +38,7 @@ pub const Startcookie = struct {
 };
 
 /// @brief StartRequest
-pub const StartRequest = extern struct {
+pub const StartRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -46,7 +46,7 @@ pub const StartRequest = extern struct {
 };
 
 /// @brief StartReply
-pub const StartReply = extern struct {
+pub const StartReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -60,7 +60,7 @@ pub const Endcookie = struct {
 };
 
 /// @brief EndRequest
-pub const EndRequest = extern struct {
+pub const EndRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -68,7 +68,7 @@ pub const EndRequest = extern struct {
 };
 
 /// @brief EndReply
-pub const EndReply = extern struct {
+pub const EndReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -82,7 +82,7 @@ pub const Datatype = extern enum(c_uint) {
 };
 
 /// @brief Event
-pub const Event = extern struct {
+pub const Event = struct {
     @"pad0": [32]u8,
 };
 
@@ -92,7 +92,7 @@ pub const Sendcookie = struct {
 };
 
 /// @brief SendRequest
-pub const SendRequest = extern struct {
+pub const SendRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -102,7 +102,7 @@ pub const SendRequest = extern struct {
 };
 
 /// @brief SendReply
-pub const SendReply = extern struct {
+pub const SendReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -116,7 +116,7 @@ pub const SelectInputcookie = struct {
 };
 
 /// @brief SelectInputRequest
-pub const SelectInputRequest = extern struct {
+pub const SelectInputRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -124,7 +124,7 @@ pub const SelectInputRequest = extern struct {
 };
 
 /// @brief SelectInputReply
-pub const SelectInputReply = extern struct {
+pub const SelectInputReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,

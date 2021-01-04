@@ -6,7 +6,7 @@
 const xcb = @import("../xcb.zig");
 
 /// @brief CHAR2B
-pub const CHAR2B = extern struct {
+pub const CHAR2B = struct {
     @"byte1": u8,
     @"byte2": u8,
 };
@@ -44,13 +44,13 @@ pub const KEYCODE32 = u32;
 pub const BUTTON = u8;
 
 /// @brief POINT
-pub const POINT = extern struct {
+pub const POINT = struct {
     @"x": i16,
     @"y": i16,
 };
 
 /// @brief RECTANGLE
-pub const RECTANGLE = extern struct {
+pub const RECTANGLE = struct {
     @"x": i16,
     @"y": i16,
     @"width": u16,
@@ -58,7 +58,7 @@ pub const RECTANGLE = extern struct {
 };
 
 /// @brief ARC
-pub const ARC = extern struct {
+pub const ARC = struct {
     @"x": i16,
     @"y": i16,
     @"width": u16,
@@ -68,7 +68,7 @@ pub const ARC = extern struct {
 };
 
 /// @brief FORMAT
-pub const FORMAT = extern struct {
+pub const FORMAT = struct {
     @"depth": u8,
     @"bits_per_pixel": u8,
     @"scanline_pad": u8,
@@ -85,7 +85,7 @@ pub const VisualClass = extern enum(c_uint) {
 };
 
 /// @brief VISUALTYPE
-pub const VISUALTYPE = extern struct {
+pub const VISUALTYPE = struct {
     @"visual_id": xcb.VISUALID,
     @"class": u8,
     @"bits_per_rgb_value": u8,
@@ -97,12 +97,12 @@ pub const VISUALTYPE = extern struct {
 };
 
 /// @brief DEPTH
-pub const DEPTH = extern struct {
+pub const DEPTH = struct {
     @"depth": u8,
     @"pad0": u8,
     @"visuals_len": u16,
     @"pad1": [4]u8,
-    @"visuals": [*]xcb.VISUALTYPE,
+    @"visuals": []xcb.VISUALTYPE,
 };
 
 pub const EventMask = extern enum(c_uint) {
@@ -141,7 +141,7 @@ pub const BackingStore = extern enum(c_uint) {
 };
 
 /// @brief SCREEN
-pub const SCREEN = extern struct {
+pub const SCREEN = struct {
     @"root": xcb.WINDOW,
     @"default_colormap": xcb.COLORMAP,
     @"white_pixel": u32,
@@ -158,11 +158,11 @@ pub const SCREEN = extern struct {
     @"save_unders": u8,
     @"root_depth": u8,
     @"allowed_depths_len": u8,
-    @"allowed_depths": [*]xcb.DEPTH,
+    @"allowed_depths": []xcb.DEPTH,
 };
 
 /// @brief SetupRequest
-pub const SetupRequest = extern struct {
+pub const SetupRequest = struct {
     @"byte_order": u8,
     @"pad0": u8,
     @"protocol_major_version": u16,
@@ -170,26 +170,26 @@ pub const SetupRequest = extern struct {
     @"authorization_protocol_name_len": u16,
     @"authorization_protocol_data_len": u16,
     @"pad1": [2]u8,
-    @"authorization_protocol_name": [*]u8,
-    @"authorization_protocol_data": [*]u8,
+    @"authorization_protocol_name": []u8,
+    @"authorization_protocol_data": []u8,
 };
 
 /// @brief SetupFailed
-pub const SetupFailed = extern struct {
+pub const SetupFailed = struct {
     @"status": u8,
     @"reason_len": u8,
     @"protocol_major_version": u16,
     @"protocol_minor_version": u16,
     @"length": u16,
-    @"reason": [*]u8,
+    @"reason": []u8,
 };
 
 /// @brief SetupAuthenticate
-pub const SetupAuthenticate = extern struct {
+pub const SetupAuthenticate = struct {
     @"status": u8,
     @"pad0": [5]u8,
     @"length": u16,
-    @"reason": [*]u8,
+    @"reason": []u8,
 };
 
 pub const ImageOrder = extern enum(c_uint) {
@@ -198,7 +198,7 @@ pub const ImageOrder = extern enum(c_uint) {
 };
 
 /// @brief Setup
-pub const Setup = extern struct {
+pub const Setup = struct {
     @"status": u8,
     @"pad0": u8,
     @"protocol_major_version": u16,
@@ -219,9 +219,9 @@ pub const Setup = extern struct {
     @"min_keycode": xcb.KEYCODE,
     @"max_keycode": xcb.KEYCODE,
     @"pad1": [4]u8,
-    @"vendor": [*]u8,
-    @"pixmap_formats": [*]xcb.FORMAT,
-    @"roots": [*]xcb.SCREEN,
+    @"vendor": []u8,
+    @"pixmap_formats": []xcb.FORMAT,
+    @"roots": []xcb.SCREEN,
 };
 
 pub const ModMask = extern enum(c_uint) {
@@ -260,7 +260,7 @@ pub const Window = extern enum(c_uint) {
 pub const KeyPressOpcode = 2;
 
 /// @brief KeyPressEvent
-pub const KeyPressEvent = extern struct {
+pub const KeyPressEvent = struct {
     @"response_type": u8,
     @"detail": xcb.KEYCODE,
     @"sequence": u16,
@@ -294,7 +294,7 @@ pub const ButtonMask = extern enum(c_uint) {
 pub const ButtonPressOpcode = 4;
 
 /// @brief ButtonPressEvent
-pub const ButtonPressEvent = extern struct {
+pub const ButtonPressEvent = struct {
     @"response_type": u8,
     @"detail": xcb.BUTTON,
     @"sequence": u16,
@@ -324,7 +324,7 @@ pub const Motion = extern enum(c_uint) {
 pub const MotionNotifyOpcode = 6;
 
 /// @brief MotionNotifyEvent
-pub const MotionNotifyEvent = extern struct {
+pub const MotionNotifyEvent = struct {
     @"response_type": u8,
     @"detail": u8,
     @"sequence": u16,
@@ -363,7 +363,7 @@ pub const NotifyMode = extern enum(c_uint) {
 pub const EnterNotifyOpcode = 7;
 
 /// @brief EnterNotifyEvent
-pub const EnterNotifyEvent = extern struct {
+pub const EnterNotifyEvent = struct {
     @"response_type": u8,
     @"detail": u8,
     @"sequence": u16,
@@ -388,7 +388,7 @@ pub const LeaveNotifyEvent = xcb.EnterNotifyEvent;
 pub const FocusInOpcode = 9;
 
 /// @brief FocusInEvent
-pub const FocusInEvent = extern struct {
+pub const FocusInEvent = struct {
     @"response_type": u8,
     @"detail": u8,
     @"sequence": u16,
@@ -405,7 +405,7 @@ pub const FocusOutEvent = xcb.FocusInEvent;
 pub const KeymapNotifyOpcode = 11;
 
 /// @brief KeymapNotifyEvent
-pub const KeymapNotifyEvent = extern struct {
+pub const KeymapNotifyEvent = struct {
     @"response_type": u8,
     @"keys": [31]u8,
 };
@@ -414,7 +414,7 @@ pub const KeymapNotifyEvent = extern struct {
 pub const ExposeOpcode = 12;
 
 /// @brief ExposeEvent
-pub const ExposeEvent = extern struct {
+pub const ExposeEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -431,7 +431,7 @@ pub const ExposeEvent = extern struct {
 pub const GraphicsExposureOpcode = 13;
 
 /// @brief GraphicsExposureEvent
-pub const GraphicsExposureEvent = extern struct {
+pub const GraphicsExposureEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -450,7 +450,7 @@ pub const GraphicsExposureEvent = extern struct {
 pub const NoExposureOpcode = 14;
 
 /// @brief NoExposureEvent
-pub const NoExposureEvent = extern struct {
+pub const NoExposureEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -470,7 +470,7 @@ pub const Visibility = extern enum(c_uint) {
 pub const VisibilityNotifyOpcode = 15;
 
 /// @brief VisibilityNotifyEvent
-pub const VisibilityNotifyEvent = extern struct {
+pub const VisibilityNotifyEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -483,7 +483,7 @@ pub const VisibilityNotifyEvent = extern struct {
 pub const CreateNotifyOpcode = 16;
 
 /// @brief CreateNotifyEvent
-pub const CreateNotifyEvent = extern struct {
+pub const CreateNotifyEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -502,7 +502,7 @@ pub const CreateNotifyEvent = extern struct {
 pub const DestroyNotifyOpcode = 17;
 
 /// @brief DestroyNotifyEvent
-pub const DestroyNotifyEvent = extern struct {
+pub const DestroyNotifyEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -514,7 +514,7 @@ pub const DestroyNotifyEvent = extern struct {
 pub const UnmapNotifyOpcode = 18;
 
 /// @brief UnmapNotifyEvent
-pub const UnmapNotifyEvent = extern struct {
+pub const UnmapNotifyEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -528,7 +528,7 @@ pub const UnmapNotifyEvent = extern struct {
 pub const MapNotifyOpcode = 19;
 
 /// @brief MapNotifyEvent
-pub const MapNotifyEvent = extern struct {
+pub const MapNotifyEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -542,7 +542,7 @@ pub const MapNotifyEvent = extern struct {
 pub const MapRequestOpcode = 20;
 
 /// @brief MapRequestEvent
-pub const MapRequestEvent = extern struct {
+pub const MapRequestEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -554,7 +554,7 @@ pub const MapRequestEvent = extern struct {
 pub const ReparentNotifyOpcode = 21;
 
 /// @brief ReparentNotifyEvent
-pub const ReparentNotifyEvent = extern struct {
+pub const ReparentNotifyEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -571,7 +571,7 @@ pub const ReparentNotifyEvent = extern struct {
 pub const ConfigureNotifyOpcode = 22;
 
 /// @brief ConfigureNotifyEvent
-pub const ConfigureNotifyEvent = extern struct {
+pub const ConfigureNotifyEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -591,7 +591,7 @@ pub const ConfigureNotifyEvent = extern struct {
 pub const ConfigureRequestOpcode = 23;
 
 /// @brief ConfigureRequestEvent
-pub const ConfigureRequestEvent = extern struct {
+pub const ConfigureRequestEvent = struct {
     @"response_type": u8,
     @"stack_mode": u8,
     @"sequence": u16,
@@ -610,7 +610,7 @@ pub const ConfigureRequestEvent = extern struct {
 pub const GravityNotifyOpcode = 24;
 
 /// @brief GravityNotifyEvent
-pub const GravityNotifyEvent = extern struct {
+pub const GravityNotifyEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -624,7 +624,7 @@ pub const GravityNotifyEvent = extern struct {
 pub const ResizeRequestOpcode = 25;
 
 /// @brief ResizeRequestEvent
-pub const ResizeRequestEvent = extern struct {
+pub const ResizeRequestEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -644,7 +644,7 @@ pub const Place = extern enum(c_uint) {
 pub const CirculateNotifyOpcode = 26;
 
 /// @brief CirculateNotifyEvent
-pub const CirculateNotifyEvent = extern struct {
+pub const CirculateNotifyEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -668,7 +668,7 @@ pub const Property = extern enum(c_uint) {
 pub const PropertyNotifyOpcode = 28;
 
 /// @brief PropertyNotifyEvent
-pub const PropertyNotifyEvent = extern struct {
+pub const PropertyNotifyEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -683,7 +683,7 @@ pub const PropertyNotifyEvent = extern struct {
 pub const SelectionClearOpcode = 29;
 
 /// @brief SelectionClearEvent
-pub const SelectionClearEvent = extern struct {
+pub const SelectionClearEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -773,7 +773,7 @@ pub const Atom = extern enum(c_uint) {
 pub const SelectionRequestOpcode = 30;
 
 /// @brief SelectionRequestEvent
-pub const SelectionRequestEvent = extern struct {
+pub const SelectionRequestEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -789,7 +789,7 @@ pub const SelectionRequestEvent = extern struct {
 pub const SelectionNotifyOpcode = 31;
 
 /// @brief SelectionNotifyEvent
-pub const SelectionNotifyEvent = extern struct {
+pub const SelectionNotifyEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -815,7 +815,7 @@ pub const Colormap = extern enum(c_uint) {
 pub const ColormapNotifyOpcode = 32;
 
 /// @brief ColormapNotifyEvent
-pub const ColormapNotifyEvent = extern struct {
+pub const ColormapNotifyEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -827,7 +827,7 @@ pub const ColormapNotifyEvent = extern struct {
 };
 
 /// @brief ClientMessageData
-pub const ClientMessageData = extern union {
+pub const ClientMessageData = union {
     @"data8": [20]u8,
     @"data16": [10]u16,
     @"data32": [5]u32,
@@ -837,7 +837,7 @@ pub const ClientMessageData = extern union {
 pub const ClientMessageOpcode = 33;
 
 /// @brief ClientMessageEvent
-pub const ClientMessageEvent = extern struct {
+pub const ClientMessageEvent = struct {
     @"response_type": u8,
     @"format": u8,
     @"sequence": u16,
@@ -856,7 +856,7 @@ pub const Mapping = extern enum(c_uint) {
 pub const MappingNotifyOpcode = 34;
 
 /// @brief MappingNotifyEvent
-pub const MappingNotifyEvent = extern struct {
+pub const MappingNotifyEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -870,7 +870,7 @@ pub const MappingNotifyEvent = extern struct {
 pub const GeGenericOpcode = 35;
 
 /// @brief GeGenericEvent
-pub const GeGenericEvent = extern struct {
+pub const GeGenericEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -902,7 +902,7 @@ pub const LengthOpcode = 16;
 pub const ImplementationOpcode = 17;
 
 /// @brief RequestError
-pub const RequestError = extern struct {
+pub const RequestError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -943,7 +943,7 @@ pub const GContextOpcode = 13;
 pub const IDChoiceOpcode = 14;
 
 /// @brief ValueError
-pub const ValueError = extern struct {
+pub const ValueError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -1066,7 +1066,7 @@ pub const Gravity = extern enum(c_uint) {
 };
 
 /// @brief CreateWindowRequest
-pub const CreateWindowRequest = extern struct {
+pub const CreateWindowRequest = struct {
     @"major_opcode": u8,
     @"depth": u8,
     @"length": u16,
@@ -1083,7 +1083,7 @@ pub const CreateWindowRequest = extern struct {
 };
 
 /// @brief ChangeWindowAttributesRequest
-pub const ChangeWindowAttributesRequest = extern struct {
+pub const ChangeWindowAttributesRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1103,7 +1103,7 @@ pub const GetWindowAttributescookie = struct {
 };
 
 /// @brief GetWindowAttributesRequest
-pub const GetWindowAttributesRequest = extern struct {
+pub const GetWindowAttributesRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1111,7 +1111,7 @@ pub const GetWindowAttributesRequest = extern struct {
 };
 
 /// @brief GetWindowAttributesReply
-pub const GetWindowAttributesReply = extern struct {
+pub const GetWindowAttributesReply = struct {
     @"response_type": u8,
     @"backing_store": u8,
     @"sequence": u16,
@@ -1134,7 +1134,7 @@ pub const GetWindowAttributesReply = extern struct {
 };
 
 /// @brief DestroyWindowRequest
-pub const DestroyWindowRequest = extern struct {
+pub const DestroyWindowRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1142,7 +1142,7 @@ pub const DestroyWindowRequest = extern struct {
 };
 
 /// @brief DestroySubwindowsRequest
-pub const DestroySubwindowsRequest = extern struct {
+pub const DestroySubwindowsRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1155,7 +1155,7 @@ pub const SetMode = extern enum(c_uint) {
 };
 
 /// @brief ChangeSaveSetRequest
-pub const ChangeSaveSetRequest = extern struct {
+pub const ChangeSaveSetRequest = struct {
     @"major_opcode": u8,
     @"mode": u8,
     @"length": u16,
@@ -1163,7 +1163,7 @@ pub const ChangeSaveSetRequest = extern struct {
 };
 
 /// @brief ReparentWindowRequest
-pub const ReparentWindowRequest = extern struct {
+pub const ReparentWindowRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1174,7 +1174,7 @@ pub const ReparentWindowRequest = extern struct {
 };
 
 /// @brief MapWindowRequest
-pub const MapWindowRequest = extern struct {
+pub const MapWindowRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1182,7 +1182,7 @@ pub const MapWindowRequest = extern struct {
 };
 
 /// @brief MapSubwindowsRequest
-pub const MapSubwindowsRequest = extern struct {
+pub const MapSubwindowsRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1190,7 +1190,7 @@ pub const MapSubwindowsRequest = extern struct {
 };
 
 /// @brief UnmapWindowRequest
-pub const UnmapWindowRequest = extern struct {
+pub const UnmapWindowRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1198,7 +1198,7 @@ pub const UnmapWindowRequest = extern struct {
 };
 
 /// @brief UnmapSubwindowsRequest
-pub const UnmapSubwindowsRequest = extern struct {
+pub const UnmapSubwindowsRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1224,7 +1224,7 @@ pub const StackMode = extern enum(c_uint) {
 };
 
 /// @brief ConfigureWindowRequest
-pub const ConfigureWindowRequest = extern struct {
+pub const ConfigureWindowRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1239,7 +1239,7 @@ pub const Circulate = extern enum(c_uint) {
 };
 
 /// @brief CirculateWindowRequest
-pub const CirculateWindowRequest = extern struct {
+pub const CirculateWindowRequest = struct {
     @"major_opcode": u8,
     @"direction": u8,
     @"length": u16,
@@ -1252,7 +1252,7 @@ pub const GetGeometrycookie = struct {
 };
 
 /// @brief GetGeometryRequest
-pub const GetGeometryRequest = extern struct {
+pub const GetGeometryRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1260,7 +1260,7 @@ pub const GetGeometryRequest = extern struct {
 };
 
 /// @brief GetGeometryReply
-pub const GetGeometryReply = extern struct {
+pub const GetGeometryReply = struct {
     @"response_type": u8,
     @"depth": u8,
     @"sequence": u16,
@@ -1280,7 +1280,7 @@ pub const QueryTreecookie = struct {
 };
 
 /// @brief QueryTreeRequest
-pub const QueryTreeRequest = extern struct {
+pub const QueryTreeRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1288,7 +1288,7 @@ pub const QueryTreeRequest = extern struct {
 };
 
 /// @brief QueryTreeReply
-pub const QueryTreeReply = extern struct {
+pub const QueryTreeReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1297,7 +1297,7 @@ pub const QueryTreeReply = extern struct {
     @"parent": xcb.WINDOW,
     @"children_len": u16,
     @"pad1": [14]u8,
-    @"children": [*]xcb.WINDOW,
+    @"children": []xcb.WINDOW,
 };
 
 /// @brief InternAtomcookie
@@ -1306,17 +1306,17 @@ pub const InternAtomcookie = struct {
 };
 
 /// @brief InternAtomRequest
-pub const InternAtomRequest = extern struct {
+pub const InternAtomRequest = struct {
     @"major_opcode": u8,
     @"only_if_exists": u8,
     @"length": u16,
     @"name_len": u16,
     @"pad0": [2]u8,
-    @"name": [*]u8,
+    @"name": []const u8,
 };
 
 /// @brief InternAtomReply
-pub const InternAtomReply = extern struct {
+pub const InternAtomReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1330,7 +1330,7 @@ pub const GetAtomNamecookie = struct {
 };
 
 /// @brief GetAtomNameRequest
-pub const GetAtomNameRequest = extern struct {
+pub const GetAtomNameRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1338,14 +1338,14 @@ pub const GetAtomNameRequest = extern struct {
 };
 
 /// @brief GetAtomNameReply
-pub const GetAtomNameReply = extern struct {
+pub const GetAtomNameReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"name_len": u16,
     @"pad1": [22]u8,
-    @"name": [*]u8,
+    @"name": []u8,
 };
 
 pub const PropMode = extern enum(c_uint) {
@@ -1362,7 +1362,7 @@ pub const PropMode = extern enum(c_uint) {
 };
 
 /// @brief ChangePropertyRequest
-pub const ChangePropertyRequest = extern struct {
+pub const ChangePropertyRequest = struct {
     @"major_opcode": u8,
     @"mode": u8,
     @"length": u16,
@@ -1372,11 +1372,11 @@ pub const ChangePropertyRequest = extern struct {
     @"format": u8,
     @"pad0": [3]u8,
     @"data_len": u32,
-    @"data": [*]u8,
+    @"data": []const u8,
 };
 
 /// @brief DeletePropertyRequest
-pub const DeletePropertyRequest = extern struct {
+pub const DeletePropertyRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1394,7 +1394,7 @@ pub const GetPropertycookie = struct {
 };
 
 /// @brief GetPropertyRequest
-pub const GetPropertyRequest = extern struct {
+pub const GetPropertyRequest = struct {
     @"major_opcode": u8,
     @"delete": u8,
     @"length": u16,
@@ -1406,7 +1406,7 @@ pub const GetPropertyRequest = extern struct {
 };
 
 /// @brief GetPropertyReply
-pub const GetPropertyReply = extern struct {
+pub const GetPropertyReply = struct {
     @"response_type": u8,
     @"format": u8,
     @"sequence": u16,
@@ -1415,7 +1415,7 @@ pub const GetPropertyReply = extern struct {
     @"bytes_after": u32,
     @"value_len": u32,
     @"pad0": [12]u8,
-    @"value": [*]u8,
+    @"value": []u8,
 };
 
 /// @brief ListPropertiescookie
@@ -1424,7 +1424,7 @@ pub const ListPropertiescookie = struct {
 };
 
 /// @brief ListPropertiesRequest
-pub const ListPropertiesRequest = extern struct {
+pub const ListPropertiesRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1432,18 +1432,18 @@ pub const ListPropertiesRequest = extern struct {
 };
 
 /// @brief ListPropertiesReply
-pub const ListPropertiesReply = extern struct {
+pub const ListPropertiesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"atoms_len": u16,
     @"pad1": [22]u8,
-    @"atoms": [*]xcb.ATOM,
+    @"atoms": []xcb.ATOM,
 };
 
 /// @brief SetSelectionOwnerRequest
-pub const SetSelectionOwnerRequest = extern struct {
+pub const SetSelectionOwnerRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1458,7 +1458,7 @@ pub const GetSelectionOwnercookie = struct {
 };
 
 /// @brief GetSelectionOwnerRequest
-pub const GetSelectionOwnerRequest = extern struct {
+pub const GetSelectionOwnerRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1466,7 +1466,7 @@ pub const GetSelectionOwnerRequest = extern struct {
 };
 
 /// @brief GetSelectionOwnerReply
-pub const GetSelectionOwnerReply = extern struct {
+pub const GetSelectionOwnerReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1475,7 +1475,7 @@ pub const GetSelectionOwnerReply = extern struct {
 };
 
 /// @brief ConvertSelectionRequest
-pub const ConvertSelectionRequest = extern struct {
+pub const ConvertSelectionRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1492,7 +1492,7 @@ pub const SendEventDest = extern enum(c_uint) {
 };
 
 /// @brief SendEventRequest
-pub const SendEventRequest = extern struct {
+pub const SendEventRequest = struct {
     @"major_opcode": u8,
     @"propagate": u8,
     @"length": u16,
@@ -1528,7 +1528,7 @@ pub const GrabPointercookie = struct {
 };
 
 /// @brief GrabPointerRequest
-pub const GrabPointerRequest = extern struct {
+pub const GrabPointerRequest = struct {
     @"major_opcode": u8,
     @"owner_events": u8,
     @"length": u16,
@@ -1542,7 +1542,7 @@ pub const GrabPointerRequest = extern struct {
 };
 
 /// @brief GrabPointerReply
-pub const GrabPointerReply = extern struct {
+pub const GrabPointerReply = struct {
     @"response_type": u8,
     @"status": u8,
     @"sequence": u16,
@@ -1550,7 +1550,7 @@ pub const GrabPointerReply = extern struct {
 };
 
 /// @brief UngrabPointerRequest
-pub const UngrabPointerRequest = extern struct {
+pub const UngrabPointerRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1573,7 +1573,7 @@ pub const ButtonIndex = extern enum(c_uint) {
 };
 
 /// @brief GrabButtonRequest
-pub const GrabButtonRequest = extern struct {
+pub const GrabButtonRequest = struct {
     @"major_opcode": u8,
     @"owner_events": u8,
     @"length": u16,
@@ -1589,7 +1589,7 @@ pub const GrabButtonRequest = extern struct {
 };
 
 /// @brief UngrabButtonRequest
-pub const UngrabButtonRequest = extern struct {
+pub const UngrabButtonRequest = struct {
     @"major_opcode": u8,
     @"button": u8,
     @"length": u16,
@@ -1599,7 +1599,7 @@ pub const UngrabButtonRequest = extern struct {
 };
 
 /// @brief ChangeActivePointerGrabRequest
-pub const ChangeActivePointerGrabRequest = extern struct {
+pub const ChangeActivePointerGrabRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1615,7 +1615,7 @@ pub const GrabKeyboardcookie = struct {
 };
 
 /// @brief GrabKeyboardRequest
-pub const GrabKeyboardRequest = extern struct {
+pub const GrabKeyboardRequest = struct {
     @"major_opcode": u8,
     @"owner_events": u8,
     @"length": u16,
@@ -1627,7 +1627,7 @@ pub const GrabKeyboardRequest = extern struct {
 };
 
 /// @brief GrabKeyboardReply
-pub const GrabKeyboardReply = extern struct {
+pub const GrabKeyboardReply = struct {
     @"response_type": u8,
     @"status": u8,
     @"sequence": u16,
@@ -1635,7 +1635,7 @@ pub const GrabKeyboardReply = extern struct {
 };
 
 /// @brief UngrabKeyboardRequest
-pub const UngrabKeyboardRequest = extern struct {
+pub const UngrabKeyboardRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1647,7 +1647,7 @@ pub const Grab = extern enum(c_uint) {
 };
 
 /// @brief GrabKeyRequest
-pub const GrabKeyRequest = extern struct {
+pub const GrabKeyRequest = struct {
     @"major_opcode": u8,
     @"owner_events": u8,
     @"length": u16,
@@ -1660,7 +1660,7 @@ pub const GrabKeyRequest = extern struct {
 };
 
 /// @brief UngrabKeyRequest
-pub const UngrabKeyRequest = extern struct {
+pub const UngrabKeyRequest = struct {
     @"major_opcode": u8,
     @"key": xcb.KEYCODE,
     @"length": u16,
@@ -1738,7 +1738,7 @@ pub const Allow = extern enum(c_uint) {
 };
 
 /// @brief AllowEventsRequest
-pub const AllowEventsRequest = extern struct {
+pub const AllowEventsRequest = struct {
     @"major_opcode": u8,
     @"mode": u8,
     @"length": u16,
@@ -1746,14 +1746,14 @@ pub const AllowEventsRequest = extern struct {
 };
 
 /// @brief GrabServerRequest
-pub const GrabServerRequest = extern struct {
+pub const GrabServerRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
 };
 
 /// @brief UngrabServerRequest
-pub const UngrabServerRequest = extern struct {
+pub const UngrabServerRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1765,7 +1765,7 @@ pub const QueryPointercookie = struct {
 };
 
 /// @brief QueryPointerRequest
-pub const QueryPointerRequest = extern struct {
+pub const QueryPointerRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1773,7 +1773,7 @@ pub const QueryPointerRequest = extern struct {
 };
 
 /// @brief QueryPointerReply
-pub const QueryPointerReply = extern struct {
+pub const QueryPointerReply = struct {
     @"response_type": u8,
     @"same_screen": u8,
     @"sequence": u16,
@@ -1789,7 +1789,7 @@ pub const QueryPointerReply = extern struct {
 };
 
 /// @brief TIMECOORD
-pub const TIMECOORD = extern struct {
+pub const TIMECOORD = struct {
     @"time": xcb.TIMESTAMP,
     @"x": i16,
     @"y": i16,
@@ -1801,7 +1801,7 @@ pub const GetMotionEventscookie = struct {
 };
 
 /// @brief GetMotionEventsRequest
-pub const GetMotionEventsRequest = extern struct {
+pub const GetMotionEventsRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1811,14 +1811,14 @@ pub const GetMotionEventsRequest = extern struct {
 };
 
 /// @brief GetMotionEventsReply
-pub const GetMotionEventsReply = extern struct {
+pub const GetMotionEventsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"events_len": u32,
     @"pad1": [20]u8,
-    @"events": [*]xcb.TIMECOORD,
+    @"events": []xcb.TIMECOORD,
 };
 
 /// @brief TranslateCoordinatescookie
@@ -1827,7 +1827,7 @@ pub const TranslateCoordinatescookie = struct {
 };
 
 /// @brief TranslateCoordinatesRequest
-pub const TranslateCoordinatesRequest = extern struct {
+pub const TranslateCoordinatesRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1838,7 +1838,7 @@ pub const TranslateCoordinatesRequest = extern struct {
 };
 
 /// @brief TranslateCoordinatesReply
-pub const TranslateCoordinatesReply = extern struct {
+pub const TranslateCoordinatesReply = struct {
     @"response_type": u8,
     @"same_screen": u8,
     @"sequence": u16,
@@ -1849,7 +1849,7 @@ pub const TranslateCoordinatesReply = extern struct {
 };
 
 /// @brief WarpPointerRequest
-pub const WarpPointerRequest = extern struct {
+pub const WarpPointerRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1878,7 +1878,7 @@ pub const InputFocus = extern enum(c_uint) {
 };
 
 /// @brief SetInputFocusRequest
-pub const SetInputFocusRequest = extern struct {
+pub const SetInputFocusRequest = struct {
     @"major_opcode": u8,
     @"revert_to": u8,
     @"length": u16,
@@ -1892,14 +1892,14 @@ pub const GetInputFocuscookie = struct {
 };
 
 /// @brief GetInputFocusRequest
-pub const GetInputFocusRequest = extern struct {
+pub const GetInputFocusRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
 };
 
 /// @brief GetInputFocusReply
-pub const GetInputFocusReply = extern struct {
+pub const GetInputFocusReply = struct {
     @"response_type": u8,
     @"revert_to": u8,
     @"sequence": u16,
@@ -1913,14 +1913,14 @@ pub const QueryKeymapcookie = struct {
 };
 
 /// @brief QueryKeymapRequest
-pub const QueryKeymapRequest = extern struct {
+pub const QueryKeymapRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
 };
 
 /// @brief QueryKeymapReply
-pub const QueryKeymapReply = extern struct {
+pub const QueryKeymapReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1929,18 +1929,18 @@ pub const QueryKeymapReply = extern struct {
 };
 
 /// @brief OpenFontRequest
-pub const OpenFontRequest = extern struct {
+pub const OpenFontRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"fid": xcb.FONT,
     @"name_len": u16,
     @"pad1": [2]u8,
-    @"name": [*]u8,
+    @"name": []const u8,
 };
 
 /// @brief CloseFontRequest
-pub const CloseFontRequest = extern struct {
+pub const CloseFontRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1953,13 +1953,13 @@ pub const FontDraw = extern enum(c_uint) {
 };
 
 /// @brief FONTPROP
-pub const FONTPROP = extern struct {
+pub const FONTPROP = struct {
     @"name": xcb.ATOM,
     @"value": u32,
 };
 
 /// @brief CHARINFO
-pub const CHARINFO = extern struct {
+pub const CHARINFO = struct {
     @"left_side_bearing": i16,
     @"right_side_bearing": i16,
     @"character_width": i16,
@@ -1974,7 +1974,7 @@ pub const QueryFontcookie = struct {
 };
 
 /// @brief QueryFontRequest
-pub const QueryFontRequest = extern struct {
+pub const QueryFontRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -1982,7 +1982,7 @@ pub const QueryFontRequest = extern struct {
 };
 
 /// @brief QueryFontReply
-pub const QueryFontReply = extern struct {
+pub const QueryFontReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -2002,8 +2002,8 @@ pub const QueryFontReply = extern struct {
     @"font_ascent": i16,
     @"font_descent": i16,
     @"char_infos_len": u32,
-    @"properties": [*]xcb.FONTPROP,
-    @"char_infos": [*]xcb.CHARINFO,
+    @"properties": []xcb.FONTPROP,
+    @"char_infos": []xcb.CHARINFO,
 };
 
 /// @brief QueryTextExtentscookie
@@ -2012,16 +2012,16 @@ pub const QueryTextExtentscookie = struct {
 };
 
 /// @brief QueryTextExtentsRequest
-pub const QueryTextExtentsRequest = extern struct {
+pub const QueryTextExtentsRequest = struct {
     @"major_opcode": u8,
     @"odd_length": u8,
     @"length": u16,
     @"font": xcb.FONTABLE,
-    @"string": [*]xcb.CHAR2B,
+    @"string": []const xcb.CHAR2B,
 };
 
 /// @brief QueryTextExtentsReply
-pub const QueryTextExtentsReply = extern struct {
+pub const QueryTextExtentsReply = struct {
     @"response_type": u8,
     @"draw_direction": u8,
     @"sequence": u16,
@@ -2036,9 +2036,9 @@ pub const QueryTextExtentsReply = extern struct {
 };
 
 /// @brief STR
-pub const STR = extern struct {
+pub const STR = struct {
     @"name_len": u8,
-    @"name": [*]u8,
+    @"name": []u8,
 };
 
 /// @brief ListFontscookie
@@ -2047,24 +2047,24 @@ pub const ListFontscookie = struct {
 };
 
 /// @brief ListFontsRequest
-pub const ListFontsRequest = extern struct {
+pub const ListFontsRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"max_names": u16,
     @"pattern_len": u16,
-    @"pattern": [*]u8,
+    @"pattern": []const u8,
 };
 
 /// @brief ListFontsReply
-pub const ListFontsReply = extern struct {
+pub const ListFontsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"names_len": u16,
     @"pad1": [22]u8,
-    @"names": [*]xcb.STR,
+    @"names": []xcb.STR,
 };
 
 /// @brief ListFontsWithInfocookie
@@ -2073,17 +2073,17 @@ pub const ListFontsWithInfocookie = struct {
 };
 
 /// @brief ListFontsWithInfoRequest
-pub const ListFontsWithInfoRequest = extern struct {
+pub const ListFontsWithInfoRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"max_names": u16,
     @"pattern_len": u16,
-    @"pattern": [*]u8,
+    @"pattern": []const u8,
 };
 
 /// @brief ListFontsWithInfoReply
-pub const ListFontsWithInfoReply = extern struct {
+pub const ListFontsWithInfoReply = struct {
     @"response_type": u8,
     @"name_len": u8,
     @"sequence": u16,
@@ -2103,18 +2103,18 @@ pub const ListFontsWithInfoReply = extern struct {
     @"font_ascent": i16,
     @"font_descent": i16,
     @"replies_hint": u32,
-    @"properties": [*]xcb.FONTPROP,
-    @"name": [*]u8,
+    @"properties": []xcb.FONTPROP,
+    @"name": []u8,
 };
 
 /// @brief SetFontPathRequest
-pub const SetFontPathRequest = extern struct {
+pub const SetFontPathRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"font_qty": u16,
     @"pad1": [2]u8,
-    @"font": [*]xcb.STR,
+    @"font": []const xcb.STR,
 };
 
 /// @brief GetFontPathcookie
@@ -2123,25 +2123,25 @@ pub const GetFontPathcookie = struct {
 };
 
 /// @brief GetFontPathRequest
-pub const GetFontPathRequest = extern struct {
+pub const GetFontPathRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
 };
 
 /// @brief GetFontPathReply
-pub const GetFontPathReply = extern struct {
+pub const GetFontPathReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"path_len": u16,
     @"pad1": [22]u8,
-    @"path": [*]xcb.STR,
+    @"path": []xcb.STR,
 };
 
 /// @brief CreatePixmapRequest
-pub const CreatePixmapRequest = extern struct {
+pub const CreatePixmapRequest = struct {
     @"major_opcode": u8,
     @"depth": u8,
     @"length": u16,
@@ -2152,7 +2152,7 @@ pub const CreatePixmapRequest = extern struct {
 };
 
 /// @brief FreePixmapRequest
-pub const FreePixmapRequest = extern struct {
+pub const FreePixmapRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2345,7 +2345,7 @@ pub const ArcMode = extern enum(c_uint) {
 };
 
 /// @brief CreateGCRequest
-pub const CreateGCRequest = extern struct {
+pub const CreateGCRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2355,7 +2355,7 @@ pub const CreateGCRequest = extern struct {
 };
 
 /// @brief ChangeGCRequest
-pub const ChangeGCRequest = extern struct {
+pub const ChangeGCRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2364,7 +2364,7 @@ pub const ChangeGCRequest = extern struct {
 };
 
 /// @brief CopyGCRequest
-pub const CopyGCRequest = extern struct {
+pub const CopyGCRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2374,14 +2374,14 @@ pub const CopyGCRequest = extern struct {
 };
 
 /// @brief SetDashesRequest
-pub const SetDashesRequest = extern struct {
+pub const SetDashesRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"gc": xcb.GCONTEXT,
     @"dash_offset": u16,
     @"dashes_len": u16,
-    @"dashes": [*]u8,
+    @"dashes": []const u8,
 };
 
 pub const ClipOrdering = extern enum(c_uint) {
@@ -2392,18 +2392,18 @@ pub const ClipOrdering = extern enum(c_uint) {
 };
 
 /// @brief SetClipRectanglesRequest
-pub const SetClipRectanglesRequest = extern struct {
+pub const SetClipRectanglesRequest = struct {
     @"major_opcode": u8,
     @"ordering": u8,
     @"length": u16,
     @"gc": xcb.GCONTEXT,
     @"clip_x_origin": i16,
     @"clip_y_origin": i16,
-    @"rectangles": [*]xcb.RECTANGLE,
+    @"rectangles": []const xcb.RECTANGLE,
 };
 
 /// @brief FreeGCRequest
-pub const FreeGCRequest = extern struct {
+pub const FreeGCRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2411,7 +2411,7 @@ pub const FreeGCRequest = extern struct {
 };
 
 /// @brief ClearAreaRequest
-pub const ClearAreaRequest = extern struct {
+pub const ClearAreaRequest = struct {
     @"major_opcode": u8,
     @"exposures": u8,
     @"length": u16,
@@ -2423,7 +2423,7 @@ pub const ClearAreaRequest = extern struct {
 };
 
 /// @brief CopyAreaRequest
-pub const CopyAreaRequest = extern struct {
+pub const CopyAreaRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2439,7 +2439,7 @@ pub const CopyAreaRequest = extern struct {
 };
 
 /// @brief CopyPlaneRequest
-pub const CopyPlaneRequest = extern struct {
+pub const CopyPlaneRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2463,27 +2463,27 @@ pub const CoordMode = extern enum(c_uint) {
 };
 
 /// @brief PolyPointRequest
-pub const PolyPointRequest = extern struct {
+pub const PolyPointRequest = struct {
     @"major_opcode": u8,
     @"coordinate_mode": u8,
     @"length": u16,
     @"drawable": xcb.DRAWABLE,
     @"gc": xcb.GCONTEXT,
-    @"points": [*]xcb.POINT,
+    @"points": []const xcb.POINT,
 };
 
 /// @brief PolyLineRequest
-pub const PolyLineRequest = extern struct {
+pub const PolyLineRequest = struct {
     @"major_opcode": u8,
     @"coordinate_mode": u8,
     @"length": u16,
     @"drawable": xcb.DRAWABLE,
     @"gc": xcb.GCONTEXT,
-    @"points": [*]xcb.POINT,
+    @"points": []const xcb.POINT,
 };
 
 /// @brief SEGMENT
-pub const SEGMENT = extern struct {
+pub const SEGMENT = struct {
     @"x1": i16,
     @"y1": i16,
     @"x2": i16,
@@ -2491,33 +2491,33 @@ pub const SEGMENT = extern struct {
 };
 
 /// @brief PolySegmentRequest
-pub const PolySegmentRequest = extern struct {
+pub const PolySegmentRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"drawable": xcb.DRAWABLE,
     @"gc": xcb.GCONTEXT,
-    @"segments": [*]xcb.SEGMENT,
+    @"segments": []const xcb.SEGMENT,
 };
 
 /// @brief PolyRectangleRequest
-pub const PolyRectangleRequest = extern struct {
+pub const PolyRectangleRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"drawable": xcb.DRAWABLE,
     @"gc": xcb.GCONTEXT,
-    @"rectangles": [*]xcb.RECTANGLE,
+    @"rectangles": []const xcb.RECTANGLE,
 };
 
 /// @brief PolyArcRequest
-pub const PolyArcRequest = extern struct {
+pub const PolyArcRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"drawable": xcb.DRAWABLE,
     @"gc": xcb.GCONTEXT,
-    @"arcs": [*]xcb.ARC,
+    @"arcs": []const xcb.ARC,
 };
 
 pub const PolyShape = extern enum(c_uint) {
@@ -2527,7 +2527,7 @@ pub const PolyShape = extern enum(c_uint) {
 };
 
 /// @brief FillPolyRequest
-pub const FillPolyRequest = extern struct {
+pub const FillPolyRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2536,27 +2536,27 @@ pub const FillPolyRequest = extern struct {
     @"shape": u8,
     @"coordinate_mode": u8,
     @"pad1": [2]u8,
-    @"points": [*]xcb.POINT,
+    @"points": []const xcb.POINT,
 };
 
 /// @brief PolyFillRectangleRequest
-pub const PolyFillRectangleRequest = extern struct {
+pub const PolyFillRectangleRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"drawable": xcb.DRAWABLE,
     @"gc": xcb.GCONTEXT,
-    @"rectangles": [*]xcb.RECTANGLE,
+    @"rectangles": []const xcb.RECTANGLE,
 };
 
 /// @brief PolyFillArcRequest
-pub const PolyFillArcRequest = extern struct {
+pub const PolyFillArcRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"drawable": xcb.DRAWABLE,
     @"gc": xcb.GCONTEXT,
-    @"arcs": [*]xcb.ARC,
+    @"arcs": []const xcb.ARC,
 };
 
 pub const ImageFormat = extern enum(c_uint) {
@@ -2566,7 +2566,7 @@ pub const ImageFormat = extern enum(c_uint) {
 };
 
 /// @brief PutImageRequest
-pub const PutImageRequest = extern struct {
+pub const PutImageRequest = struct {
     @"major_opcode": u8,
     @"format": u8,
     @"length": u16,
@@ -2579,7 +2579,7 @@ pub const PutImageRequest = extern struct {
     @"left_pad": u8,
     @"depth": u8,
     @"pad0": [2]u8,
-    @"data": [*]u8,
+    @"data": []const u8,
 };
 
 /// @brief GetImagecookie
@@ -2588,7 +2588,7 @@ pub const GetImagecookie = struct {
 };
 
 /// @brief GetImageRequest
-pub const GetImageRequest = extern struct {
+pub const GetImageRequest = struct {
     @"major_opcode": u8,
     @"format": u8,
     @"length": u16,
@@ -2601,18 +2601,18 @@ pub const GetImageRequest = extern struct {
 };
 
 /// @brief GetImageReply
-pub const GetImageReply = extern struct {
+pub const GetImageReply = struct {
     @"response_type": u8,
     @"depth": u8,
     @"sequence": u16,
     @"length": u32,
     @"visual": xcb.VISUALID,
     @"pad0": [20]u8,
-    @"data": [*]u8,
+    @"data": []u8,
 };
 
 /// @brief PolyText8Request
-pub const PolyText8Request = extern struct {
+pub const PolyText8Request = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2620,11 +2620,11 @@ pub const PolyText8Request = extern struct {
     @"gc": xcb.GCONTEXT,
     @"x": i16,
     @"y": i16,
-    @"items": [*]u8,
+    @"items": []const u8,
 };
 
 /// @brief PolyText16Request
-pub const PolyText16Request = extern struct {
+pub const PolyText16Request = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2632,11 +2632,11 @@ pub const PolyText16Request = extern struct {
     @"gc": xcb.GCONTEXT,
     @"x": i16,
     @"y": i16,
-    @"items": [*]u8,
+    @"items": []const u8,
 };
 
 /// @brief ImageText8Request
-pub const ImageText8Request = extern struct {
+pub const ImageText8Request = struct {
     @"major_opcode": u8,
     @"string_len": u8,
     @"length": u16,
@@ -2644,11 +2644,11 @@ pub const ImageText8Request = extern struct {
     @"gc": xcb.GCONTEXT,
     @"x": i16,
     @"y": i16,
-    @"string": [*]u8,
+    @"string": []const u8,
 };
 
 /// @brief ImageText16Request
-pub const ImageText16Request = extern struct {
+pub const ImageText16Request = struct {
     @"major_opcode": u8,
     @"string_len": u8,
     @"length": u16,
@@ -2656,7 +2656,7 @@ pub const ImageText16Request = extern struct {
     @"gc": xcb.GCONTEXT,
     @"x": i16,
     @"y": i16,
-    @"string": [*]xcb.CHAR2B,
+    @"string": []const xcb.CHAR2B,
 };
 
 pub const ColormapAlloc = extern enum(c_uint) {
@@ -2665,7 +2665,7 @@ pub const ColormapAlloc = extern enum(c_uint) {
 };
 
 /// @brief CreateColormapRequest
-pub const CreateColormapRequest = extern struct {
+pub const CreateColormapRequest = struct {
     @"major_opcode": u8,
     @"alloc": u8,
     @"length": u16,
@@ -2675,7 +2675,7 @@ pub const CreateColormapRequest = extern struct {
 };
 
 /// @brief FreeColormapRequest
-pub const FreeColormapRequest = extern struct {
+pub const FreeColormapRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2683,7 +2683,7 @@ pub const FreeColormapRequest = extern struct {
 };
 
 /// @brief CopyColormapAndFreeRequest
-pub const CopyColormapAndFreeRequest = extern struct {
+pub const CopyColormapAndFreeRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2692,7 +2692,7 @@ pub const CopyColormapAndFreeRequest = extern struct {
 };
 
 /// @brief InstallColormapRequest
-pub const InstallColormapRequest = extern struct {
+pub const InstallColormapRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2700,7 +2700,7 @@ pub const InstallColormapRequest = extern struct {
 };
 
 /// @brief UninstallColormapRequest
-pub const UninstallColormapRequest = extern struct {
+pub const UninstallColormapRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2713,7 +2713,7 @@ pub const ListInstalledColormapscookie = struct {
 };
 
 /// @brief ListInstalledColormapsRequest
-pub const ListInstalledColormapsRequest = extern struct {
+pub const ListInstalledColormapsRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2721,14 +2721,14 @@ pub const ListInstalledColormapsRequest = extern struct {
 };
 
 /// @brief ListInstalledColormapsReply
-pub const ListInstalledColormapsReply = extern struct {
+pub const ListInstalledColormapsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"cmaps_len": u16,
     @"pad1": [22]u8,
-    @"cmaps": [*]xcb.COLORMAP,
+    @"cmaps": []xcb.COLORMAP,
 };
 
 /// @brief AllocColorcookie
@@ -2737,7 +2737,7 @@ pub const AllocColorcookie = struct {
 };
 
 /// @brief AllocColorRequest
-pub const AllocColorRequest = extern struct {
+pub const AllocColorRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2749,7 +2749,7 @@ pub const AllocColorRequest = extern struct {
 };
 
 /// @brief AllocColorReply
-pub const AllocColorReply = extern struct {
+pub const AllocColorReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -2767,18 +2767,18 @@ pub const AllocNamedColorcookie = struct {
 };
 
 /// @brief AllocNamedColorRequest
-pub const AllocNamedColorRequest = extern struct {
+pub const AllocNamedColorRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"cmap": xcb.COLORMAP,
     @"name_len": u16,
     @"pad1": [2]u8,
-    @"name": [*]u8,
+    @"name": []const u8,
 };
 
 /// @brief AllocNamedColorReply
-pub const AllocNamedColorReply = extern struct {
+pub const AllocNamedColorReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -2798,7 +2798,7 @@ pub const AllocColorCellscookie = struct {
 };
 
 /// @brief AllocColorCellsRequest
-pub const AllocColorCellsRequest = extern struct {
+pub const AllocColorCellsRequest = struct {
     @"major_opcode": u8,
     @"contiguous": u8,
     @"length": u16,
@@ -2808,7 +2808,7 @@ pub const AllocColorCellsRequest = extern struct {
 };
 
 /// @brief AllocColorCellsReply
-pub const AllocColorCellsReply = extern struct {
+pub const AllocColorCellsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -2816,8 +2816,8 @@ pub const AllocColorCellsReply = extern struct {
     @"pixels_len": u16,
     @"masks_len": u16,
     @"pad1": [20]u8,
-    @"pixels": [*]u32,
-    @"masks": [*]u32,
+    @"pixels": []u32,
+    @"masks": []u32,
 };
 
 /// @brief AllocColorPlanescookie
@@ -2826,7 +2826,7 @@ pub const AllocColorPlanescookie = struct {
 };
 
 /// @brief AllocColorPlanesRequest
-pub const AllocColorPlanesRequest = extern struct {
+pub const AllocColorPlanesRequest = struct {
     @"major_opcode": u8,
     @"contiguous": u8,
     @"length": u16,
@@ -2838,7 +2838,7 @@ pub const AllocColorPlanesRequest = extern struct {
 };
 
 /// @brief AllocColorPlanesReply
-pub const AllocColorPlanesReply = extern struct {
+pub const AllocColorPlanesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -2849,17 +2849,17 @@ pub const AllocColorPlanesReply = extern struct {
     @"green_mask": u32,
     @"blue_mask": u32,
     @"pad2": [8]u8,
-    @"pixels": [*]u32,
+    @"pixels": []u32,
 };
 
 /// @brief FreeColorsRequest
-pub const FreeColorsRequest = extern struct {
+pub const FreeColorsRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"cmap": xcb.COLORMAP,
     @"plane_mask": u32,
-    @"pixels": [*]u32,
+    @"pixels": []const u32,
 };
 
 pub const ColorFlag = extern enum(c_uint) {
@@ -2869,7 +2869,7 @@ pub const ColorFlag = extern enum(c_uint) {
 };
 
 /// @brief COLORITEM
-pub const COLORITEM = extern struct {
+pub const COLORITEM = struct {
     @"pixel": u32,
     @"red": u16,
     @"green": u16,
@@ -2879,16 +2879,16 @@ pub const COLORITEM = extern struct {
 };
 
 /// @brief StoreColorsRequest
-pub const StoreColorsRequest = extern struct {
+pub const StoreColorsRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"cmap": xcb.COLORMAP,
-    @"items": [*]xcb.COLORITEM,
+    @"items": []const xcb.COLORITEM,
 };
 
 /// @brief StoreNamedColorRequest
-pub const StoreNamedColorRequest = extern struct {
+pub const StoreNamedColorRequest = struct {
     @"major_opcode": u8,
     @"flags": u8,
     @"length": u16,
@@ -2896,11 +2896,11 @@ pub const StoreNamedColorRequest = extern struct {
     @"pixel": u32,
     @"name_len": u16,
     @"pad0": [2]u8,
-    @"name": [*]u8,
+    @"name": []const u8,
 };
 
 /// @brief RGB
-pub const RGB = extern struct {
+pub const RGB = struct {
     @"red": u16,
     @"green": u16,
     @"blue": u16,
@@ -2913,23 +2913,23 @@ pub const QueryColorscookie = struct {
 };
 
 /// @brief QueryColorsRequest
-pub const QueryColorsRequest = extern struct {
+pub const QueryColorsRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"cmap": xcb.COLORMAP,
-    @"pixels": [*]u32,
+    @"pixels": []const u32,
 };
 
 /// @brief QueryColorsReply
-pub const QueryColorsReply = extern struct {
+pub const QueryColorsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"colors_len": u16,
     @"pad1": [22]u8,
-    @"colors": [*]xcb.RGB,
+    @"colors": []xcb.RGB,
 };
 
 /// @brief LookupColorcookie
@@ -2938,18 +2938,18 @@ pub const LookupColorcookie = struct {
 };
 
 /// @brief LookupColorRequest
-pub const LookupColorRequest = extern struct {
+pub const LookupColorRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"cmap": xcb.COLORMAP,
     @"name_len": u16,
     @"pad1": [2]u8,
-    @"name": [*]u8,
+    @"name": []const u8,
 };
 
 /// @brief LookupColorReply
-pub const LookupColorReply = extern struct {
+pub const LookupColorReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -2967,7 +2967,7 @@ pub const Pixmap = extern enum(c_uint) {
 };
 
 /// @brief CreateCursorRequest
-pub const CreateCursorRequest = extern struct {
+pub const CreateCursorRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -2989,7 +2989,7 @@ pub const Font = extern enum(c_uint) {
 };
 
 /// @brief CreateGlyphCursorRequest
-pub const CreateGlyphCursorRequest = extern struct {
+pub const CreateGlyphCursorRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -3007,7 +3007,7 @@ pub const CreateGlyphCursorRequest = extern struct {
 };
 
 /// @brief FreeCursorRequest
-pub const FreeCursorRequest = extern struct {
+pub const FreeCursorRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -3015,7 +3015,7 @@ pub const FreeCursorRequest = extern struct {
 };
 
 /// @brief RecolorCursorRequest
-pub const RecolorCursorRequest = extern struct {
+pub const RecolorCursorRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -3040,7 +3040,7 @@ pub const QueryBestSizecookie = struct {
 };
 
 /// @brief QueryBestSizeRequest
-pub const QueryBestSizeRequest = extern struct {
+pub const QueryBestSizeRequest = struct {
     @"major_opcode": u8,
     @"class": u8,
     @"length": u16,
@@ -3050,7 +3050,7 @@ pub const QueryBestSizeRequest = extern struct {
 };
 
 /// @brief QueryBestSizeReply
-pub const QueryBestSizeReply = extern struct {
+pub const QueryBestSizeReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -3065,17 +3065,17 @@ pub const QueryExtensioncookie = struct {
 };
 
 /// @brief QueryExtensionRequest
-pub const QueryExtensionRequest = extern struct {
+pub const QueryExtensionRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"name_len": u16,
     @"pad1": [2]u8,
-    @"name": [*]u8,
+    @"name": []const u8,
 };
 
 /// @brief QueryExtensionReply
-pub const QueryExtensionReply = extern struct {
+pub const QueryExtensionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -3092,31 +3092,31 @@ pub const ListExtensionscookie = struct {
 };
 
 /// @brief ListExtensionsRequest
-pub const ListExtensionsRequest = extern struct {
+pub const ListExtensionsRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
 };
 
 /// @brief ListExtensionsReply
-pub const ListExtensionsReply = extern struct {
+pub const ListExtensionsReply = struct {
     @"response_type": u8,
     @"names_len": u8,
     @"sequence": u16,
     @"length": u32,
     @"pad0": [24]u8,
-    @"names": [*]xcb.STR,
+    @"names": []xcb.STR,
 };
 
 /// @brief ChangeKeyboardMappingRequest
-pub const ChangeKeyboardMappingRequest = extern struct {
+pub const ChangeKeyboardMappingRequest = struct {
     @"major_opcode": u8,
     @"keycode_count": u8,
     @"length": u16,
     @"first_keycode": xcb.KEYCODE,
     @"keysyms_per_keycode": u8,
     @"pad0": [2]u8,
-    @"keysyms": [*]xcb.KEYSYM,
+    @"keysyms": []const xcb.KEYSYM,
 };
 
 /// @brief GetKeyboardMappingcookie
@@ -3125,7 +3125,7 @@ pub const GetKeyboardMappingcookie = struct {
 };
 
 /// @brief GetKeyboardMappingRequest
-pub const GetKeyboardMappingRequest = extern struct {
+pub const GetKeyboardMappingRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -3134,13 +3134,13 @@ pub const GetKeyboardMappingRequest = extern struct {
 };
 
 /// @brief GetKeyboardMappingReply
-pub const GetKeyboardMappingReply = extern struct {
+pub const GetKeyboardMappingReply = struct {
     @"response_type": u8,
     @"keysyms_per_keycode": u8,
     @"sequence": u16,
     @"length": u32,
     @"pad0": [24]u8,
-    @"keysyms": [*]xcb.KEYSYM,
+    @"keysyms": []xcb.KEYSYM,
 };
 
 pub const KB = extern enum(c_uint) {
@@ -3166,7 +3166,7 @@ pub const AutoRepeatMode = extern enum(c_uint) {
 };
 
 /// @brief ChangeKeyboardControlRequest
-pub const ChangeKeyboardControlRequest = extern struct {
+pub const ChangeKeyboardControlRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -3179,14 +3179,14 @@ pub const GetKeyboardControlcookie = struct {
 };
 
 /// @brief GetKeyboardControlRequest
-pub const GetKeyboardControlRequest = extern struct {
+pub const GetKeyboardControlRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
 };
 
 /// @brief GetKeyboardControlReply
-pub const GetKeyboardControlReply = extern struct {
+pub const GetKeyboardControlReply = struct {
     @"response_type": u8,
     @"global_auto_repeat": u8,
     @"sequence": u16,
@@ -3201,14 +3201,14 @@ pub const GetKeyboardControlReply = extern struct {
 };
 
 /// @brief BellRequest
-pub const BellRequest = extern struct {
+pub const BellRequest = struct {
     @"major_opcode": u8,
     @"percent": i8,
     @"length": u16,
 };
 
 /// @brief ChangePointerControlRequest
-pub const ChangePointerControlRequest = extern struct {
+pub const ChangePointerControlRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -3225,14 +3225,14 @@ pub const GetPointerControlcookie = struct {
 };
 
 /// @brief GetPointerControlRequest
-pub const GetPointerControlRequest = extern struct {
+pub const GetPointerControlRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
 };
 
 /// @brief GetPointerControlReply
-pub const GetPointerControlReply = extern struct {
+pub const GetPointerControlReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -3256,7 +3256,7 @@ pub const Exposures = extern enum(c_uint) {
 };
 
 /// @brief SetScreenSaverRequest
-pub const SetScreenSaverRequest = extern struct {
+pub const SetScreenSaverRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -3272,14 +3272,14 @@ pub const GetScreenSavercookie = struct {
 };
 
 /// @brief GetScreenSaverRequest
-pub const GetScreenSaverRequest = extern struct {
+pub const GetScreenSaverRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
 };
 
 /// @brief GetScreenSaverReply
-pub const GetScreenSaverReply = extern struct {
+pub const GetScreenSaverReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -3305,22 +3305,22 @@ pub const Family = extern enum(c_uint) {
 };
 
 /// @brief ChangeHostsRequest
-pub const ChangeHostsRequest = extern struct {
+pub const ChangeHostsRequest = struct {
     @"major_opcode": u8,
     @"mode": u8,
     @"length": u16,
     @"family": u8,
     @"pad0": u8,
     @"address_len": u16,
-    @"address": [*]u8,
+    @"address": []const u8,
 };
 
 /// @brief HOST
-pub const HOST = extern struct {
+pub const HOST = struct {
     @"family": u8,
     @"pad0": u8,
     @"address_len": u16,
-    @"address": [*]u8,
+    @"address": []u8,
 };
 
 /// @brief ListHostscookie
@@ -3329,21 +3329,21 @@ pub const ListHostscookie = struct {
 };
 
 /// @brief ListHostsRequest
-pub const ListHostsRequest = extern struct {
+pub const ListHostsRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
 };
 
 /// @brief ListHostsReply
-pub const ListHostsReply = extern struct {
+pub const ListHostsReply = struct {
     @"response_type": u8,
     @"mode": u8,
     @"sequence": u16,
     @"length": u32,
     @"hosts_len": u16,
     @"pad0": [22]u8,
-    @"hosts": [*]xcb.HOST,
+    @"hosts": []xcb.HOST,
 };
 
 pub const AccessControl = extern enum(c_uint) {
@@ -3352,7 +3352,7 @@ pub const AccessControl = extern enum(c_uint) {
 };
 
 /// @brief SetAccessControlRequest
-pub const SetAccessControlRequest = extern struct {
+pub const SetAccessControlRequest = struct {
     @"major_opcode": u8,
     @"mode": u8,
     @"length": u16,
@@ -3365,7 +3365,7 @@ pub const CloseDown = extern enum(c_uint) {
 };
 
 /// @brief SetCloseDownModeRequest
-pub const SetCloseDownModeRequest = extern struct {
+pub const SetCloseDownModeRequest = struct {
     @"major_opcode": u8,
     @"mode": u8,
     @"length": u16,
@@ -3376,7 +3376,7 @@ pub const Kill = extern enum(c_uint) {
 };
 
 /// @brief KillClientRequest
-pub const KillClientRequest = extern struct {
+pub const KillClientRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
@@ -3384,14 +3384,14 @@ pub const KillClientRequest = extern struct {
 };
 
 /// @brief RotatePropertiesRequest
-pub const RotatePropertiesRequest = extern struct {
+pub const RotatePropertiesRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
     @"window": xcb.WINDOW,
     @"atoms_len": u16,
     @"delta": i16,
-    @"atoms": [*]xcb.ATOM,
+    @"atoms": []const xcb.ATOM,
 };
 
 pub const ScreenSaver = extern enum(c_uint) {
@@ -3400,7 +3400,7 @@ pub const ScreenSaver = extern enum(c_uint) {
 };
 
 /// @brief ForceScreenSaverRequest
-pub const ForceScreenSaverRequest = extern struct {
+pub const ForceScreenSaverRequest = struct {
     @"major_opcode": u8,
     @"mode": u8,
     @"length": u16,
@@ -3418,15 +3418,15 @@ pub const SetPointerMappingcookie = struct {
 };
 
 /// @brief SetPointerMappingRequest
-pub const SetPointerMappingRequest = extern struct {
+pub const SetPointerMappingRequest = struct {
     @"major_opcode": u8,
     @"map_len": u8,
     @"length": u16,
-    @"map": [*]u8,
+    @"map": []const u8,
 };
 
 /// @brief SetPointerMappingReply
-pub const SetPointerMappingReply = extern struct {
+pub const SetPointerMappingReply = struct {
     @"response_type": u8,
     @"status": u8,
     @"sequence": u16,
@@ -3439,20 +3439,20 @@ pub const GetPointerMappingcookie = struct {
 };
 
 /// @brief GetPointerMappingRequest
-pub const GetPointerMappingRequest = extern struct {
+pub const GetPointerMappingRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
 };
 
 /// @brief GetPointerMappingReply
-pub const GetPointerMappingReply = extern struct {
+pub const GetPointerMappingReply = struct {
     @"response_type": u8,
     @"map_len": u8,
     @"sequence": u16,
     @"length": u32,
     @"pad0": [24]u8,
-    @"map": [*]u8,
+    @"map": []u8,
 };
 
 pub const MapIndex = extern enum(c_uint) {
@@ -3472,15 +3472,15 @@ pub const SetModifierMappingcookie = struct {
 };
 
 /// @brief SetModifierMappingRequest
-pub const SetModifierMappingRequest = extern struct {
+pub const SetModifierMappingRequest = struct {
     @"major_opcode": u8,
     @"keycodes_per_modifier": u8,
     @"length": u16,
-    @"keycodes": [*]xcb.KEYCODE,
+    @"keycodes": []const xcb.KEYCODE,
 };
 
 /// @brief SetModifierMappingReply
-pub const SetModifierMappingReply = extern struct {
+pub const SetModifierMappingReply = struct {
     @"response_type": u8,
     @"status": u8,
     @"sequence": u16,
@@ -3493,24 +3493,24 @@ pub const GetModifierMappingcookie = struct {
 };
 
 /// @brief GetModifierMappingRequest
-pub const GetModifierMappingRequest = extern struct {
+pub const GetModifierMappingRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,
 };
 
 /// @brief GetModifierMappingReply
-pub const GetModifierMappingReply = extern struct {
+pub const GetModifierMappingReply = struct {
     @"response_type": u8,
     @"keycodes_per_modifier": u8,
     @"sequence": u16,
     @"length": u32,
     @"pad0": [24]u8,
-    @"keycodes": [*]xcb.KEYCODE,
+    @"keycodes": []xcb.KEYCODE,
 };
 
 /// @brief NoOperationRequest
-pub const NoOperationRequest = extern struct {
+pub const NoOperationRequest = struct {
     @"major_opcode": u8,
     @"pad0": u8,
     @"length": u16,

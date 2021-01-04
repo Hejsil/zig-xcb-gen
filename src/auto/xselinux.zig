@@ -13,7 +13,7 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -22,7 +22,7 @@ pub const QueryVersionRequest = extern struct {
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -32,12 +32,12 @@ pub const QueryVersionReply = extern struct {
 };
 
 /// @brief SetDeviceCreateContextRequest
-pub const SetDeviceCreateContextRequest = extern struct {
+pub const SetDeviceCreateContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
     @"context_len": u32,
-    @"context": [*]u8,
+    @"context": []const u8,
 };
 
 /// @brief GetDeviceCreateContextcookie
@@ -46,31 +46,31 @@ pub const GetDeviceCreateContextcookie = struct {
 };
 
 /// @brief GetDeviceCreateContextRequest
-pub const GetDeviceCreateContextRequest = extern struct {
+pub const GetDeviceCreateContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
 };
 
 /// @brief GetDeviceCreateContextReply
-pub const GetDeviceCreateContextReply = extern struct {
+pub const GetDeviceCreateContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"context_len": u32,
     @"pad1": [20]u8,
-    @"context": [*]u8,
+    @"context": []u8,
 };
 
 /// @brief SetDeviceContextRequest
-pub const SetDeviceContextRequest = extern struct {
+pub const SetDeviceContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
     @"device": u32,
     @"context_len": u32,
-    @"context": [*]u8,
+    @"context": []const u8,
 };
 
 /// @brief GetDeviceContextcookie
@@ -79,7 +79,7 @@ pub const GetDeviceContextcookie = struct {
 };
 
 /// @brief GetDeviceContextRequest
-pub const GetDeviceContextRequest = extern struct {
+pub const GetDeviceContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -87,23 +87,23 @@ pub const GetDeviceContextRequest = extern struct {
 };
 
 /// @brief GetDeviceContextReply
-pub const GetDeviceContextReply = extern struct {
+pub const GetDeviceContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"context_len": u32,
     @"pad1": [20]u8,
-    @"context": [*]u8,
+    @"context": []u8,
 };
 
 /// @brief SetWindowCreateContextRequest
-pub const SetWindowCreateContextRequest = extern struct {
+pub const SetWindowCreateContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
     @"context_len": u32,
-    @"context": [*]u8,
+    @"context": []const u8,
 };
 
 /// @brief GetWindowCreateContextcookie
@@ -112,21 +112,21 @@ pub const GetWindowCreateContextcookie = struct {
 };
 
 /// @brief GetWindowCreateContextRequest
-pub const GetWindowCreateContextRequest = extern struct {
+pub const GetWindowCreateContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
 };
 
 /// @brief GetWindowCreateContextReply
-pub const GetWindowCreateContextReply = extern struct {
+pub const GetWindowCreateContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"context_len": u32,
     @"pad1": [20]u8,
-    @"context": [*]u8,
+    @"context": []u8,
 };
 
 /// @brief GetWindowContextcookie
@@ -135,7 +135,7 @@ pub const GetWindowContextcookie = struct {
 };
 
 /// @brief GetWindowContextRequest
-pub const GetWindowContextRequest = extern struct {
+pub const GetWindowContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
@@ -143,32 +143,32 @@ pub const GetWindowContextRequest = extern struct {
 };
 
 /// @brief GetWindowContextReply
-pub const GetWindowContextReply = extern struct {
+pub const GetWindowContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"context_len": u32,
     @"pad1": [20]u8,
-    @"context": [*]u8,
+    @"context": []u8,
 };
 
 /// @brief ListItem
-pub const ListItem = extern struct {
+pub const ListItem = struct {
     @"name": xcb.ATOM,
     @"object_context_len": u32,
     @"data_context_len": u32,
-    @"object_context": [*]u8,
-    @"data_context": [*]u8,
+    @"object_context": []u8,
+    @"data_context": []u8,
 };
 
 /// @brief SetPropertyCreateContextRequest
-pub const SetPropertyCreateContextRequest = extern struct {
+pub const SetPropertyCreateContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 8,
     @"length": u16,
     @"context_len": u32,
-    @"context": [*]u8,
+    @"context": []const u8,
 };
 
 /// @brief GetPropertyCreateContextcookie
@@ -177,30 +177,30 @@ pub const GetPropertyCreateContextcookie = struct {
 };
 
 /// @brief GetPropertyCreateContextRequest
-pub const GetPropertyCreateContextRequest = extern struct {
+pub const GetPropertyCreateContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 9,
     @"length": u16,
 };
 
 /// @brief GetPropertyCreateContextReply
-pub const GetPropertyCreateContextReply = extern struct {
+pub const GetPropertyCreateContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"context_len": u32,
     @"pad1": [20]u8,
-    @"context": [*]u8,
+    @"context": []u8,
 };
 
 /// @brief SetPropertyUseContextRequest
-pub const SetPropertyUseContextRequest = extern struct {
+pub const SetPropertyUseContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 10,
     @"length": u16,
     @"context_len": u32,
-    @"context": [*]u8,
+    @"context": []const u8,
 };
 
 /// @brief GetPropertyUseContextcookie
@@ -209,21 +209,21 @@ pub const GetPropertyUseContextcookie = struct {
 };
 
 /// @brief GetPropertyUseContextRequest
-pub const GetPropertyUseContextRequest = extern struct {
+pub const GetPropertyUseContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 11,
     @"length": u16,
 };
 
 /// @brief GetPropertyUseContextReply
-pub const GetPropertyUseContextReply = extern struct {
+pub const GetPropertyUseContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"context_len": u32,
     @"pad1": [20]u8,
-    @"context": [*]u8,
+    @"context": []u8,
 };
 
 /// @brief GetPropertyContextcookie
@@ -232,7 +232,7 @@ pub const GetPropertyContextcookie = struct {
 };
 
 /// @brief GetPropertyContextRequest
-pub const GetPropertyContextRequest = extern struct {
+pub const GetPropertyContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 12,
     @"length": u16,
@@ -241,14 +241,14 @@ pub const GetPropertyContextRequest = extern struct {
 };
 
 /// @brief GetPropertyContextReply
-pub const GetPropertyContextReply = extern struct {
+pub const GetPropertyContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"context_len": u32,
     @"pad1": [20]u8,
-    @"context": [*]u8,
+    @"context": []u8,
 };
 
 /// @brief GetPropertyDataContextcookie
@@ -257,7 +257,7 @@ pub const GetPropertyDataContextcookie = struct {
 };
 
 /// @brief GetPropertyDataContextRequest
-pub const GetPropertyDataContextRequest = extern struct {
+pub const GetPropertyDataContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 13,
     @"length": u16,
@@ -266,14 +266,14 @@ pub const GetPropertyDataContextRequest = extern struct {
 };
 
 /// @brief GetPropertyDataContextReply
-pub const GetPropertyDataContextReply = extern struct {
+pub const GetPropertyDataContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"context_len": u32,
     @"pad1": [20]u8,
-    @"context": [*]u8,
+    @"context": []u8,
 };
 
 /// @brief ListPropertiescookie
@@ -282,7 +282,7 @@ pub const ListPropertiescookie = struct {
 };
 
 /// @brief ListPropertiesRequest
-pub const ListPropertiesRequest = extern struct {
+pub const ListPropertiesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 14,
     @"length": u16,
@@ -290,23 +290,23 @@ pub const ListPropertiesRequest = extern struct {
 };
 
 /// @brief ListPropertiesReply
-pub const ListPropertiesReply = extern struct {
+pub const ListPropertiesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"properties_len": u32,
     @"pad1": [20]u8,
-    @"properties": [*]xcb.selinux.ListItem,
+    @"properties": []xcb.selinux.ListItem,
 };
 
 /// @brief SetSelectionCreateContextRequest
-pub const SetSelectionCreateContextRequest = extern struct {
+pub const SetSelectionCreateContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 15,
     @"length": u16,
     @"context_len": u32,
-    @"context": [*]u8,
+    @"context": []const u8,
 };
 
 /// @brief GetSelectionCreateContextcookie
@@ -315,30 +315,30 @@ pub const GetSelectionCreateContextcookie = struct {
 };
 
 /// @brief GetSelectionCreateContextRequest
-pub const GetSelectionCreateContextRequest = extern struct {
+pub const GetSelectionCreateContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 16,
     @"length": u16,
 };
 
 /// @brief GetSelectionCreateContextReply
-pub const GetSelectionCreateContextReply = extern struct {
+pub const GetSelectionCreateContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"context_len": u32,
     @"pad1": [20]u8,
-    @"context": [*]u8,
+    @"context": []u8,
 };
 
 /// @brief SetSelectionUseContextRequest
-pub const SetSelectionUseContextRequest = extern struct {
+pub const SetSelectionUseContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 17,
     @"length": u16,
     @"context_len": u32,
-    @"context": [*]u8,
+    @"context": []const u8,
 };
 
 /// @brief GetSelectionUseContextcookie
@@ -347,21 +347,21 @@ pub const GetSelectionUseContextcookie = struct {
 };
 
 /// @brief GetSelectionUseContextRequest
-pub const GetSelectionUseContextRequest = extern struct {
+pub const GetSelectionUseContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 18,
     @"length": u16,
 };
 
 /// @brief GetSelectionUseContextReply
-pub const GetSelectionUseContextReply = extern struct {
+pub const GetSelectionUseContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"context_len": u32,
     @"pad1": [20]u8,
-    @"context": [*]u8,
+    @"context": []u8,
 };
 
 /// @brief GetSelectionContextcookie
@@ -370,7 +370,7 @@ pub const GetSelectionContextcookie = struct {
 };
 
 /// @brief GetSelectionContextRequest
-pub const GetSelectionContextRequest = extern struct {
+pub const GetSelectionContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 19,
     @"length": u16,
@@ -378,14 +378,14 @@ pub const GetSelectionContextRequest = extern struct {
 };
 
 /// @brief GetSelectionContextReply
-pub const GetSelectionContextReply = extern struct {
+pub const GetSelectionContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"context_len": u32,
     @"pad1": [20]u8,
-    @"context": [*]u8,
+    @"context": []u8,
 };
 
 /// @brief GetSelectionDataContextcookie
@@ -394,7 +394,7 @@ pub const GetSelectionDataContextcookie = struct {
 };
 
 /// @brief GetSelectionDataContextRequest
-pub const GetSelectionDataContextRequest = extern struct {
+pub const GetSelectionDataContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 20,
     @"length": u16,
@@ -402,14 +402,14 @@ pub const GetSelectionDataContextRequest = extern struct {
 };
 
 /// @brief GetSelectionDataContextReply
-pub const GetSelectionDataContextReply = extern struct {
+pub const GetSelectionDataContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"context_len": u32,
     @"pad1": [20]u8,
-    @"context": [*]u8,
+    @"context": []u8,
 };
 
 /// @brief ListSelectionscookie
@@ -418,21 +418,21 @@ pub const ListSelectionscookie = struct {
 };
 
 /// @brief ListSelectionsRequest
-pub const ListSelectionsRequest = extern struct {
+pub const ListSelectionsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 21,
     @"length": u16,
 };
 
 /// @brief ListSelectionsReply
-pub const ListSelectionsReply = extern struct {
+pub const ListSelectionsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"selections_len": u32,
     @"pad1": [20]u8,
-    @"selections": [*]xcb.selinux.ListItem,
+    @"selections": []xcb.selinux.ListItem,
 };
 
 /// @brief GetClientContextcookie
@@ -441,7 +441,7 @@ pub const GetClientContextcookie = struct {
 };
 
 /// @brief GetClientContextRequest
-pub const GetClientContextRequest = extern struct {
+pub const GetClientContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 22,
     @"length": u16,
@@ -449,14 +449,14 @@ pub const GetClientContextRequest = extern struct {
 };
 
 /// @brief GetClientContextReply
-pub const GetClientContextReply = extern struct {
+pub const GetClientContextReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"context_len": u32,
     @"pad1": [20]u8,
-    @"context": [*]u8,
+    @"context": []u8,
 };
 
 test "" {

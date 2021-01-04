@@ -8,7 +8,7 @@ const xcb = @import("../xcb.zig");
 pub const id = xcb.Extension{ .name = "XINERAMA", .global_id = 0 };
 
 /// @brief ScreenInfo
-pub const ScreenInfo = extern struct {
+pub const ScreenInfo = struct {
     @"x_org": i16,
     @"y_org": i16,
     @"width": u16,
@@ -21,7 +21,7 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -30,7 +30,7 @@ pub const QueryVersionRequest = extern struct {
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -45,7 +45,7 @@ pub const GetStatecookie = struct {
 };
 
 /// @brief GetStateRequest
-pub const GetStateRequest = extern struct {
+pub const GetStateRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -53,7 +53,7 @@ pub const GetStateRequest = extern struct {
 };
 
 /// @brief GetStateReply
-pub const GetStateReply = extern struct {
+pub const GetStateReply = struct {
     @"response_type": u8,
     @"state": u8,
     @"sequence": u16,
@@ -67,7 +67,7 @@ pub const GetScreenCountcookie = struct {
 };
 
 /// @brief GetScreenCountRequest
-pub const GetScreenCountRequest = extern struct {
+pub const GetScreenCountRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -75,7 +75,7 @@ pub const GetScreenCountRequest = extern struct {
 };
 
 /// @brief GetScreenCountReply
-pub const GetScreenCountReply = extern struct {
+pub const GetScreenCountReply = struct {
     @"response_type": u8,
     @"screen_count": u8,
     @"sequence": u16,
@@ -89,7 +89,7 @@ pub const GetScreenSizecookie = struct {
 };
 
 /// @brief GetScreenSizeRequest
-pub const GetScreenSizeRequest = extern struct {
+pub const GetScreenSizeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -98,7 +98,7 @@ pub const GetScreenSizeRequest = extern struct {
 };
 
 /// @brief GetScreenSizeReply
-pub const GetScreenSizeReply = extern struct {
+pub const GetScreenSizeReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -115,14 +115,14 @@ pub const IsActivecookie = struct {
 };
 
 /// @brief IsActiveRequest
-pub const IsActiveRequest = extern struct {
+pub const IsActiveRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
 };
 
 /// @brief IsActiveReply
-pub const IsActiveReply = extern struct {
+pub const IsActiveReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -136,21 +136,21 @@ pub const QueryScreenscookie = struct {
 };
 
 /// @brief QueryScreensRequest
-pub const QueryScreensRequest = extern struct {
+pub const QueryScreensRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
 };
 
 /// @brief QueryScreensReply
-pub const QueryScreensReply = extern struct {
+pub const QueryScreensReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"number": u32,
     @"pad1": [20]u8,
-    @"screen_info": [*]xcb.xinerama.ScreenInfo,
+    @"screen_info": []xcb.xinerama.ScreenInfo,
 };
 
 test "" {

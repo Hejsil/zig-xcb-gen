@@ -13,7 +13,7 @@ pub const GetVersioncookie = struct {
 };
 
 /// @brief GetVersionRequest
-pub const GetVersionRequest = extern struct {
+pub const GetVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -22,7 +22,7 @@ pub const GetVersionRequest = extern struct {
 };
 
 /// @brief GetVersionReply
-pub const GetVersionReply = extern struct {
+pub const GetVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -37,14 +37,14 @@ pub const Capablecookie = struct {
 };
 
 /// @brief CapableRequest
-pub const CapableRequest = extern struct {
+pub const CapableRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
 };
 
 /// @brief CapableReply
-pub const CapableReply = extern struct {
+pub const CapableReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -59,14 +59,14 @@ pub const GetTimeoutscookie = struct {
 };
 
 /// @brief GetTimeoutsRequest
-pub const GetTimeoutsRequest = extern struct {
+pub const GetTimeoutsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
 };
 
 /// @brief GetTimeoutsReply
-pub const GetTimeoutsReply = extern struct {
+pub const GetTimeoutsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -78,7 +78,7 @@ pub const GetTimeoutsReply = extern struct {
 };
 
 /// @brief SetTimeoutsRequest
-pub const SetTimeoutsRequest = extern struct {
+pub const SetTimeoutsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -88,14 +88,14 @@ pub const SetTimeoutsRequest = extern struct {
 };
 
 /// @brief EnableRequest
-pub const EnableRequest = extern struct {
+pub const EnableRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
 };
 
 /// @brief DisableRequest
-pub const DisableRequest = extern struct {
+pub const DisableRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -109,7 +109,7 @@ pub const DPMSMode = extern enum(c_uint) {
 };
 
 /// @brief ForceLevelRequest
-pub const ForceLevelRequest = extern struct {
+pub const ForceLevelRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
@@ -122,14 +122,14 @@ pub const Infocookie = struct {
 };
 
 /// @brief InfoRequest
-pub const InfoRequest = extern struct {
+pub const InfoRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
 };
 
 /// @brief InfoReply
-pub const InfoReply = extern struct {
+pub const InfoReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,

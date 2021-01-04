@@ -20,7 +20,7 @@ pub const ReportLevel = extern enum(c_uint) {
 pub const BadDamageOpcode = 0;
 
 /// @brief BadDamageError
-pub const BadDamageError = extern struct {
+pub const BadDamageError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -32,7 +32,7 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -41,7 +41,7 @@ pub const QueryVersionRequest = extern struct {
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -52,7 +52,7 @@ pub const QueryVersionReply = extern struct {
 };
 
 /// @brief CreateRequest
-pub const CreateRequest = extern struct {
+pub const CreateRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -63,7 +63,7 @@ pub const CreateRequest = extern struct {
 };
 
 /// @brief DestroyRequest
-pub const DestroyRequest = extern struct {
+pub const DestroyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -71,7 +71,7 @@ pub const DestroyRequest = extern struct {
 };
 
 /// @brief SubtractRequest
-pub const SubtractRequest = extern struct {
+pub const SubtractRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -81,7 +81,7 @@ pub const SubtractRequest = extern struct {
 };
 
 /// @brief AddRequest
-pub const AddRequest = extern struct {
+pub const AddRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -93,7 +93,7 @@ pub const AddRequest = extern struct {
 pub const NotifyOpcode = 0;
 
 /// @brief NotifyEvent
-pub const NotifyEvent = extern struct {
+pub const NotifyEvent = struct {
     @"response_type": u8,
     @"level": u8,
     @"sequence": u16,

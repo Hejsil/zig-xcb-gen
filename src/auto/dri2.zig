@@ -33,7 +33,7 @@ pub const EventType = extern enum(c_uint) {
 };
 
 /// @brief DRI2Buffer
-pub const DRI2Buffer = extern struct {
+pub const DRI2Buffer = struct {
     @"attachment": u32,
     @"name": u32,
     @"pitch": u32,
@@ -42,7 +42,7 @@ pub const DRI2Buffer = extern struct {
 };
 
 /// @brief AttachFormat
-pub const AttachFormat = extern struct {
+pub const AttachFormat = struct {
     @"attachment": u32,
     @"format": u32,
 };
@@ -53,7 +53,7 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -62,7 +62,7 @@ pub const QueryVersionRequest = extern struct {
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -77,7 +77,7 @@ pub const Connectcookie = struct {
 };
 
 /// @brief ConnectRequest
-pub const ConnectRequest = extern struct {
+pub const ConnectRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -86,7 +86,7 @@ pub const ConnectRequest = extern struct {
 };
 
 /// @brief ConnectReply
-pub const ConnectReply = extern struct {
+pub const ConnectReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -94,9 +94,9 @@ pub const ConnectReply = extern struct {
     @"driver_name_length": u32,
     @"device_name_length": u32,
     @"pad1": [16]u8,
-    @"driver_name": [*]u8,
-    @"alignment_pad": [*]u8,
-    @"device_name": [*]u8,
+    @"driver_name": []u8,
+    @"alignment_pad": []u8,
+    @"device_name": []u8,
 };
 
 /// @brief Authenticatecookie
@@ -105,7 +105,7 @@ pub const Authenticatecookie = struct {
 };
 
 /// @brief AuthenticateRequest
-pub const AuthenticateRequest = extern struct {
+pub const AuthenticateRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -114,7 +114,7 @@ pub const AuthenticateRequest = extern struct {
 };
 
 /// @brief AuthenticateReply
-pub const AuthenticateReply = extern struct {
+pub const AuthenticateReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -123,7 +123,7 @@ pub const AuthenticateReply = extern struct {
 };
 
 /// @brief CreateDrawableRequest
-pub const CreateDrawableRequest = extern struct {
+pub const CreateDrawableRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -131,7 +131,7 @@ pub const CreateDrawableRequest = extern struct {
 };
 
 /// @brief DestroyDrawableRequest
-pub const DestroyDrawableRequest = extern struct {
+pub const DestroyDrawableRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -144,17 +144,17 @@ pub const GetBufferscookie = struct {
 };
 
 /// @brief GetBuffersRequest
-pub const GetBuffersRequest = extern struct {
+pub const GetBuffersRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
     @"drawable": xcb.DRAWABLE,
     @"count": u32,
-    @"attachments": [*]u32,
+    @"attachments": []const u32,
 };
 
 /// @brief GetBuffersReply
-pub const GetBuffersReply = extern struct {
+pub const GetBuffersReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -163,7 +163,7 @@ pub const GetBuffersReply = extern struct {
     @"height": u32,
     @"count": u32,
     @"pad1": [12]u8,
-    @"buffers": [*]xcb.dri2.DRI2Buffer,
+    @"buffers": []xcb.dri2.DRI2Buffer,
 };
 
 /// @brief CopyRegioncookie
@@ -172,7 +172,7 @@ pub const CopyRegioncookie = struct {
 };
 
 /// @brief CopyRegionRequest
-pub const CopyRegionRequest = extern struct {
+pub const CopyRegionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
@@ -183,7 +183,7 @@ pub const CopyRegionRequest = extern struct {
 };
 
 /// @brief CopyRegionReply
-pub const CopyRegionReply = extern struct {
+pub const CopyRegionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -196,17 +196,17 @@ pub const GetBuffersWithFormatcookie = struct {
 };
 
 /// @brief GetBuffersWithFormatRequest
-pub const GetBuffersWithFormatRequest = extern struct {
+pub const GetBuffersWithFormatRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
     @"drawable": xcb.DRAWABLE,
     @"count": u32,
-    @"attachments": [*]xcb.dri2.AttachFormat,
+    @"attachments": []const xcb.dri2.AttachFormat,
 };
 
 /// @brief GetBuffersWithFormatReply
-pub const GetBuffersWithFormatReply = extern struct {
+pub const GetBuffersWithFormatReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -215,7 +215,7 @@ pub const GetBuffersWithFormatReply = extern struct {
     @"height": u32,
     @"count": u32,
     @"pad1": [12]u8,
-    @"buffers": [*]xcb.dri2.DRI2Buffer,
+    @"buffers": []xcb.dri2.DRI2Buffer,
 };
 
 /// @brief SwapBufferscookie
@@ -224,7 +224,7 @@ pub const SwapBufferscookie = struct {
 };
 
 /// @brief SwapBuffersRequest
-pub const SwapBuffersRequest = extern struct {
+pub const SwapBuffersRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 8,
     @"length": u16,
@@ -238,7 +238,7 @@ pub const SwapBuffersRequest = extern struct {
 };
 
 /// @brief SwapBuffersReply
-pub const SwapBuffersReply = extern struct {
+pub const SwapBuffersReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -253,7 +253,7 @@ pub const GetMSCcookie = struct {
 };
 
 /// @brief GetMSCRequest
-pub const GetMSCRequest = extern struct {
+pub const GetMSCRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 9,
     @"length": u16,
@@ -261,7 +261,7 @@ pub const GetMSCRequest = extern struct {
 };
 
 /// @brief GetMSCReply
-pub const GetMSCReply = extern struct {
+pub const GetMSCReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -280,7 +280,7 @@ pub const WaitMSCcookie = struct {
 };
 
 /// @brief WaitMSCRequest
-pub const WaitMSCRequest = extern struct {
+pub const WaitMSCRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 10,
     @"length": u16,
@@ -294,7 +294,7 @@ pub const WaitMSCRequest = extern struct {
 };
 
 /// @brief WaitMSCReply
-pub const WaitMSCReply = extern struct {
+pub const WaitMSCReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -313,7 +313,7 @@ pub const WaitSBCcookie = struct {
 };
 
 /// @brief WaitSBCRequest
-pub const WaitSBCRequest = extern struct {
+pub const WaitSBCRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 11,
     @"length": u16,
@@ -323,7 +323,7 @@ pub const WaitSBCRequest = extern struct {
 };
 
 /// @brief WaitSBCReply
-pub const WaitSBCReply = extern struct {
+pub const WaitSBCReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -337,7 +337,7 @@ pub const WaitSBCReply = extern struct {
 };
 
 /// @brief SwapIntervalRequest
-pub const SwapIntervalRequest = extern struct {
+pub const SwapIntervalRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 12,
     @"length": u16,
@@ -351,7 +351,7 @@ pub const GetParamcookie = struct {
 };
 
 /// @brief GetParamRequest
-pub const GetParamRequest = extern struct {
+pub const GetParamRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 13,
     @"length": u16,
@@ -360,7 +360,7 @@ pub const GetParamRequest = extern struct {
 };
 
 /// @brief GetParamReply
-pub const GetParamReply = extern struct {
+pub const GetParamReply = struct {
     @"response_type": u8,
     @"is_param_recognized": u8,
     @"sequence": u16,
@@ -373,7 +373,7 @@ pub const GetParamReply = extern struct {
 pub const BufferSwapCompleteOpcode = 0;
 
 /// @brief BufferSwapCompleteEvent
-pub const BufferSwapCompleteEvent = extern struct {
+pub const BufferSwapCompleteEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -391,7 +391,7 @@ pub const BufferSwapCompleteEvent = extern struct {
 pub const InvalidateBuffersOpcode = 1;
 
 /// @brief InvalidateBuffersEvent
-pub const InvalidateBuffersEvent = extern struct {
+pub const InvalidateBuffersEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,

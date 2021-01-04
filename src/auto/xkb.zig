@@ -274,7 +274,7 @@ pub const IMGroupsWhich = extern enum(c_uint) {
 };
 
 /// @brief IndicatorMap
-pub const IndicatorMap = extern struct {
+pub const IndicatorMap = struct {
     @"flags": u8,
     @"whichGroups": u8,
     @"groups": u8,
@@ -335,32 +335,32 @@ pub const PerClientFlag = extern enum(c_uint) {
 };
 
 /// @brief ModDef
-pub const ModDef = extern struct {
+pub const ModDef = struct {
     @"mask": u8,
     @"realMods": u8,
     @"vmods": u16,
 };
 
 /// @brief KeyName
-pub const KeyName = extern struct {
+pub const KeyName = struct {
     @"name": [4]u8,
 };
 
 /// @brief KeyAlias
-pub const KeyAlias = extern struct {
+pub const KeyAlias = struct {
     @"real": [4]u8,
     @"alias": [4]u8,
 };
 
 /// @brief CountedString16
-pub const CountedString16 = extern struct {
+pub const CountedString16 = struct {
     @"length": u16,
-    @"string": [*]u8,
-    @"alignment_pad": [*]u8,
+    @"string": []u8,
+    @"alignment_pad": []u8,
 };
 
 /// @brief KTMapEntry
-pub const KTMapEntry = extern struct {
+pub const KTMapEntry = struct {
     @"active": u8,
     @"mods_mask": u8,
     @"level": u8,
@@ -370,7 +370,7 @@ pub const KTMapEntry = extern struct {
 };
 
 /// @brief KeyType
-pub const KeyType = extern struct {
+pub const KeyType = struct {
     @"mods_mask": u8,
     @"mods_mods": u8,
     @"mods_vmods": u16,
@@ -378,69 +378,69 @@ pub const KeyType = extern struct {
     @"nMapEntries": u8,
     @"hasPreserve": u8,
     @"pad0": u8,
-    @"map": [*]xcb.xkb.KTMapEntry,
-    @"preserve": [*]xcb.xkb.ModDef,
+    @"map": []xcb.xkb.KTMapEntry,
+    @"preserve": []xcb.xkb.ModDef,
 };
 
 /// @brief KeySymMap
-pub const KeySymMap = extern struct {
+pub const KeySymMap = struct {
     @"kt_index": [4]u8,
     @"groupInfo": u8,
     @"width": u8,
     @"nSyms": u16,
-    @"syms": [*]xcb.KEYSYM,
+    @"syms": []xcb.KEYSYM,
 };
 
 /// @brief CommonBehavior
-pub const CommonBehavior = extern struct {
+pub const CommonBehavior = struct {
     @"type": u8,
     @"data": u8,
 };
 
 /// @brief DefaultBehavior
-pub const DefaultBehavior = extern struct {
+pub const DefaultBehavior = struct {
     @"type": u8,
     @"pad0": u8,
 };
 
 /// @brief LockBehavior
-pub const LockBehavior = extern struct {
+pub const LockBehavior = struct {
     @"type": u8,
     @"pad0": u8,
 };
 
 /// @brief RadioGroupBehavior
-pub const RadioGroupBehavior = extern struct {
+pub const RadioGroupBehavior = struct {
     @"type": u8,
     @"group": u8,
 };
 
 /// @brief OverlayBehavior
-pub const OverlayBehavior = extern struct {
+pub const OverlayBehavior = struct {
     @"type": u8,
     @"key": xcb.KEYCODE,
 };
 
 /// @brief PermamentLockBehavior
-pub const PermamentLockBehavior = extern struct {
+pub const PermamentLockBehavior = struct {
     @"type": u8,
     @"pad0": u8,
 };
 
 /// @brief PermamentRadioGroupBehavior
-pub const PermamentRadioGroupBehavior = extern struct {
+pub const PermamentRadioGroupBehavior = struct {
     @"type": u8,
     @"group": u8,
 };
 
 /// @brief PermamentOverlayBehavior
-pub const PermamentOverlayBehavior = extern struct {
+pub const PermamentOverlayBehavior = struct {
     @"type": u8,
     @"key": xcb.KEYCODE,
 };
 
 /// @brief Behavior
-pub const Behavior = extern union {
+pub const Behavior = union {
     @"common": xcb.xkb.CommonBehavior,
     @"default": xcb.xkb.DefaultBehavior,
     @"lock": xcb.xkb.LockBehavior,
@@ -467,40 +467,40 @@ pub const BehaviorType = extern enum(c_uint) {
 };
 
 /// @brief SetBehavior
-pub const SetBehavior = extern struct {
+pub const SetBehavior = struct {
     @"keycode": xcb.KEYCODE,
     @"behavior": xcb.xkb.Behavior,
     @"pad0": u8,
 };
 
 /// @brief SetExplicit
-pub const SetExplicit = extern struct {
+pub const SetExplicit = struct {
     @"keycode": xcb.KEYCODE,
     @"explicit": u8,
 };
 
 /// @brief KeyModMap
-pub const KeyModMap = extern struct {
+pub const KeyModMap = struct {
     @"keycode": xcb.KEYCODE,
     @"mods": u8,
 };
 
 /// @brief KeyVModMap
-pub const KeyVModMap = extern struct {
+pub const KeyVModMap = struct {
     @"keycode": xcb.KEYCODE,
     @"pad0": u8,
     @"vmods": u16,
 };
 
 /// @brief KTSetMapEntry
-pub const KTSetMapEntry = extern struct {
+pub const KTSetMapEntry = struct {
     @"level": u8,
     @"realMods": u8,
     @"virtualMods": u16,
 };
 
 /// @brief SetKeyType
-pub const SetKeyType = extern struct {
+pub const SetKeyType = struct {
     @"mask": u8,
     @"realMods": u8,
     @"virtualMods": u16,
@@ -508,32 +508,32 @@ pub const SetKeyType = extern struct {
     @"nMapEntries": u8,
     @"preserve": u8,
     @"pad0": u8,
-    @"entries": [*]xcb.xkb.KTSetMapEntry,
-    @"preserve_entries": [*]xcb.xkb.KTSetMapEntry,
+    @"entries": []xcb.xkb.KTSetMapEntry,
+    @"preserve_entries": []xcb.xkb.KTSetMapEntry,
 };
 
 pub const STRING8 = u8;
 
 /// @brief Outline
-pub const Outline = extern struct {
+pub const Outline = struct {
     @"nPoints": u8,
     @"cornerRadius": u8,
     @"pad0": [2]u8,
-    @"points": [*]xcb.POINT,
+    @"points": []xcb.POINT,
 };
 
 /// @brief Shape
-pub const Shape = extern struct {
+pub const Shape = struct {
     @"name": xcb.ATOM,
     @"nOutlines": u8,
     @"primaryNdx": u8,
     @"approxNdx": u8,
     @"pad0": u8,
-    @"outlines": [*]xcb.xkb.Outline,
+    @"outlines": []xcb.xkb.Outline,
 };
 
 /// @brief Key
-pub const Key = extern struct {
+pub const Key = struct {
     @"name": [4]xcb.xkb.STRING8,
     @"gap": i16,
     @"shapeNdx": u8,
@@ -541,35 +541,35 @@ pub const Key = extern struct {
 };
 
 /// @brief OverlayKey
-pub const OverlayKey = extern struct {
+pub const OverlayKey = struct {
     @"over": [4]xcb.xkb.STRING8,
     @"under": [4]xcb.xkb.STRING8,
 };
 
 /// @brief OverlayRow
-pub const OverlayRow = extern struct {
+pub const OverlayRow = struct {
     @"rowUnder": u8,
     @"nKeys": u8,
     @"pad0": [2]u8,
-    @"keys": [*]xcb.xkb.OverlayKey,
+    @"keys": []xcb.xkb.OverlayKey,
 };
 
 /// @brief Overlay
-pub const Overlay = extern struct {
+pub const Overlay = struct {
     @"name": xcb.ATOM,
     @"nRows": u8,
     @"pad0": [3]u8,
-    @"rows": [*]xcb.xkb.OverlayRow,
+    @"rows": []xcb.xkb.OverlayRow,
 };
 
 /// @brief Row
-pub const Row = extern struct {
+pub const Row = struct {
     @"top": i16,
     @"left": i16,
     @"nKeys": u8,
     @"vertical": u8,
     @"pad0": [2]u8,
-    @"keys": [*]xcb.xkb.Key,
+    @"keys": []xcb.xkb.Key,
 };
 
 pub const DoodadType = extern enum(c_uint) {
@@ -581,22 +581,22 @@ pub const DoodadType = extern enum(c_uint) {
 };
 
 /// @brief Listing
-pub const Listing = extern struct {
+pub const Listing = struct {
     @"flags": u16,
     @"length": u16,
-    @"string": [*]xcb.xkb.STRING8,
+    @"string": []xcb.xkb.STRING8,
 };
 
 /// @brief DeviceLedInfo
-pub const DeviceLedInfo = extern struct {
+pub const DeviceLedInfo = struct {
     @"ledClass": xcb.xkb.LedClassSpec,
     @"ledID": xcb.xkb.IDSpec,
     @"namesPresent": u32,
     @"mapsPresent": u32,
     @"physIndicators": u32,
     @"state": u32,
-    @"names": [*]xcb.ATOM,
-    @"maps": [*]xcb.xkb.IndicatorMap,
+    @"names": []xcb.ATOM,
+    @"maps": []xcb.xkb.IndicatorMap,
 };
 
 pub const Error = extern enum(c_uint) {
@@ -609,7 +609,7 @@ pub const Error = extern enum(c_uint) {
 pub const KeyboardOpcode = 0;
 
 /// @brief KeyboardError
-pub const KeyboardError = extern struct {
+pub const KeyboardError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -651,13 +651,13 @@ pub const SAType = extern enum(c_uint) {
 };
 
 /// @brief SANoAction
-pub const SANoAction = extern struct {
+pub const SANoAction = struct {
     @"type": u8,
     @"pad0": [7]u8,
 };
 
 /// @brief SASetMods
-pub const SASetMods = extern struct {
+pub const SASetMods = struct {
     @"type": u8,
     @"flags": u8,
     @"mask": u8,
@@ -668,7 +668,7 @@ pub const SASetMods = extern struct {
 };
 
 /// @brief SALatchMods
-pub const SALatchMods = extern struct {
+pub const SALatchMods = struct {
     @"type": u8,
     @"flags": u8,
     @"mask": u8,
@@ -679,7 +679,7 @@ pub const SALatchMods = extern struct {
 };
 
 /// @brief SALockMods
-pub const SALockMods = extern struct {
+pub const SALockMods = struct {
     @"type": u8,
     @"flags": u8,
     @"mask": u8,
@@ -690,7 +690,7 @@ pub const SALockMods = extern struct {
 };
 
 /// @brief SASetGroup
-pub const SASetGroup = extern struct {
+pub const SASetGroup = struct {
     @"type": u8,
     @"flags": u8,
     @"group": i8,
@@ -698,7 +698,7 @@ pub const SASetGroup = extern struct {
 };
 
 /// @brief SALatchGroup
-pub const SALatchGroup = extern struct {
+pub const SALatchGroup = struct {
     @"type": u8,
     @"flags": u8,
     @"group": i8,
@@ -706,7 +706,7 @@ pub const SALatchGroup = extern struct {
 };
 
 /// @brief SALockGroup
-pub const SALockGroup = extern struct {
+pub const SALockGroup = struct {
     @"type": u8,
     @"flags": u8,
     @"group": i8,
@@ -720,7 +720,7 @@ pub const SAMovePtrFlag = extern enum(c_uint) {
 };
 
 /// @brief SAMovePtr
-pub const SAMovePtr = extern struct {
+pub const SAMovePtr = struct {
     @"type": u8,
     @"flags": u8,
     @"xHigh": i8,
@@ -731,7 +731,7 @@ pub const SAMovePtr = extern struct {
 };
 
 /// @brief SAPtrBtn
-pub const SAPtrBtn = extern struct {
+pub const SAPtrBtn = struct {
     @"type": u8,
     @"flags": u8,
     @"count": u8,
@@ -740,7 +740,7 @@ pub const SAPtrBtn = extern struct {
 };
 
 /// @brief SALockPtrBtn
-pub const SALockPtrBtn = extern struct {
+pub const SALockPtrBtn = struct {
     @"type": u8,
     @"flags": u8,
     @"pad0": u8,
@@ -754,7 +754,7 @@ pub const SASetPtrDfltFlag = extern enum(c_uint) {
 };
 
 /// @brief SASetPtrDflt
-pub const SASetPtrDflt = extern struct {
+pub const SASetPtrDflt = struct {
     @"type": u8,
     @"flags": u8,
     @"affect": u8,
@@ -778,7 +778,7 @@ pub const SAIsoLockNoAffect = extern enum(c_uint) {
 };
 
 /// @brief SAIsoLock
-pub const SAIsoLock = extern struct {
+pub const SAIsoLock = struct {
     @"type": u8,
     @"flags": u8,
     @"mask": u8,
@@ -790,7 +790,7 @@ pub const SAIsoLock = extern struct {
 };
 
 /// @brief SATerminate
-pub const SATerminate = extern struct {
+pub const SATerminate = struct {
     @"type": u8,
     @"pad0": [7]u8,
 };
@@ -801,7 +801,7 @@ pub const SwitchScreenFlag = extern enum(c_uint) {
 };
 
 /// @brief SASwitchScreen
-pub const SASwitchScreen = extern struct {
+pub const SASwitchScreen = struct {
     @"type": u8,
     @"flags": u8,
     @"newScreen": i8,
@@ -828,7 +828,7 @@ pub const BoolCtrlsLow = extern enum(c_uint) {
 };
 
 /// @brief SASetControls
-pub const SASetControls = extern struct {
+pub const SASetControls = struct {
     @"type": u8,
     @"pad0": [3]u8,
     @"boolCtrlsHigh": u8,
@@ -837,7 +837,7 @@ pub const SASetControls = extern struct {
 };
 
 /// @brief SALockControls
-pub const SALockControls = extern struct {
+pub const SALockControls = struct {
     @"type": u8,
     @"pad0": [3]u8,
     @"boolCtrlsHigh": u8,
@@ -852,14 +852,14 @@ pub const ActionMessageFlag = extern enum(c_uint) {
 };
 
 /// @brief SAActionMessage
-pub const SAActionMessage = extern struct {
+pub const SAActionMessage = struct {
     @"type": u8,
     @"flags": u8,
     @"message": [6]u8,
 };
 
 /// @brief SARedirectKey
-pub const SARedirectKey = extern struct {
+pub const SARedirectKey = struct {
     @"type": u8,
     @"newkey": xcb.KEYCODE,
     @"mask": u8,
@@ -871,7 +871,7 @@ pub const SARedirectKey = extern struct {
 };
 
 /// @brief SADeviceBtn
-pub const SADeviceBtn = extern struct {
+pub const SADeviceBtn = struct {
     @"type": u8,
     @"flags": u8,
     @"count": u8,
@@ -886,7 +886,7 @@ pub const LockDeviceFlags = extern enum(c_uint) {
 };
 
 /// @brief SALockDeviceBtn
-pub const SALockDeviceBtn = extern struct {
+pub const SALockDeviceBtn = struct {
     @"type": u8,
     @"flags": u8,
     @"pad0": u8,
@@ -905,7 +905,7 @@ pub const SAValWhat = extern enum(c_uint) {
 };
 
 /// @brief SADeviceValuator
-pub const SADeviceValuator = extern struct {
+pub const SADeviceValuator = struct {
     @"type": u8,
     @"device": u8,
     @"val1what": u8,
@@ -917,13 +917,13 @@ pub const SADeviceValuator = extern struct {
 };
 
 /// @brief SIAction
-pub const SIAction = extern struct {
+pub const SIAction = struct {
     @"type": u8,
     @"data": [7]u8,
 };
 
 /// @brief SymInterpret
-pub const SymInterpret = extern struct {
+pub const SymInterpret = struct {
     @"sym": xcb.KEYSYM,
     @"mods": u8,
     @"match": u8,
@@ -933,7 +933,7 @@ pub const SymInterpret = extern struct {
 };
 
 /// @brief Action
-pub const Action = extern union {
+pub const Action = union {
     @"noaction": xcb.xkb.SANoAction,
     @"setmods": xcb.xkb.SASetMods,
     @"latchmods": xcb.xkb.SALatchMods,
@@ -964,7 +964,7 @@ pub const UseExtensioncookie = struct {
 };
 
 /// @brief UseExtensionRequest
-pub const UseExtensionRequest = extern struct {
+pub const UseExtensionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -973,7 +973,7 @@ pub const UseExtensionRequest = extern struct {
 };
 
 /// @brief UseExtensionReply
-pub const UseExtensionReply = extern struct {
+pub const UseExtensionReply = struct {
     @"response_type": u8,
     @"supported": u8,
     @"sequence": u16,
@@ -984,7 +984,7 @@ pub const UseExtensionReply = extern struct {
 };
 
 /// @brief SelectEventsRequest
-pub const SelectEventsRequest = extern struct {
+pub const SelectEventsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -997,7 +997,7 @@ pub const SelectEventsRequest = extern struct {
 };
 
 /// @brief BellRequest
-pub const BellRequest = extern struct {
+pub const BellRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -1021,7 +1021,7 @@ pub const GetStatecookie = struct {
 };
 
 /// @brief GetStateRequest
-pub const GetStateRequest = extern struct {
+pub const GetStateRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -1030,7 +1030,7 @@ pub const GetStateRequest = extern struct {
 };
 
 /// @brief GetStateReply
-pub const GetStateReply = extern struct {
+pub const GetStateReply = struct {
     @"response_type": u8,
     @"deviceID": u8,
     @"sequence": u16,
@@ -1054,7 +1054,7 @@ pub const GetStateReply = extern struct {
 };
 
 /// @brief LatchLockStateRequest
-pub const LatchLockStateRequest = extern struct {
+pub const LatchLockStateRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -1076,7 +1076,7 @@ pub const GetControlscookie = struct {
 };
 
 /// @brief GetControlsRequest
-pub const GetControlsRequest = extern struct {
+pub const GetControlsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
@@ -1085,7 +1085,7 @@ pub const GetControlsRequest = extern struct {
 };
 
 /// @brief GetControlsReply
-pub const GetControlsReply = extern struct {
+pub const GetControlsReply = struct {
     @"response_type": u8,
     @"deviceID": u8,
     @"sequence": u16,
@@ -1121,7 +1121,7 @@ pub const GetControlsReply = extern struct {
 };
 
 /// @brief SetControlsRequest
-pub const SetControlsRequest = extern struct {
+pub const SetControlsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
@@ -1164,7 +1164,7 @@ pub const GetMapcookie = struct {
 };
 
 /// @brief GetMapRequest
-pub const GetMapRequest = extern struct {
+pub const GetMapRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 8,
     @"length": u16,
@@ -1190,7 +1190,7 @@ pub const GetMapRequest = extern struct {
 };
 
 /// @brief GetMapReply
-pub const GetMapReply = extern struct {
+pub const GetMapReply = struct {
     @"response_type": u8,
     @"deviceID": u8,
     @"sequence": u16,
@@ -1225,7 +1225,7 @@ pub const GetMapReply = extern struct {
 };
 
 /// @brief SetMapRequest
-pub const SetMapRequest = extern struct {
+pub const SetMapRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 9,
     @"length": u16,
@@ -1263,7 +1263,7 @@ pub const GetCompatMapcookie = struct {
 };
 
 /// @brief GetCompatMapRequest
-pub const GetCompatMapRequest = extern struct {
+pub const GetCompatMapRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 10,
     @"length": u16,
@@ -1275,7 +1275,7 @@ pub const GetCompatMapRequest = extern struct {
 };
 
 /// @brief GetCompatMapReply
-pub const GetCompatMapReply = extern struct {
+pub const GetCompatMapReply = struct {
     @"response_type": u8,
     @"deviceID": u8,
     @"sequence": u16,
@@ -1286,12 +1286,12 @@ pub const GetCompatMapReply = extern struct {
     @"nSIRtrn": u16,
     @"nTotalSI": u16,
     @"pad1": [16]u8,
-    @"si_rtrn": [*]xcb.xkb.SymInterpret,
-    @"group_rtrn": [*]xcb.xkb.ModDef,
+    @"si_rtrn": []xcb.xkb.SymInterpret,
+    @"group_rtrn": []xcb.xkb.ModDef,
 };
 
 /// @brief SetCompatMapRequest
-pub const SetCompatMapRequest = extern struct {
+pub const SetCompatMapRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 11,
     @"length": u16,
@@ -1303,8 +1303,8 @@ pub const SetCompatMapRequest = extern struct {
     @"firstSI": u16,
     @"nSI": u16,
     @"pad1": [2]u8,
-    @"si": [*]xcb.xkb.SymInterpret,
-    @"groupMaps": [*]xcb.xkb.ModDef,
+    @"si": []const xcb.xkb.SymInterpret,
+    @"groupMaps": []const xcb.xkb.ModDef,
 };
 
 /// @brief GetIndicatorStatecookie
@@ -1313,7 +1313,7 @@ pub const GetIndicatorStatecookie = struct {
 };
 
 /// @brief GetIndicatorStateRequest
-pub const GetIndicatorStateRequest = extern struct {
+pub const GetIndicatorStateRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 12,
     @"length": u16,
@@ -1322,7 +1322,7 @@ pub const GetIndicatorStateRequest = extern struct {
 };
 
 /// @brief GetIndicatorStateReply
-pub const GetIndicatorStateReply = extern struct {
+pub const GetIndicatorStateReply = struct {
     @"response_type": u8,
     @"deviceID": u8,
     @"sequence": u16,
@@ -1337,7 +1337,7 @@ pub const GetIndicatorMapcookie = struct {
 };
 
 /// @brief GetIndicatorMapRequest
-pub const GetIndicatorMapRequest = extern struct {
+pub const GetIndicatorMapRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 13,
     @"length": u16,
@@ -1347,7 +1347,7 @@ pub const GetIndicatorMapRequest = extern struct {
 };
 
 /// @brief GetIndicatorMapReply
-pub const GetIndicatorMapReply = extern struct {
+pub const GetIndicatorMapReply = struct {
     @"response_type": u8,
     @"deviceID": u8,
     @"sequence": u16,
@@ -1356,18 +1356,18 @@ pub const GetIndicatorMapReply = extern struct {
     @"realIndicators": u32,
     @"nIndicators": u8,
     @"pad0": [15]u8,
-    @"maps": [*]xcb.xkb.IndicatorMap,
+    @"maps": []xcb.xkb.IndicatorMap,
 };
 
 /// @brief SetIndicatorMapRequest
-pub const SetIndicatorMapRequest = extern struct {
+pub const SetIndicatorMapRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 14,
     @"length": u16,
     @"deviceSpec": xcb.xkb.DeviceSpec,
     @"pad0": [2]u8,
     @"which": u32,
-    @"maps": [*]xcb.xkb.IndicatorMap,
+    @"maps": []const xcb.xkb.IndicatorMap,
 };
 
 /// @brief GetNamedIndicatorcookie
@@ -1376,7 +1376,7 @@ pub const GetNamedIndicatorcookie = struct {
 };
 
 /// @brief GetNamedIndicatorRequest
-pub const GetNamedIndicatorRequest = extern struct {
+pub const GetNamedIndicatorRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 15,
     @"length": u16,
@@ -1388,7 +1388,7 @@ pub const GetNamedIndicatorRequest = extern struct {
 };
 
 /// @brief GetNamedIndicatorReply
-pub const GetNamedIndicatorReply = extern struct {
+pub const GetNamedIndicatorReply = struct {
     @"response_type": u8,
     @"deviceID": u8,
     @"sequence": u16,
@@ -1411,7 +1411,7 @@ pub const GetNamedIndicatorReply = extern struct {
 };
 
 /// @brief SetNamedIndicatorRequest
-pub const SetNamedIndicatorRequest = extern struct {
+pub const SetNamedIndicatorRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 16,
     @"length": u16,
@@ -1440,7 +1440,7 @@ pub const GetNamescookie = struct {
 };
 
 /// @brief GetNamesRequest
-pub const GetNamesRequest = extern struct {
+pub const GetNamesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 17,
     @"length": u16,
@@ -1450,7 +1450,7 @@ pub const GetNamesRequest = extern struct {
 };
 
 /// @brief GetNamesReply
-pub const GetNamesReply = extern struct {
+pub const GetNamesReply = struct {
     @"response_type": u8,
     @"deviceID": u8,
     @"sequence": u16,
@@ -1471,7 +1471,7 @@ pub const GetNamesReply = extern struct {
 };
 
 /// @brief SetNamesRequest
-pub const SetNamesRequest = extern struct {
+pub const SetNamesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 18,
     @"length": u16,
@@ -1498,7 +1498,7 @@ pub const PerClientFlagscookie = struct {
 };
 
 /// @brief PerClientFlagsRequest
-pub const PerClientFlagsRequest = extern struct {
+pub const PerClientFlagsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 21,
     @"length": u16,
@@ -1512,7 +1512,7 @@ pub const PerClientFlagsRequest = extern struct {
 };
 
 /// @brief PerClientFlagsReply
-pub const PerClientFlagsReply = extern struct {
+pub const PerClientFlagsReply = struct {
     @"response_type": u8,
     @"deviceID": u8,
     @"sequence": u16,
@@ -1530,7 +1530,7 @@ pub const ListComponentscookie = struct {
 };
 
 /// @brief ListComponentsRequest
-pub const ListComponentsRequest = extern struct {
+pub const ListComponentsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 22,
     @"length": u16,
@@ -1539,7 +1539,7 @@ pub const ListComponentsRequest = extern struct {
 };
 
 /// @brief ListComponentsReply
-pub const ListComponentsReply = extern struct {
+pub const ListComponentsReply = struct {
     @"response_type": u8,
     @"deviceID": u8,
     @"sequence": u16,
@@ -1552,12 +1552,12 @@ pub const ListComponentsReply = extern struct {
     @"nGeometries": u16,
     @"extra": u16,
     @"pad0": [10]u8,
-    @"keymaps": [*]xcb.xkb.Listing,
-    @"keycodes": [*]xcb.xkb.Listing,
-    @"types": [*]xcb.xkb.Listing,
-    @"compatMaps": [*]xcb.xkb.Listing,
-    @"symbols": [*]xcb.xkb.Listing,
-    @"geometries": [*]xcb.xkb.Listing,
+    @"keymaps": []xcb.xkb.Listing,
+    @"keycodes": []xcb.xkb.Listing,
+    @"types": []xcb.xkb.Listing,
+    @"compatMaps": []xcb.xkb.Listing,
+    @"symbols": []xcb.xkb.Listing,
+    @"geometries": []xcb.xkb.Listing,
 };
 
 /// @brief GetKbdByNamecookie
@@ -1566,7 +1566,7 @@ pub const GetKbdByNamecookie = struct {
 };
 
 /// @brief GetKbdByNameRequest
-pub const GetKbdByNameRequest = extern struct {
+pub const GetKbdByNameRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 23,
     @"length": u16,
@@ -1578,7 +1578,7 @@ pub const GetKbdByNameRequest = extern struct {
 };
 
 /// @brief GetKbdByNameReply
-pub const GetKbdByNameReply = extern struct {
+pub const GetKbdByNameReply = struct {
     @"response_type": u8,
     @"deviceID": u8,
     @"sequence": u16,
@@ -1598,7 +1598,7 @@ pub const GetDeviceInfocookie = struct {
 };
 
 /// @brief GetDeviceInfoRequest
-pub const GetDeviceInfoRequest = extern struct {
+pub const GetDeviceInfoRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 24,
     @"length": u16,
@@ -1613,7 +1613,7 @@ pub const GetDeviceInfoRequest = extern struct {
 };
 
 /// @brief GetDeviceInfoReply
-pub const GetDeviceInfoReply = extern struct {
+pub const GetDeviceInfoReply = struct {
     @"response_type": u8,
     @"deviceID": u8,
     @"sequence": u16,
@@ -1633,13 +1633,13 @@ pub const GetDeviceInfoReply = extern struct {
     @"pad0": [2]u8,
     @"devType": xcb.ATOM,
     @"nameLen": u16,
-    @"name": [*]xcb.xkb.STRING8,
-    @"btnActions": [*]xcb.xkb.Action,
-    @"leds": [*]xcb.xkb.DeviceLedInfo,
+    @"name": []xcb.xkb.STRING8,
+    @"btnActions": []xcb.xkb.Action,
+    @"leds": []xcb.xkb.DeviceLedInfo,
 };
 
 /// @brief SetDeviceInfoRequest
-pub const SetDeviceInfoRequest = extern struct {
+pub const SetDeviceInfoRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 25,
     @"length": u16,
@@ -1648,8 +1648,8 @@ pub const SetDeviceInfoRequest = extern struct {
     @"nBtns": u8,
     @"change": u16,
     @"nDeviceLedFBs": u16,
-    @"btnActions": [*]xcb.xkb.Action,
-    @"leds": [*]xcb.xkb.DeviceLedInfo,
+    @"btnActions": []const xcb.xkb.Action,
+    @"leds": []const xcb.xkb.DeviceLedInfo,
 };
 
 /// @brief SetDebuggingFlagscookie
@@ -1658,7 +1658,7 @@ pub const SetDebuggingFlagscookie = struct {
 };
 
 /// @brief SetDebuggingFlagsRequest
-pub const SetDebuggingFlagsRequest = extern struct {
+pub const SetDebuggingFlagsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 101,
     @"length": u16,
@@ -1668,11 +1668,11 @@ pub const SetDebuggingFlagsRequest = extern struct {
     @"flags": u32,
     @"affectCtrls": u32,
     @"ctrls": u32,
-    @"message": [*]xcb.xkb.STRING8,
+    @"message": []const xcb.xkb.STRING8,
 };
 
 /// @brief SetDebuggingFlagsReply
-pub const SetDebuggingFlagsReply = extern struct {
+pub const SetDebuggingFlagsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1688,7 +1688,7 @@ pub const SetDebuggingFlagsReply = extern struct {
 pub const NewKeyboardNotifyOpcode = 0;
 
 /// @brief NewKeyboardNotifyEvent
-pub const NewKeyboardNotifyEvent = extern struct {
+pub const NewKeyboardNotifyEvent = struct {
     @"response_type": u8,
     @"xkbType": u8,
     @"sequence": u16,
@@ -1709,7 +1709,7 @@ pub const NewKeyboardNotifyEvent = extern struct {
 pub const MapNotifyOpcode = 1;
 
 /// @brief MapNotifyEvent
-pub const MapNotifyEvent = extern struct {
+pub const MapNotifyEvent = struct {
     @"response_type": u8,
     @"xkbType": u8,
     @"sequence": u16,
@@ -1741,7 +1741,7 @@ pub const MapNotifyEvent = extern struct {
 pub const StateNotifyOpcode = 2;
 
 /// @brief StateNotifyEvent
-pub const StateNotifyEvent = extern struct {
+pub const StateNotifyEvent = struct {
     @"response_type": u8,
     @"xkbType": u8,
     @"sequence": u16,
@@ -1772,7 +1772,7 @@ pub const StateNotifyEvent = extern struct {
 pub const ControlsNotifyOpcode = 3;
 
 /// @brief ControlsNotifyEvent
-pub const ControlsNotifyEvent = extern struct {
+pub const ControlsNotifyEvent = struct {
     @"response_type": u8,
     @"xkbType": u8,
     @"sequence": u16,
@@ -1794,7 +1794,7 @@ pub const ControlsNotifyEvent = extern struct {
 pub const IndicatorStateNotifyOpcode = 4;
 
 /// @brief IndicatorStateNotifyEvent
-pub const IndicatorStateNotifyEvent = extern struct {
+pub const IndicatorStateNotifyEvent = struct {
     @"response_type": u8,
     @"xkbType": u8,
     @"sequence": u16,
@@ -1810,7 +1810,7 @@ pub const IndicatorStateNotifyEvent = extern struct {
 pub const IndicatorMapNotifyOpcode = 5;
 
 /// @brief IndicatorMapNotifyEvent
-pub const IndicatorMapNotifyEvent = extern struct {
+pub const IndicatorMapNotifyEvent = struct {
     @"response_type": u8,
     @"xkbType": u8,
     @"sequence": u16,
@@ -1826,7 +1826,7 @@ pub const IndicatorMapNotifyEvent = extern struct {
 pub const NamesNotifyOpcode = 6;
 
 /// @brief NamesNotifyEvent
-pub const NamesNotifyEvent = extern struct {
+pub const NamesNotifyEvent = struct {
     @"response_type": u8,
     @"xkbType": u8,
     @"sequence": u16,
@@ -1853,7 +1853,7 @@ pub const NamesNotifyEvent = extern struct {
 pub const CompatMapNotifyOpcode = 7;
 
 /// @brief CompatMapNotifyEvent
-pub const CompatMapNotifyEvent = extern struct {
+pub const CompatMapNotifyEvent = struct {
     @"response_type": u8,
     @"xkbType": u8,
     @"sequence": u16,
@@ -1870,7 +1870,7 @@ pub const CompatMapNotifyEvent = extern struct {
 pub const BellNotifyOpcode = 8;
 
 /// @brief BellNotifyEvent
-pub const BellNotifyEvent = extern struct {
+pub const BellNotifyEvent = struct {
     @"response_type": u8,
     @"xkbType": u8,
     @"sequence": u16,
@@ -1891,7 +1891,7 @@ pub const BellNotifyEvent = extern struct {
 pub const ActionMessageOpcode = 9;
 
 /// @brief ActionMessageEvent
-pub const ActionMessageEvent = extern struct {
+pub const ActionMessageEvent = struct {
     @"response_type": u8,
     @"xkbType": u8,
     @"sequence": u16,
@@ -1910,7 +1910,7 @@ pub const ActionMessageEvent = extern struct {
 pub const AccessXNotifyOpcode = 10;
 
 /// @brief AccessXNotifyEvent
-pub const AccessXNotifyEvent = extern struct {
+pub const AccessXNotifyEvent = struct {
     @"response_type": u8,
     @"xkbType": u8,
     @"sequence": u16,
@@ -1927,7 +1927,7 @@ pub const AccessXNotifyEvent = extern struct {
 pub const ExtensionDeviceNotifyOpcode = 11;
 
 /// @brief ExtensionDeviceNotifyEvent
-pub const ExtensionDeviceNotifyEvent = extern struct {
+pub const ExtensionDeviceNotifyEvent = struct {
     @"response_type": u8,
     @"xkbType": u8,
     @"sequence": u16,

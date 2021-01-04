@@ -10,25 +10,25 @@ pub const id = xcb.Extension{ .name = "RECORD", .global_id = 0 };
 pub const CONTEXT = u32;
 
 /// @brief Range8
-pub const Range8 = extern struct {
+pub const Range8 = struct {
     @"first": u8,
     @"last": u8,
 };
 
 /// @brief Range16
-pub const Range16 = extern struct {
+pub const Range16 = struct {
     @"first": u16,
     @"last": u16,
 };
 
 /// @brief ExtRange
-pub const ExtRange = extern struct {
+pub const ExtRange = struct {
     @"major": xcb.record.Range8,
     @"minor": xcb.record.Range16,
 };
 
 /// @brief Range
-pub const Range = extern struct {
+pub const Range = struct {
     @"core_requests": xcb.record.Range8,
     @"core_replies": xcb.record.Range8,
     @"ext_requests": xcb.record.ExtRange,
@@ -57,17 +57,17 @@ pub const CS = extern enum(c_uint) {
 };
 
 /// @brief ClientInfo
-pub const ClientInfo = extern struct {
+pub const ClientInfo = struct {
     @"client_resource": xcb.record.ClientSpec,
     @"num_ranges": u32,
-    @"ranges": [*]xcb.record.Range,
+    @"ranges": []xcb.record.Range,
 };
 
 /// Opcode for BadContext.
 pub const BadContextOpcode = 0;
 
 /// @brief BadContextError
-pub const BadContextError = extern struct {
+pub const BadContextError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -80,7 +80,7 @@ pub const QueryVersioncookie = struct {
 };
 
 /// @brief QueryVersionRequest
-pub const QueryVersionRequest = extern struct {
+pub const QueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 0,
     @"length": u16,
@@ -89,7 +89,7 @@ pub const QueryVersionRequest = extern struct {
 };
 
 /// @brief QueryVersionReply
-pub const QueryVersionReply = extern struct {
+pub const QueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -99,7 +99,7 @@ pub const QueryVersionReply = extern struct {
 };
 
 /// @brief CreateContextRequest
-pub const CreateContextRequest = extern struct {
+pub const CreateContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
@@ -108,12 +108,12 @@ pub const CreateContextRequest = extern struct {
     @"pad0": [3]u8,
     @"num_client_specs": u32,
     @"num_ranges": u32,
-    @"client_specs": [*]xcb.record.ClientSpec,
-    @"ranges": [*]xcb.record.Range,
+    @"client_specs": []const xcb.record.ClientSpec,
+    @"ranges": []const xcb.record.Range,
 };
 
 /// @brief RegisterClientsRequest
-pub const RegisterClientsRequest = extern struct {
+pub const RegisterClientsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
@@ -122,18 +122,18 @@ pub const RegisterClientsRequest = extern struct {
     @"pad0": [3]u8,
     @"num_client_specs": u32,
     @"num_ranges": u32,
-    @"client_specs": [*]xcb.record.ClientSpec,
-    @"ranges": [*]xcb.record.Range,
+    @"client_specs": []const xcb.record.ClientSpec,
+    @"ranges": []const xcb.record.Range,
 };
 
 /// @brief UnregisterClientsRequest
-pub const UnregisterClientsRequest = extern struct {
+pub const UnregisterClientsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
     @"context": xcb.record.CONTEXT,
     @"num_client_specs": u32,
-    @"client_specs": [*]xcb.record.ClientSpec,
+    @"client_specs": []const xcb.record.ClientSpec,
 };
 
 /// @brief GetContextcookie
@@ -142,7 +142,7 @@ pub const GetContextcookie = struct {
 };
 
 /// @brief GetContextRequest
-pub const GetContextRequest = extern struct {
+pub const GetContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -150,7 +150,7 @@ pub const GetContextRequest = extern struct {
 };
 
 /// @brief GetContextReply
-pub const GetContextReply = extern struct {
+pub const GetContextReply = struct {
     @"response_type": u8,
     @"enabled": u8,
     @"sequence": u16,
@@ -159,7 +159,7 @@ pub const GetContextReply = extern struct {
     @"pad0": [3]u8,
     @"num_intercepted_clients": u32,
     @"pad1": [16]u8,
-    @"intercepted_clients": [*]xcb.record.ClientInfo,
+    @"intercepted_clients": []xcb.record.ClientInfo,
 };
 
 /// @brief EnableContextcookie
@@ -168,7 +168,7 @@ pub const EnableContextcookie = struct {
 };
 
 /// @brief EnableContextRequest
-pub const EnableContextRequest = extern struct {
+pub const EnableContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -176,7 +176,7 @@ pub const EnableContextRequest = extern struct {
 };
 
 /// @brief EnableContextReply
-pub const EnableContextReply = extern struct {
+pub const EnableContextReply = struct {
     @"response_type": u8,
     @"category": u8,
     @"sequence": u16,
@@ -188,11 +188,11 @@ pub const EnableContextReply = extern struct {
     @"server_time": u32,
     @"rec_sequence_num": u32,
     @"pad1": [8]u8,
-    @"data": [*]u8,
+    @"data": []u8,
 };
 
 /// @brief DisableContextRequest
-pub const DisableContextRequest = extern struct {
+pub const DisableContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
@@ -200,7 +200,7 @@ pub const DisableContextRequest = extern struct {
 };
 
 /// @brief FreeContextRequest
-pub const FreeContextRequest = extern struct {
+pub const FreeContextRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,

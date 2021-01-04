@@ -16,7 +16,7 @@ pub const DeviceId = u16;
 pub const FP1616 = i32;
 
 /// @brief FP3232
-pub const FP3232 = extern struct {
+pub const FP3232 = struct {
     @"integral": i32,
     @"frac": u32,
 };
@@ -27,17 +27,17 @@ pub const GetExtensionVersioncookie = struct {
 };
 
 /// @brief GetExtensionVersionRequest
-pub const GetExtensionVersionRequest = extern struct {
+pub const GetExtensionVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 1,
     @"length": u16,
     @"name_len": u16,
     @"pad0": [2]u8,
-    @"name": [*]u8,
+    @"name": []const u8,
 };
 
 /// @brief GetExtensionVersionReply
-pub const GetExtensionVersionReply = extern struct {
+pub const GetExtensionVersionReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
@@ -72,7 +72,7 @@ pub const ValuatorMode = extern enum(c_uint) {
 };
 
 /// @brief DeviceInfo
-pub const DeviceInfo = extern struct {
+pub const DeviceInfo = struct {
     @"device_type": xcb.ATOM,
     @"device_id": u8,
     @"num_class_info": u8,
@@ -81,7 +81,7 @@ pub const DeviceInfo = extern struct {
 };
 
 /// @brief KeyInfo
-pub const KeyInfo = extern struct {
+pub const KeyInfo = struct {
     @"class_id": u8,
     @"len": u8,
     @"min_keycode": xcb.input.KeyCode,
@@ -91,39 +91,39 @@ pub const KeyInfo = extern struct {
 };
 
 /// @brief ButtonInfo
-pub const ButtonInfo = extern struct {
+pub const ButtonInfo = struct {
     @"class_id": u8,
     @"len": u8,
     @"num_buttons": u16,
 };
 
 /// @brief AxisInfo
-pub const AxisInfo = extern struct {
+pub const AxisInfo = struct {
     @"resolution": u32,
     @"minimum": i32,
     @"maximum": i32,
 };
 
 /// @brief ValuatorInfo
-pub const ValuatorInfo = extern struct {
+pub const ValuatorInfo = struct {
     @"class_id": u8,
     @"len": u8,
     @"axes_len": u8,
     @"mode": u8,
     @"motion_size": u32,
-    @"axes": [*]xcb.input.AxisInfo,
+    @"axes": []xcb.input.AxisInfo,
 };
 
 /// @brief InputInfo
-pub const InputInfo = extern struct {
+pub const InputInfo = struct {
     @"class_id": u8,
     @"len": u8,
 };
 
 /// @brief DeviceName
-pub const DeviceName = extern struct {
+pub const DeviceName = struct {
     @"len": u8,
-    @"string": [*]u8,
+    @"string": []u8,
 };
 
 /// @brief ListInputDevicescookie
@@ -132,27 +132,27 @@ pub const ListInputDevicescookie = struct {
 };
 
 /// @brief ListInputDevicesRequest
-pub const ListInputDevicesRequest = extern struct {
+pub const ListInputDevicesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 2,
     @"length": u16,
 };
 
 /// @brief ListInputDevicesReply
-pub const ListInputDevicesReply = extern struct {
+pub const ListInputDevicesReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
     @"length": u32,
     @"devices_len": u8,
     @"pad0": [23]u8,
-    @"devices": [*]xcb.input.DeviceInfo,
-    @"infos": [*]xcb.input.InputInfo,
-    @"names": [*]xcb.STR,
+    @"devices": []xcb.input.DeviceInfo,
+    @"infos": []xcb.input.InputInfo,
+    @"names": []xcb.STR,
 };
 
 /// @brief InputClassInfo
-pub const InputClassInfo = extern struct {
+pub const InputClassInfo = struct {
     @"class_id": u8,
     @"event_type_base": u8,
 };
@@ -163,7 +163,7 @@ pub const OpenDevicecookie = struct {
 };
 
 /// @brief OpenDeviceRequest
-pub const OpenDeviceRequest = extern struct {
+pub const OpenDeviceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 3,
     @"length": u16,
@@ -172,18 +172,18 @@ pub const OpenDeviceRequest = extern struct {
 };
 
 /// @brief OpenDeviceReply
-pub const OpenDeviceReply = extern struct {
+pub const OpenDeviceReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_classes": u8,
     @"pad0": [23]u8,
-    @"class_info": [*]xcb.input.InputClassInfo,
+    @"class_info": []xcb.input.InputClassInfo,
 };
 
 /// @brief CloseDeviceRequest
-pub const CloseDeviceRequest = extern struct {
+pub const CloseDeviceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 4,
     @"length": u16,
@@ -197,7 +197,7 @@ pub const SetDeviceModecookie = struct {
 };
 
 /// @brief SetDeviceModeRequest
-pub const SetDeviceModeRequest = extern struct {
+pub const SetDeviceModeRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 5,
     @"length": u16,
@@ -207,7 +207,7 @@ pub const SetDeviceModeRequest = extern struct {
 };
 
 /// @brief SetDeviceModeReply
-pub const SetDeviceModeReply = extern struct {
+pub const SetDeviceModeReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
@@ -217,14 +217,14 @@ pub const SetDeviceModeReply = extern struct {
 };
 
 /// @brief SelectExtensionEventRequest
-pub const SelectExtensionEventRequest = extern struct {
+pub const SelectExtensionEventRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 6,
     @"length": u16,
     @"window": xcb.WINDOW,
     @"num_classes": u16,
     @"pad0": [2]u8,
-    @"classes": [*]xcb.input.EventClass,
+    @"classes": []const xcb.input.EventClass,
 };
 
 /// @brief GetSelectedExtensionEventscookie
@@ -233,7 +233,7 @@ pub const GetSelectedExtensionEventscookie = struct {
 };
 
 /// @brief GetSelectedExtensionEventsRequest
-pub const GetSelectedExtensionEventsRequest = extern struct {
+pub const GetSelectedExtensionEventsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 7,
     @"length": u16,
@@ -241,7 +241,7 @@ pub const GetSelectedExtensionEventsRequest = extern struct {
 };
 
 /// @brief GetSelectedExtensionEventsReply
-pub const GetSelectedExtensionEventsReply = extern struct {
+pub const GetSelectedExtensionEventsReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
@@ -249,8 +249,8 @@ pub const GetSelectedExtensionEventsReply = extern struct {
     @"num_this_classes": u16,
     @"num_all_classes": u16,
     @"pad0": [20]u8,
-    @"this_classes": [*]xcb.input.EventClass,
-    @"all_classes": [*]xcb.input.EventClass,
+    @"this_classes": []xcb.input.EventClass,
+    @"all_classes": []xcb.input.EventClass,
 };
 
 pub const PropagateMode = extern enum(c_uint) {
@@ -259,7 +259,7 @@ pub const PropagateMode = extern enum(c_uint) {
 };
 
 /// @brief ChangeDeviceDontPropagateListRequest
-pub const ChangeDeviceDontPropagateListRequest = extern struct {
+pub const ChangeDeviceDontPropagateListRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 8,
     @"length": u16,
@@ -267,7 +267,7 @@ pub const ChangeDeviceDontPropagateListRequest = extern struct {
     @"num_classes": u16,
     @"mode": u8,
     @"pad0": u8,
-    @"classes": [*]xcb.input.EventClass,
+    @"classes": []const xcb.input.EventClass,
 };
 
 /// @brief GetDeviceDontPropagateListcookie
@@ -276,7 +276,7 @@ pub const GetDeviceDontPropagateListcookie = struct {
 };
 
 /// @brief GetDeviceDontPropagateListRequest
-pub const GetDeviceDontPropagateListRequest = extern struct {
+pub const GetDeviceDontPropagateListRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 9,
     @"length": u16,
@@ -284,20 +284,20 @@ pub const GetDeviceDontPropagateListRequest = extern struct {
 };
 
 /// @brief GetDeviceDontPropagateListReply
-pub const GetDeviceDontPropagateListReply = extern struct {
+pub const GetDeviceDontPropagateListReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_classes": u16,
     @"pad0": [22]u8,
-    @"classes": [*]xcb.input.EventClass,
+    @"classes": []xcb.input.EventClass,
 };
 
 /// @brief DeviceTimeCoord
-pub const DeviceTimeCoord = extern struct {
+pub const DeviceTimeCoord = struct {
     @"time": xcb.TIMESTAMP,
-    @"axisvalues": [*]i32,
+    @"axisvalues": []i32,
 };
 
 /// @brief GetDeviceMotionEventscookie
@@ -306,7 +306,7 @@ pub const GetDeviceMotionEventscookie = struct {
 };
 
 /// @brief GetDeviceMotionEventsRequest
-pub const GetDeviceMotionEventsRequest = extern struct {
+pub const GetDeviceMotionEventsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 10,
     @"length": u16,
@@ -317,7 +317,7 @@ pub const GetDeviceMotionEventsRequest = extern struct {
 };
 
 /// @brief GetDeviceMotionEventsReply
-pub const GetDeviceMotionEventsReply = extern struct {
+pub const GetDeviceMotionEventsReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
@@ -326,7 +326,7 @@ pub const GetDeviceMotionEventsReply = extern struct {
     @"num_axes": u8,
     @"device_mode": u8,
     @"pad0": [18]u8,
-    @"events": [*]xcb.input.DeviceTimeCoord,
+    @"events": []xcb.input.DeviceTimeCoord,
 };
 
 /// @brief ChangeKeyboardDevicecookie
@@ -335,7 +335,7 @@ pub const ChangeKeyboardDevicecookie = struct {
 };
 
 /// @brief ChangeKeyboardDeviceRequest
-pub const ChangeKeyboardDeviceRequest = extern struct {
+pub const ChangeKeyboardDeviceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 11,
     @"length": u16,
@@ -344,7 +344,7 @@ pub const ChangeKeyboardDeviceRequest = extern struct {
 };
 
 /// @brief ChangeKeyboardDeviceReply
-pub const ChangeKeyboardDeviceReply = extern struct {
+pub const ChangeKeyboardDeviceReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
@@ -359,7 +359,7 @@ pub const ChangePointerDevicecookie = struct {
 };
 
 /// @brief ChangePointerDeviceRequest
-pub const ChangePointerDeviceRequest = extern struct {
+pub const ChangePointerDeviceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 12,
     @"length": u16,
@@ -370,7 +370,7 @@ pub const ChangePointerDeviceRequest = extern struct {
 };
 
 /// @brief ChangePointerDeviceReply
-pub const ChangePointerDeviceReply = extern struct {
+pub const ChangePointerDeviceReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
@@ -385,7 +385,7 @@ pub const GrabDevicecookie = struct {
 };
 
 /// @brief GrabDeviceRequest
-pub const GrabDeviceRequest = extern struct {
+pub const GrabDeviceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 13,
     @"length": u16,
@@ -397,11 +397,11 @@ pub const GrabDeviceRequest = extern struct {
     @"owner_events": u8,
     @"device_id": u8,
     @"pad0": [2]u8,
-    @"classes": [*]xcb.input.EventClass,
+    @"classes": []const xcb.input.EventClass,
 };
 
 /// @brief GrabDeviceReply
-pub const GrabDeviceReply = extern struct {
+pub const GrabDeviceReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
@@ -411,7 +411,7 @@ pub const GrabDeviceReply = extern struct {
 };
 
 /// @brief UngrabDeviceRequest
-pub const UngrabDeviceRequest = extern struct {
+pub const UngrabDeviceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 14,
     @"length": u16,
@@ -425,7 +425,7 @@ pub const ModifierDevice = extern enum(c_uint) {
 };
 
 /// @brief GrabDeviceKeyRequest
-pub const GrabDeviceKeyRequest = extern struct {
+pub const GrabDeviceKeyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 15,
     @"length": u16,
@@ -439,11 +439,11 @@ pub const GrabDeviceKeyRequest = extern struct {
     @"other_device_mode": u8,
     @"owner_events": u8,
     @"pad0": [2]u8,
-    @"classes": [*]xcb.input.EventClass,
+    @"classes": []const xcb.input.EventClass,
 };
 
 /// @brief UngrabDeviceKeyRequest
-pub const UngrabDeviceKeyRequest = extern struct {
+pub const UngrabDeviceKeyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 16,
     @"length": u16,
@@ -455,7 +455,7 @@ pub const UngrabDeviceKeyRequest = extern struct {
 };
 
 /// @brief GrabDeviceButtonRequest
-pub const GrabDeviceButtonRequest = extern struct {
+pub const GrabDeviceButtonRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 17,
     @"length": u16,
@@ -469,11 +469,11 @@ pub const GrabDeviceButtonRequest = extern struct {
     @"button": u8,
     @"owner_events": u8,
     @"pad0": [2]u8,
-    @"classes": [*]xcb.input.EventClass,
+    @"classes": []const xcb.input.EventClass,
 };
 
 /// @brief UngrabDeviceButtonRequest
-pub const UngrabDeviceButtonRequest = extern struct {
+pub const UngrabDeviceButtonRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 18,
     @"length": u16,
@@ -495,7 +495,7 @@ pub const DeviceInputMode = extern enum(c_uint) {
 };
 
 /// @brief AllowDeviceEventsRequest
-pub const AllowDeviceEventsRequest = extern struct {
+pub const AllowDeviceEventsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 19,
     @"length": u16,
@@ -511,7 +511,7 @@ pub const GetDeviceFocuscookie = struct {
 };
 
 /// @brief GetDeviceFocusRequest
-pub const GetDeviceFocusRequest = extern struct {
+pub const GetDeviceFocusRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 20,
     @"length": u16,
@@ -520,7 +520,7 @@ pub const GetDeviceFocusRequest = extern struct {
 };
 
 /// @brief GetDeviceFocusReply
-pub const GetDeviceFocusReply = extern struct {
+pub const GetDeviceFocusReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
@@ -532,7 +532,7 @@ pub const GetDeviceFocusReply = extern struct {
 };
 
 /// @brief SetDeviceFocusRequest
-pub const SetDeviceFocusRequest = extern struct {
+pub const SetDeviceFocusRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 21,
     @"length": u16,
@@ -553,7 +553,7 @@ pub const FeedbackClass = extern enum(c_uint) {
 };
 
 /// @brief KbdFeedbackState
-pub const KbdFeedbackState = extern struct {
+pub const KbdFeedbackState = struct {
     @"class_id": u8,
     @"feedback_id": u8,
     @"len": u16,
@@ -569,7 +569,7 @@ pub const KbdFeedbackState = extern struct {
 };
 
 /// @brief PtrFeedbackState
-pub const PtrFeedbackState = extern struct {
+pub const PtrFeedbackState = struct {
     @"class_id": u8,
     @"feedback_id": u8,
     @"len": u16,
@@ -580,7 +580,7 @@ pub const PtrFeedbackState = extern struct {
 };
 
 /// @brief IntegerFeedbackState
-pub const IntegerFeedbackState = extern struct {
+pub const IntegerFeedbackState = struct {
     @"class_id": u8,
     @"feedback_id": u8,
     @"len": u16,
@@ -590,17 +590,17 @@ pub const IntegerFeedbackState = extern struct {
 };
 
 /// @brief StringFeedbackState
-pub const StringFeedbackState = extern struct {
+pub const StringFeedbackState = struct {
     @"class_id": u8,
     @"feedback_id": u8,
     @"len": u16,
     @"max_symbols": u16,
     @"num_keysyms": u16,
-    @"keysyms": [*]xcb.KEYSYM,
+    @"keysyms": []xcb.KEYSYM,
 };
 
 /// @brief BellFeedbackState
-pub const BellFeedbackState = extern struct {
+pub const BellFeedbackState = struct {
     @"class_id": u8,
     @"feedback_id": u8,
     @"len": u16,
@@ -611,7 +611,7 @@ pub const BellFeedbackState = extern struct {
 };
 
 /// @brief LedFeedbackState
-pub const LedFeedbackState = extern struct {
+pub const LedFeedbackState = struct {
     @"class_id": u8,
     @"feedback_id": u8,
     @"len": u16,
@@ -620,7 +620,7 @@ pub const LedFeedbackState = extern struct {
 };
 
 /// @brief FeedbackState
-pub const FeedbackState = extern struct {
+pub const FeedbackState = struct {
     @"class_id": u8,
     @"feedback_id": u8,
     @"len": u16,
@@ -632,7 +632,7 @@ pub const GetFeedbackControlcookie = struct {
 };
 
 /// @brief GetFeedbackControlRequest
-pub const GetFeedbackControlRequest = extern struct {
+pub const GetFeedbackControlRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 22,
     @"length": u16,
@@ -641,18 +641,18 @@ pub const GetFeedbackControlRequest = extern struct {
 };
 
 /// @brief GetFeedbackControlReply
-pub const GetFeedbackControlReply = extern struct {
+pub const GetFeedbackControlReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_feedbacks": u16,
     @"pad0": [22]u8,
-    @"feedbacks": [*]xcb.input.FeedbackState,
+    @"feedbacks": []xcb.input.FeedbackState,
 };
 
 /// @brief KbdFeedbackCtl
-pub const KbdFeedbackCtl = extern struct {
+pub const KbdFeedbackCtl = struct {
     @"class_id": u8,
     @"feedback_id": u8,
     @"len": u16,
@@ -667,7 +667,7 @@ pub const KbdFeedbackCtl = extern struct {
 };
 
 /// @brief PtrFeedbackCtl
-pub const PtrFeedbackCtl = extern struct {
+pub const PtrFeedbackCtl = struct {
     @"class_id": u8,
     @"feedback_id": u8,
     @"len": u16,
@@ -678,7 +678,7 @@ pub const PtrFeedbackCtl = extern struct {
 };
 
 /// @brief IntegerFeedbackCtl
-pub const IntegerFeedbackCtl = extern struct {
+pub const IntegerFeedbackCtl = struct {
     @"class_id": u8,
     @"feedback_id": u8,
     @"len": u16,
@@ -686,17 +686,17 @@ pub const IntegerFeedbackCtl = extern struct {
 };
 
 /// @brief StringFeedbackCtl
-pub const StringFeedbackCtl = extern struct {
+pub const StringFeedbackCtl = struct {
     @"class_id": u8,
     @"feedback_id": u8,
     @"len": u16,
     @"pad0": [2]u8,
     @"num_keysyms": u16,
-    @"keysyms": [*]xcb.KEYSYM,
+    @"keysyms": []xcb.KEYSYM,
 };
 
 /// @brief BellFeedbackCtl
-pub const BellFeedbackCtl = extern struct {
+pub const BellFeedbackCtl = struct {
     @"class_id": u8,
     @"feedback_id": u8,
     @"len": u16,
@@ -707,7 +707,7 @@ pub const BellFeedbackCtl = extern struct {
 };
 
 /// @brief LedFeedbackCtl
-pub const LedFeedbackCtl = extern struct {
+pub const LedFeedbackCtl = struct {
     @"class_id": u8,
     @"feedback_id": u8,
     @"len": u16,
@@ -716,7 +716,7 @@ pub const LedFeedbackCtl = extern struct {
 };
 
 /// @brief FeedbackCtl
-pub const FeedbackCtl = extern struct {
+pub const FeedbackCtl = struct {
     @"class_id": u8,
     @"feedback_id": u8,
     @"len": u16,
@@ -739,7 +739,7 @@ pub const ChangeFeedbackControlMask = extern enum(c_uint) {
 };
 
 /// @brief ChangeFeedbackControlRequest
-pub const ChangeFeedbackControlRequest = extern struct {
+pub const ChangeFeedbackControlRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 23,
     @"length": u16,
@@ -755,7 +755,7 @@ pub const GetDeviceKeyMappingcookie = struct {
 };
 
 /// @brief GetDeviceKeyMappingRequest
-pub const GetDeviceKeyMappingRequest = extern struct {
+pub const GetDeviceKeyMappingRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 24,
     @"length": u16,
@@ -766,18 +766,18 @@ pub const GetDeviceKeyMappingRequest = extern struct {
 };
 
 /// @brief GetDeviceKeyMappingReply
-pub const GetDeviceKeyMappingReply = extern struct {
+pub const GetDeviceKeyMappingReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
     @"length": u32,
     @"keysyms_per_keycode": u8,
     @"pad0": [23]u8,
-    @"keysyms": [*]xcb.KEYSYM,
+    @"keysyms": []xcb.KEYSYM,
 };
 
 /// @brief ChangeDeviceKeyMappingRequest
-pub const ChangeDeviceKeyMappingRequest = extern struct {
+pub const ChangeDeviceKeyMappingRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 25,
     @"length": u16,
@@ -785,7 +785,7 @@ pub const ChangeDeviceKeyMappingRequest = extern struct {
     @"first_keycode": xcb.input.KeyCode,
     @"keysyms_per_keycode": u8,
     @"keycode_count": u8,
-    @"keysyms": [*]xcb.KEYSYM,
+    @"keysyms": []const xcb.KEYSYM,
 };
 
 /// @brief GetDeviceModifierMappingcookie
@@ -794,7 +794,7 @@ pub const GetDeviceModifierMappingcookie = struct {
 };
 
 /// @brief GetDeviceModifierMappingRequest
-pub const GetDeviceModifierMappingRequest = extern struct {
+pub const GetDeviceModifierMappingRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 26,
     @"length": u16,
@@ -803,14 +803,14 @@ pub const GetDeviceModifierMappingRequest = extern struct {
 };
 
 /// @brief GetDeviceModifierMappingReply
-pub const GetDeviceModifierMappingReply = extern struct {
+pub const GetDeviceModifierMappingReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
     @"length": u32,
     @"keycodes_per_modifier": u8,
     @"pad0": [23]u8,
-    @"keymaps": [*]u8,
+    @"keymaps": []u8,
 };
 
 /// @brief SetDeviceModifierMappingcookie
@@ -819,18 +819,18 @@ pub const SetDeviceModifierMappingcookie = struct {
 };
 
 /// @brief SetDeviceModifierMappingRequest
-pub const SetDeviceModifierMappingRequest = extern struct {
+pub const SetDeviceModifierMappingRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 27,
     @"length": u16,
     @"device_id": u8,
     @"keycodes_per_modifier": u8,
     @"pad0": [2]u8,
-    @"keymaps": [*]u8,
+    @"keymaps": []const u8,
 };
 
 /// @brief SetDeviceModifierMappingReply
-pub const SetDeviceModifierMappingReply = extern struct {
+pub const SetDeviceModifierMappingReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
@@ -845,7 +845,7 @@ pub const GetDeviceButtonMappingcookie = struct {
 };
 
 /// @brief GetDeviceButtonMappingRequest
-pub const GetDeviceButtonMappingRequest = extern struct {
+pub const GetDeviceButtonMappingRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 28,
     @"length": u16,
@@ -854,14 +854,14 @@ pub const GetDeviceButtonMappingRequest = extern struct {
 };
 
 /// @brief GetDeviceButtonMappingReply
-pub const GetDeviceButtonMappingReply = extern struct {
+pub const GetDeviceButtonMappingReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
     @"length": u32,
     @"map_size": u8,
     @"pad0": [23]u8,
-    @"map": [*]u8,
+    @"map": []u8,
 };
 
 /// @brief SetDeviceButtonMappingcookie
@@ -870,18 +870,18 @@ pub const SetDeviceButtonMappingcookie = struct {
 };
 
 /// @brief SetDeviceButtonMappingRequest
-pub const SetDeviceButtonMappingRequest = extern struct {
+pub const SetDeviceButtonMappingRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 29,
     @"length": u16,
     @"device_id": u8,
     @"map_size": u8,
     @"pad0": [2]u8,
-    @"map": [*]u8,
+    @"map": []const u8,
 };
 
 /// @brief SetDeviceButtonMappingReply
-pub const SetDeviceButtonMappingReply = extern struct {
+pub const SetDeviceButtonMappingReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
@@ -891,7 +891,7 @@ pub const SetDeviceButtonMappingReply = extern struct {
 };
 
 /// @brief KeyState
-pub const KeyState = extern struct {
+pub const KeyState = struct {
     @"class_id": u8,
     @"len": u8,
     @"num_keys": u8,
@@ -900,7 +900,7 @@ pub const KeyState = extern struct {
 };
 
 /// @brief ButtonState
-pub const ButtonState = extern struct {
+pub const ButtonState = struct {
     @"class_id": u8,
     @"len": u8,
     @"num_buttons": u8,
@@ -914,16 +914,16 @@ pub const ValuatorStateModeMask = extern enum(c_uint) {
 };
 
 /// @brief ValuatorState
-pub const ValuatorState = extern struct {
+pub const ValuatorState = struct {
     @"class_id": u8,
     @"len": u8,
     @"num_valuators": u8,
     @"mode": u8,
-    @"valuators": [*]i32,
+    @"valuators": []i32,
 };
 
 /// @brief InputState
-pub const InputState = extern struct {
+pub const InputState = struct {
     @"class_id": u8,
     @"len": u8,
 };
@@ -934,7 +934,7 @@ pub const QueryDeviceStatecookie = struct {
 };
 
 /// @brief QueryDeviceStateRequest
-pub const QueryDeviceStateRequest = extern struct {
+pub const QueryDeviceStateRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 30,
     @"length": u16,
@@ -943,18 +943,18 @@ pub const QueryDeviceStateRequest = extern struct {
 };
 
 /// @brief QueryDeviceStateReply
-pub const QueryDeviceStateReply = extern struct {
+pub const QueryDeviceStateReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_classes": u8,
     @"pad0": [23]u8,
-    @"classes": [*]xcb.input.InputState,
+    @"classes": []xcb.input.InputState,
 };
 
 /// @brief SendExtensionEventRequest
-pub const SendExtensionEventRequest = extern struct {
+pub const SendExtensionEventRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 31,
     @"length": u16,
@@ -964,12 +964,12 @@ pub const SendExtensionEventRequest = extern struct {
     @"num_classes": u16,
     @"num_events": u8,
     @"pad0": [3]u8,
-    @"events": [*]u8,
-    @"classes": [*]xcb.input.EventClass,
+    @"events": []const u8,
+    @"classes": []const xcb.input.EventClass,
 };
 
 /// @brief DeviceBellRequest
-pub const DeviceBellRequest = extern struct {
+pub const DeviceBellRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 32,
     @"length": u16,
@@ -985,7 +985,7 @@ pub const SetDeviceValuatorscookie = struct {
 };
 
 /// @brief SetDeviceValuatorsRequest
-pub const SetDeviceValuatorsRequest = extern struct {
+pub const SetDeviceValuatorsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 33,
     @"length": u16,
@@ -993,11 +993,11 @@ pub const SetDeviceValuatorsRequest = extern struct {
     @"first_valuator": u8,
     @"num_valuators": u8,
     @"pad0": u8,
-    @"valuators": [*]i32,
+    @"valuators": []const i32,
 };
 
 /// @brief SetDeviceValuatorsReply
-pub const SetDeviceValuatorsReply = extern struct {
+pub const SetDeviceValuatorsReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
@@ -1015,17 +1015,17 @@ pub const DeviceControl = extern enum(c_uint) {
 };
 
 /// @brief DeviceResolutionState
-pub const DeviceResolutionState = extern struct {
+pub const DeviceResolutionState = struct {
     @"control_id": u16,
     @"len": u16,
     @"num_valuators": u32,
-    @"resolution_values": [*]u32,
-    @"resolution_min": [*]u32,
-    @"resolution_max": [*]u32,
+    @"resolution_values": []u32,
+    @"resolution_min": []u32,
+    @"resolution_max": []u32,
 };
 
 /// @brief DeviceAbsCalibState
-pub const DeviceAbsCalibState = extern struct {
+pub const DeviceAbsCalibState = struct {
     @"control_id": u16,
     @"len": u16,
     @"min_x": i32,
@@ -1039,7 +1039,7 @@ pub const DeviceAbsCalibState = extern struct {
 };
 
 /// @brief DeviceAbsAreaState
-pub const DeviceAbsAreaState = extern struct {
+pub const DeviceAbsAreaState = struct {
     @"control_id": u16,
     @"len": u16,
     @"offset_x": u32,
@@ -1051,7 +1051,7 @@ pub const DeviceAbsAreaState = extern struct {
 };
 
 /// @brief DeviceCoreState
-pub const DeviceCoreState = extern struct {
+pub const DeviceCoreState = struct {
     @"control_id": u16,
     @"len": u16,
     @"status": u8,
@@ -1060,7 +1060,7 @@ pub const DeviceCoreState = extern struct {
 };
 
 /// @brief DeviceEnableState
-pub const DeviceEnableState = extern struct {
+pub const DeviceEnableState = struct {
     @"control_id": u16,
     @"len": u16,
     @"enable": u8,
@@ -1068,7 +1068,7 @@ pub const DeviceEnableState = extern struct {
 };
 
 /// @brief DeviceState
-pub const DeviceState = extern struct {
+pub const DeviceState = struct {
     @"control_id": u16,
     @"len": u16,
 };
@@ -1079,7 +1079,7 @@ pub const GetDeviceControlcookie = struct {
 };
 
 /// @brief GetDeviceControlRequest
-pub const GetDeviceControlRequest = extern struct {
+pub const GetDeviceControlRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 34,
     @"length": u16,
@@ -1089,7 +1089,7 @@ pub const GetDeviceControlRequest = extern struct {
 };
 
 /// @brief GetDeviceControlReply
-pub const GetDeviceControlReply = extern struct {
+pub const GetDeviceControlReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
@@ -1099,17 +1099,17 @@ pub const GetDeviceControlReply = extern struct {
 };
 
 /// @brief DeviceResolutionCtl
-pub const DeviceResolutionCtl = extern struct {
+pub const DeviceResolutionCtl = struct {
     @"control_id": u16,
     @"len": u16,
     @"first_valuator": u8,
     @"num_valuators": u8,
     @"pad0": [2]u8,
-    @"resolution_values": [*]u32,
+    @"resolution_values": []u32,
 };
 
 /// @brief DeviceAbsCalibCtl
-pub const DeviceAbsCalibCtl = extern struct {
+pub const DeviceAbsCalibCtl = struct {
     @"control_id": u16,
     @"len": u16,
     @"min_x": i32,
@@ -1123,7 +1123,7 @@ pub const DeviceAbsCalibCtl = extern struct {
 };
 
 /// @brief DeviceAbsAreaCtrl
-pub const DeviceAbsAreaCtrl = extern struct {
+pub const DeviceAbsAreaCtrl = struct {
     @"control_id": u16,
     @"len": u16,
     @"offset_x": u32,
@@ -1135,7 +1135,7 @@ pub const DeviceAbsAreaCtrl = extern struct {
 };
 
 /// @brief DeviceCoreCtrl
-pub const DeviceCoreCtrl = extern struct {
+pub const DeviceCoreCtrl = struct {
     @"control_id": u16,
     @"len": u16,
     @"status": u8,
@@ -1143,7 +1143,7 @@ pub const DeviceCoreCtrl = extern struct {
 };
 
 /// @brief DeviceEnableCtrl
-pub const DeviceEnableCtrl = extern struct {
+pub const DeviceEnableCtrl = struct {
     @"control_id": u16,
     @"len": u16,
     @"enable": u8,
@@ -1151,7 +1151,7 @@ pub const DeviceEnableCtrl = extern struct {
 };
 
 /// @brief DeviceCtl
-pub const DeviceCtl = extern struct {
+pub const DeviceCtl = struct {
     @"control_id": u16,
     @"len": u16,
 };
@@ -1162,7 +1162,7 @@ pub const ChangeDeviceControlcookie = struct {
 };
 
 /// @brief ChangeDeviceControlRequest
-pub const ChangeDeviceControlRequest = extern struct {
+pub const ChangeDeviceControlRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 35,
     @"length": u16,
@@ -1172,7 +1172,7 @@ pub const ChangeDeviceControlRequest = extern struct {
 };
 
 /// @brief ChangeDeviceControlReply
-pub const ChangeDeviceControlReply = extern struct {
+pub const ChangeDeviceControlReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
@@ -1187,7 +1187,7 @@ pub const ListDevicePropertiescookie = struct {
 };
 
 /// @brief ListDevicePropertiesRequest
-pub const ListDevicePropertiesRequest = extern struct {
+pub const ListDevicePropertiesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 36,
     @"length": u16,
@@ -1196,14 +1196,14 @@ pub const ListDevicePropertiesRequest = extern struct {
 };
 
 /// @brief ListDevicePropertiesReply
-pub const ListDevicePropertiesReply = extern struct {
+pub const ListDevicePropertiesReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_atoms": u16,
     @"pad0": [22]u8,
-    @"atoms": [*]xcb.ATOM,
+    @"atoms": []xcb.ATOM,
 };
 
 pub const PropertyFormat = extern enum(c_uint) {
@@ -1213,7 +1213,7 @@ pub const PropertyFormat = extern enum(c_uint) {
 };
 
 /// @brief ChangeDevicePropertyRequest
-pub const ChangeDevicePropertyRequest = extern struct {
+pub const ChangeDevicePropertyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 37,
     @"length": u16,
@@ -1227,7 +1227,7 @@ pub const ChangeDevicePropertyRequest = extern struct {
 };
 
 /// @brief DeleteDevicePropertyRequest
-pub const DeleteDevicePropertyRequest = extern struct {
+pub const DeleteDevicePropertyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 38,
     @"length": u16,
@@ -1242,7 +1242,7 @@ pub const GetDevicePropertycookie = struct {
 };
 
 /// @brief GetDevicePropertyRequest
-pub const GetDevicePropertyRequest = extern struct {
+pub const GetDevicePropertyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 39,
     @"length": u16,
@@ -1256,7 +1256,7 @@ pub const GetDevicePropertyRequest = extern struct {
 };
 
 /// @brief GetDevicePropertyReply
-pub const GetDevicePropertyReply = extern struct {
+pub const GetDevicePropertyReply = struct {
     @"response_type": u8,
     @"xi_reply_type": u8,
     @"sequence": u16,
@@ -1275,7 +1275,7 @@ pub const Device = extern enum(c_uint) {
 };
 
 /// @brief GroupInfo
-pub const GroupInfo = extern struct {
+pub const GroupInfo = struct {
     @"base": u8,
     @"latched": u8,
     @"locked": u8,
@@ -1283,7 +1283,7 @@ pub const GroupInfo = extern struct {
 };
 
 /// @brief ModifierInfo
-pub const ModifierInfo = extern struct {
+pub const ModifierInfo = struct {
     @"base": u32,
     @"latched": u32,
     @"locked": u32,
@@ -1296,7 +1296,7 @@ pub const XIQueryPointercookie = struct {
 };
 
 /// @brief XIQueryPointerRequest
-pub const XIQueryPointerRequest = extern struct {
+pub const XIQueryPointerRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 40,
     @"length": u16,
@@ -1306,7 +1306,7 @@ pub const XIQueryPointerRequest = extern struct {
 };
 
 /// @brief XIQueryPointerReply
-pub const XIQueryPointerReply = extern struct {
+pub const XIQueryPointerReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1322,11 +1322,11 @@ pub const XIQueryPointerReply = extern struct {
     @"buttons_len": u16,
     @"mods": xcb.input.ModifierInfo,
     @"group": xcb.input.GroupInfo,
-    @"buttons": [*]u32,
+    @"buttons": []u32,
 };
 
 /// @brief XIWarpPointerRequest
-pub const XIWarpPointerRequest = extern struct {
+pub const XIWarpPointerRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 41,
     @"length": u16,
@@ -1343,7 +1343,7 @@ pub const XIWarpPointerRequest = extern struct {
 };
 
 /// @brief XIChangeCursorRequest
-pub const XIChangeCursorRequest = extern struct {
+pub const XIChangeCursorRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 42,
     @"length": u16,
@@ -1366,17 +1366,17 @@ pub const ChangeMode = extern enum(c_uint) {
 };
 
 /// @brief AddMaster
-pub const AddMaster = extern struct {
+pub const AddMaster = struct {
     @"type": u16,
     @"len": u16,
     @"name_len": u16,
     @"send_core": u8,
     @"enable": u8,
-    @"name": [*]u8,
+    @"name": []u8,
 };
 
 /// @brief RemoveMaster
-pub const RemoveMaster = extern struct {
+pub const RemoveMaster = struct {
     @"type": u16,
     @"len": u16,
     @"deviceid": xcb.input.DeviceId,
@@ -1387,7 +1387,7 @@ pub const RemoveMaster = extern struct {
 };
 
 /// @brief AttachSlave
-pub const AttachSlave = extern struct {
+pub const AttachSlave = struct {
     @"type": u16,
     @"len": u16,
     @"deviceid": xcb.input.DeviceId,
@@ -1395,7 +1395,7 @@ pub const AttachSlave = extern struct {
 };
 
 /// @brief DetachSlave
-pub const DetachSlave = extern struct {
+pub const DetachSlave = struct {
     @"type": u16,
     @"len": u16,
     @"deviceid": xcb.input.DeviceId,
@@ -1403,23 +1403,23 @@ pub const DetachSlave = extern struct {
 };
 
 /// @brief HierarchyChange
-pub const HierarchyChange = extern struct {
+pub const HierarchyChange = struct {
     @"type": u16,
     @"len": u16,
 };
 
 /// @brief XIChangeHierarchyRequest
-pub const XIChangeHierarchyRequest = extern struct {
+pub const XIChangeHierarchyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 43,
     @"length": u16,
     @"num_changes": u8,
     @"pad0": [3]u8,
-    @"changes": [*]xcb.input.HierarchyChange,
+    @"changes": []const xcb.input.HierarchyChange,
 };
 
 /// @brief XISetClientPointerRequest
-pub const XISetClientPointerRequest = extern struct {
+pub const XISetClientPointerRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 44,
     @"length": u16,
@@ -1434,7 +1434,7 @@ pub const XIGetClientPointercookie = struct {
 };
 
 /// @brief XIGetClientPointerRequest
-pub const XIGetClientPointerRequest = extern struct {
+pub const XIGetClientPointerRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 45,
     @"length": u16,
@@ -1442,7 +1442,7 @@ pub const XIGetClientPointerRequest = extern struct {
 };
 
 /// @brief XIGetClientPointerReply
-pub const XIGetClientPointerReply = extern struct {
+pub const XIGetClientPointerReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1483,21 +1483,21 @@ pub const XIEventMask = extern enum(c_uint) {
 };
 
 /// @brief EventMask
-pub const EventMask = extern struct {
+pub const EventMask = struct {
     @"deviceid": xcb.input.DeviceId,
     @"mask_len": u16,
-    @"mask": [*]u32,
+    @"mask": []u32,
 };
 
 /// @brief XISelectEventsRequest
-pub const XISelectEventsRequest = extern struct {
+pub const XISelectEventsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 46,
     @"length": u16,
     @"window": xcb.WINDOW,
     @"num_mask": u16,
     @"pad0": [2]u8,
-    @"masks": [*]xcb.input.EventMask,
+    @"masks": []const xcb.input.EventMask,
 };
 
 /// @brief XIQueryVersioncookie
@@ -1506,7 +1506,7 @@ pub const XIQueryVersioncookie = struct {
 };
 
 /// @brief XIQueryVersionRequest
-pub const XIQueryVersionRequest = extern struct {
+pub const XIQueryVersionRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 47,
     @"length": u16,
@@ -1515,7 +1515,7 @@ pub const XIQueryVersionRequest = extern struct {
 };
 
 /// @brief XIQueryVersionReply
-pub const XIQueryVersionReply = extern struct {
+pub const XIQueryVersionReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1557,26 +1557,26 @@ pub const TouchMode = extern enum(c_uint) {
 };
 
 /// @brief ButtonClass
-pub const ButtonClass = extern struct {
+pub const ButtonClass = struct {
     @"type": u16,
     @"len": u16,
     @"sourceid": xcb.input.DeviceId,
     @"num_buttons": u16,
-    @"state": [*]u32,
-    @"labels": [*]xcb.ATOM,
+    @"state": []u32,
+    @"labels": []xcb.ATOM,
 };
 
 /// @brief KeyClass
-pub const KeyClass = extern struct {
+pub const KeyClass = struct {
     @"type": u16,
     @"len": u16,
     @"sourceid": xcb.input.DeviceId,
     @"num_keys": u16,
-    @"keys": [*]u32,
+    @"keys": []u32,
 };
 
 /// @brief ScrollClass
-pub const ScrollClass = extern struct {
+pub const ScrollClass = struct {
     @"type": u16,
     @"len": u16,
     @"sourceid": xcb.input.DeviceId,
@@ -1588,7 +1588,7 @@ pub const ScrollClass = extern struct {
 };
 
 /// @brief TouchClass
-pub const TouchClass = extern struct {
+pub const TouchClass = struct {
     @"type": u16,
     @"len": u16,
     @"sourceid": xcb.input.DeviceId,
@@ -1597,7 +1597,7 @@ pub const TouchClass = extern struct {
 };
 
 /// @brief ValuatorClass
-pub const ValuatorClass = extern struct {
+pub const ValuatorClass = struct {
     @"type": u16,
     @"len": u16,
     @"sourceid": xcb.input.DeviceId,
@@ -1612,14 +1612,14 @@ pub const ValuatorClass = extern struct {
 };
 
 /// @brief DeviceClass
-pub const DeviceClass = extern struct {
+pub const DeviceClass = struct {
     @"type": u16,
     @"len": u16,
     @"sourceid": xcb.input.DeviceId,
 };
 
 /// @brief XIDeviceInfo
-pub const XIDeviceInfo = extern struct {
+pub const XIDeviceInfo = struct {
     @"deviceid": xcb.input.DeviceId,
     @"type": u16,
     @"attachment": xcb.input.DeviceId,
@@ -1627,8 +1627,8 @@ pub const XIDeviceInfo = extern struct {
     @"name_len": u16,
     @"enabled": u8,
     @"pad0": u8,
-    @"name": [*]u8,
-    @"classes": [*]xcb.input.DeviceClass,
+    @"name": []u8,
+    @"classes": []xcb.input.DeviceClass,
 };
 
 /// @brief XIQueryDevicecookie
@@ -1637,7 +1637,7 @@ pub const XIQueryDevicecookie = struct {
 };
 
 /// @brief XIQueryDeviceRequest
-pub const XIQueryDeviceRequest = extern struct {
+pub const XIQueryDeviceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 48,
     @"length": u16,
@@ -1646,18 +1646,18 @@ pub const XIQueryDeviceRequest = extern struct {
 };
 
 /// @brief XIQueryDeviceReply
-pub const XIQueryDeviceReply = extern struct {
+pub const XIQueryDeviceReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_infos": u16,
     @"pad1": [22]u8,
-    @"infos": [*]xcb.input.XIDeviceInfo,
+    @"infos": []xcb.input.XIDeviceInfo,
 };
 
 /// @brief XISetFocusRequest
-pub const XISetFocusRequest = extern struct {
+pub const XISetFocusRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 49,
     @"length": u16,
@@ -1673,7 +1673,7 @@ pub const XIGetFocuscookie = struct {
 };
 
 /// @brief XIGetFocusRequest
-pub const XIGetFocusRequest = extern struct {
+pub const XIGetFocusRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 50,
     @"length": u16,
@@ -1682,7 +1682,7 @@ pub const XIGetFocusRequest = extern struct {
 };
 
 /// @brief XIGetFocusReply
-pub const XIGetFocusReply = extern struct {
+pub const XIGetFocusReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1702,7 +1702,7 @@ pub const XIGrabDevicecookie = struct {
 };
 
 /// @brief XIGrabDeviceRequest
-pub const XIGrabDeviceRequest = extern struct {
+pub const XIGrabDeviceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 51,
     @"length": u16,
@@ -1715,11 +1715,11 @@ pub const XIGrabDeviceRequest = extern struct {
     @"owner_events": u8,
     @"pad0": u8,
     @"mask_len": u16,
-    @"mask": [*]u32,
+    @"mask": []const u32,
 };
 
 /// @brief XIGrabDeviceReply
-pub const XIGrabDeviceReply = extern struct {
+pub const XIGrabDeviceReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1729,7 +1729,7 @@ pub const XIGrabDeviceReply = extern struct {
 };
 
 /// @brief XIUngrabDeviceRequest
-pub const XIUngrabDeviceRequest = extern struct {
+pub const XIUngrabDeviceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 52,
     @"length": u16,
@@ -1750,7 +1750,7 @@ pub const EventMode = extern enum(c_uint) {
 };
 
 /// @brief XIAllowEventsRequest
-pub const XIAllowEventsRequest = extern struct {
+pub const XIAllowEventsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 53,
     @"length": u16,
@@ -1781,7 +1781,7 @@ pub const ModifierMask = extern enum(c_uint) {
 };
 
 /// @brief GrabModifierInfo
-pub const GrabModifierInfo = extern struct {
+pub const GrabModifierInfo = struct {
     @"modifiers": u32,
     @"status": u8,
     @"pad0": [3]u8,
@@ -1793,7 +1793,7 @@ pub const XIPassiveGrabDevicecookie = struct {
 };
 
 /// @brief XIPassiveGrabDeviceRequest
-pub const XIPassiveGrabDeviceRequest = extern struct {
+pub const XIPassiveGrabDeviceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 54,
     @"length": u16,
@@ -1809,23 +1809,23 @@ pub const XIPassiveGrabDeviceRequest = extern struct {
     @"paired_device_mode": u8,
     @"owner_events": u8,
     @"pad0": [2]u8,
-    @"mask": [*]u32,
-    @"modifiers": [*]u32,
+    @"mask": []const u32,
+    @"modifiers": []const u32,
 };
 
 /// @brief XIPassiveGrabDeviceReply
-pub const XIPassiveGrabDeviceReply = extern struct {
+pub const XIPassiveGrabDeviceReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_modifiers": u16,
     @"pad1": [22]u8,
-    @"modifiers": [*]xcb.input.GrabModifierInfo,
+    @"modifiers": []xcb.input.GrabModifierInfo,
 };
 
 /// @brief XIPassiveUngrabDeviceRequest
-pub const XIPassiveUngrabDeviceRequest = extern struct {
+pub const XIPassiveUngrabDeviceRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 55,
     @"length": u16,
@@ -1835,7 +1835,7 @@ pub const XIPassiveUngrabDeviceRequest = extern struct {
     @"num_modifiers": u16,
     @"grab_type": u8,
     @"pad0": [3]u8,
-    @"modifiers": [*]u32,
+    @"modifiers": []const u32,
 };
 
 /// @brief XIListPropertiescookie
@@ -1844,7 +1844,7 @@ pub const XIListPropertiescookie = struct {
 };
 
 /// @brief XIListPropertiesRequest
-pub const XIListPropertiesRequest = extern struct {
+pub const XIListPropertiesRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 56,
     @"length": u16,
@@ -1853,18 +1853,18 @@ pub const XIListPropertiesRequest = extern struct {
 };
 
 /// @brief XIListPropertiesReply
-pub const XIListPropertiesReply = extern struct {
+pub const XIListPropertiesReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_properties": u16,
     @"pad1": [22]u8,
-    @"properties": [*]xcb.ATOM,
+    @"properties": []xcb.ATOM,
 };
 
 /// @brief XIChangePropertyRequest
-pub const XIChangePropertyRequest = extern struct {
+pub const XIChangePropertyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 57,
     @"length": u16,
@@ -1877,7 +1877,7 @@ pub const XIChangePropertyRequest = extern struct {
 };
 
 /// @brief XIDeletePropertyRequest
-pub const XIDeletePropertyRequest = extern struct {
+pub const XIDeletePropertyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 58,
     @"length": u16,
@@ -1892,7 +1892,7 @@ pub const XIGetPropertycookie = struct {
 };
 
 /// @brief XIGetPropertyRequest
-pub const XIGetPropertyRequest = extern struct {
+pub const XIGetPropertyRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 59,
     @"length": u16,
@@ -1906,7 +1906,7 @@ pub const XIGetPropertyRequest = extern struct {
 };
 
 /// @brief XIGetPropertyReply
-pub const XIGetPropertyReply = extern struct {
+pub const XIGetPropertyReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -1924,7 +1924,7 @@ pub const XIGetSelectedEventscookie = struct {
 };
 
 /// @brief XIGetSelectedEventsRequest
-pub const XIGetSelectedEventsRequest = extern struct {
+pub const XIGetSelectedEventsRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 60,
     @"length": u16,
@@ -1932,18 +1932,18 @@ pub const XIGetSelectedEventsRequest = extern struct {
 };
 
 /// @brief XIGetSelectedEventsReply
-pub const XIGetSelectedEventsReply = extern struct {
+pub const XIGetSelectedEventsReply = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
     @"length": u32,
     @"num_masks": u16,
     @"pad1": [22]u8,
-    @"masks": [*]xcb.input.EventMask,
+    @"masks": []xcb.input.EventMask,
 };
 
 /// @brief BarrierReleasePointerInfo
-pub const BarrierReleasePointerInfo = extern struct {
+pub const BarrierReleasePointerInfo = struct {
     @"deviceid": xcb.input.DeviceId,
     @"pad0": [2]u8,
     @"barrier": xcb.xfixes.BARRIER,
@@ -1951,19 +1951,19 @@ pub const BarrierReleasePointerInfo = extern struct {
 };
 
 /// @brief XIBarrierReleasePointerRequest
-pub const XIBarrierReleasePointerRequest = extern struct {
+pub const XIBarrierReleasePointerRequest = struct {
     @"major_opcode": u8,
     @"minor_opcode": u8 = 61,
     @"length": u16,
     @"num_barriers": u32,
-    @"barriers": [*]xcb.input.BarrierReleasePointerInfo,
+    @"barriers": []const xcb.input.BarrierReleasePointerInfo,
 };
 
 /// Opcode for DeviceValuator.
 pub const DeviceValuatorOpcode = 0;
 
 /// @brief DeviceValuatorEvent
-pub const DeviceValuatorEvent = extern struct {
+pub const DeviceValuatorEvent = struct {
     @"response_type": u8,
     @"device_id": u8,
     @"sequence": u16,
@@ -1981,7 +1981,7 @@ pub const MoreEventsMask = extern enum(c_uint) {
 pub const DeviceKeyPressOpcode = 1;
 
 /// @brief DeviceKeyPressEvent
-pub const DeviceKeyPressEvent = extern struct {
+pub const DeviceKeyPressEvent = struct {
     @"response_type": u8,
     @"detail": u8,
     @"sequence": u16,
@@ -2018,7 +2018,7 @@ pub const DeviceMotionNotifyEvent = xcb.input.DeviceKeyPressEvent;
 pub const DeviceFocusInOpcode = 6;
 
 /// @brief DeviceFocusInEvent
-pub const DeviceFocusInEvent = extern struct {
+pub const DeviceFocusInEvent = struct {
     @"response_type": u8,
     @"detail": u8,
     @"sequence": u16,
@@ -2053,7 +2053,7 @@ pub const ClassesReportedMask = extern enum(c_uint) {
 pub const DeviceStateNotifyOpcode = 10;
 
 /// @brief DeviceStateNotifyEvent
-pub const DeviceStateNotifyEvent = extern struct {
+pub const DeviceStateNotifyEvent = struct {
     @"response_type": u8,
     @"device_id": u8,
     @"sequence": u16,
@@ -2071,7 +2071,7 @@ pub const DeviceStateNotifyEvent = extern struct {
 pub const DeviceMappingNotifyOpcode = 11;
 
 /// @brief DeviceMappingNotifyEvent
-pub const DeviceMappingNotifyEvent = extern struct {
+pub const DeviceMappingNotifyEvent = struct {
     @"response_type": u8,
     @"device_id": u8,
     @"sequence": u16,
@@ -2092,7 +2092,7 @@ pub const ChangeDevice = extern enum(c_uint) {
 pub const ChangeDeviceNotifyOpcode = 12;
 
 /// @brief ChangeDeviceNotifyEvent
-pub const ChangeDeviceNotifyEvent = extern struct {
+pub const ChangeDeviceNotifyEvent = struct {
     @"response_type": u8,
     @"device_id": u8,
     @"sequence": u16,
@@ -2105,7 +2105,7 @@ pub const ChangeDeviceNotifyEvent = extern struct {
 pub const DeviceKeyStateNotifyOpcode = 13;
 
 /// @brief DeviceKeyStateNotifyEvent
-pub const DeviceKeyStateNotifyEvent = extern struct {
+pub const DeviceKeyStateNotifyEvent = struct {
     @"response_type": u8,
     @"device_id": u8,
     @"sequence": u16,
@@ -2116,7 +2116,7 @@ pub const DeviceKeyStateNotifyEvent = extern struct {
 pub const DeviceButtonStateNotifyOpcode = 14;
 
 /// @brief DeviceButtonStateNotifyEvent
-pub const DeviceButtonStateNotifyEvent = extern struct {
+pub const DeviceButtonStateNotifyEvent = struct {
     @"response_type": u8,
     @"device_id": u8,
     @"sequence": u16,
@@ -2136,7 +2136,7 @@ pub const DeviceChange = extern enum(c_uint) {
 pub const DevicePresenceNotifyOpcode = 15;
 
 /// @brief DevicePresenceNotifyEvent
-pub const DevicePresenceNotifyEvent = extern struct {
+pub const DevicePresenceNotifyEvent = struct {
     @"response_type": u8,
     @"pad0": u8,
     @"sequence": u16,
@@ -2151,7 +2151,7 @@ pub const DevicePresenceNotifyEvent = extern struct {
 pub const DevicePropertyNotifyOpcode = 16;
 
 /// @brief DevicePropertyNotifyEvent
-pub const DevicePropertyNotifyEvent = extern struct {
+pub const DevicePropertyNotifyEvent = struct {
     @"response_type": u8,
     @"state": u8,
     @"sequence": u16,
@@ -2170,7 +2170,7 @@ pub const ChangeReason = extern enum(c_uint) {
 pub const DeviceChangedOpcode = 1;
 
 /// @brief DeviceChangedEvent
-pub const DeviceChangedEvent = extern struct {
+pub const DeviceChangedEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -2183,7 +2183,7 @@ pub const DeviceChangedEvent = extern struct {
     @"reason": u8,
     @"pad0": [11]u8,
     @"full_sequence": u32,
-    @"classes": [*]xcb.input.DeviceClass,
+    @"classes": []xcb.input.DeviceClass,
 };
 
 pub const KeyEventFlags = extern enum(c_uint) {
@@ -2194,7 +2194,7 @@ pub const KeyEventFlags = extern enum(c_uint) {
 pub const KeyPressOpcode = 2;
 
 /// @brief KeyPressEvent
-pub const KeyPressEvent = extern struct {
+pub const KeyPressEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -2218,9 +2218,9 @@ pub const KeyPressEvent = extern struct {
     @"flags": u32,
     @"mods": xcb.input.ModifierInfo,
     @"group": xcb.input.GroupInfo,
-    @"button_mask": [*]u32,
-    @"valuator_mask": [*]u32,
-    @"axisvalues": [*]xcb.input.FP3232,
+    @"button_mask": []u32,
+    @"valuator_mask": []u32,
+    @"axisvalues": []xcb.input.FP3232,
 };
 
 /// Opcode for KeyRelease.
@@ -2235,7 +2235,7 @@ pub const PointerEventFlags = extern enum(c_uint) {
 pub const ButtonPressOpcode = 4;
 
 /// @brief ButtonPressEvent
-pub const ButtonPressEvent = extern struct {
+pub const ButtonPressEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -2259,9 +2259,9 @@ pub const ButtonPressEvent = extern struct {
     @"flags": u32,
     @"mods": xcb.input.ModifierInfo,
     @"group": xcb.input.GroupInfo,
-    @"button_mask": [*]u32,
-    @"valuator_mask": [*]u32,
-    @"axisvalues": [*]xcb.input.FP3232,
+    @"button_mask": []u32,
+    @"valuator_mask": []u32,
+    @"axisvalues": []xcb.input.FP3232,
 };
 
 /// Opcode for ButtonRelease.
@@ -2296,7 +2296,7 @@ pub const NotifyDetail = extern enum(c_uint) {
 pub const EnterOpcode = 7;
 
 /// @brief EnterEvent
-pub const EnterEvent = extern struct {
+pub const EnterEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -2320,7 +2320,7 @@ pub const EnterEvent = extern struct {
     @"buttons_len": u16,
     @"mods": xcb.input.ModifierInfo,
     @"group": xcb.input.GroupInfo,
-    @"buttons": [*]u32,
+    @"buttons": []u32,
 };
 
 /// Opcode for Leave.
@@ -2347,7 +2347,7 @@ pub const HierarchyMask = extern enum(c_uint) {
 };
 
 /// @brief HierarchyInfo
-pub const HierarchyInfo = extern struct {
+pub const HierarchyInfo = struct {
     @"deviceid": xcb.input.DeviceId,
     @"attachment": xcb.input.DeviceId,
     @"type": u8,
@@ -2360,7 +2360,7 @@ pub const HierarchyInfo = extern struct {
 pub const HierarchyOpcode = 11;
 
 /// @brief HierarchyEvent
-pub const HierarchyEvent = extern struct {
+pub const HierarchyEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -2372,7 +2372,7 @@ pub const HierarchyEvent = extern struct {
     @"num_infos": u16,
     @"pad0": [10]u8,
     @"full_sequence": u32,
-    @"infos": [*]xcb.input.HierarchyInfo,
+    @"infos": []xcb.input.HierarchyInfo,
 };
 
 pub const PropertyFlag = extern enum(c_uint) {
@@ -2385,7 +2385,7 @@ pub const PropertyFlag = extern enum(c_uint) {
 pub const PropertyOpcode = 12;
 
 /// @brief PropertyEvent
-pub const PropertyEvent = extern struct {
+pub const PropertyEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -2403,7 +2403,7 @@ pub const PropertyEvent = extern struct {
 pub const RawKeyPressOpcode = 13;
 
 /// @brief RawKeyPressEvent
-pub const RawKeyPressEvent = extern struct {
+pub const RawKeyPressEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -2417,9 +2417,9 @@ pub const RawKeyPressEvent = extern struct {
     @"flags": u32,
     @"pad0": [4]u8,
     @"full_sequence": u32,
-    @"valuator_mask": [*]u32,
-    @"axisvalues": [*]xcb.input.FP3232,
-    @"axisvalues_raw": [*]xcb.input.FP3232,
+    @"valuator_mask": []u32,
+    @"axisvalues": []xcb.input.FP3232,
+    @"axisvalues_raw": []xcb.input.FP3232,
 };
 
 /// Opcode for RawKeyRelease.
@@ -2430,7 +2430,7 @@ pub const RawKeyReleaseEvent = xcb.input.RawKeyPressEvent;
 pub const RawButtonPressOpcode = 15;
 
 /// @brief RawButtonPressEvent
-pub const RawButtonPressEvent = extern struct {
+pub const RawButtonPressEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -2444,9 +2444,9 @@ pub const RawButtonPressEvent = extern struct {
     @"flags": u32,
     @"pad0": [4]u8,
     @"full_sequence": u32,
-    @"valuator_mask": [*]u32,
-    @"axisvalues": [*]xcb.input.FP3232,
-    @"axisvalues_raw": [*]xcb.input.FP3232,
+    @"valuator_mask": []u32,
+    @"axisvalues": []xcb.input.FP3232,
+    @"axisvalues_raw": []xcb.input.FP3232,
 };
 
 /// Opcode for RawButtonRelease.
@@ -2466,7 +2466,7 @@ pub const TouchEventFlags = extern enum(c_uint) {
 pub const TouchBeginOpcode = 18;
 
 /// @brief TouchBeginEvent
-pub const TouchBeginEvent = extern struct {
+pub const TouchBeginEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -2490,9 +2490,9 @@ pub const TouchBeginEvent = extern struct {
     @"flags": u32,
     @"mods": xcb.input.ModifierInfo,
     @"group": xcb.input.GroupInfo,
-    @"button_mask": [*]u32,
-    @"valuator_mask": [*]u32,
-    @"axisvalues": [*]xcb.input.FP3232,
+    @"button_mask": []u32,
+    @"valuator_mask": []u32,
+    @"axisvalues": []xcb.input.FP3232,
 };
 
 /// Opcode for TouchUpdate.
@@ -2511,7 +2511,7 @@ pub const TouchOwnershipFlags = extern enum(c_uint) {
 pub const TouchOwnershipOpcode = 21;
 
 /// @brief TouchOwnershipEvent
-pub const TouchOwnershipEvent = extern struct {
+pub const TouchOwnershipEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -2534,7 +2534,7 @@ pub const TouchOwnershipEvent = extern struct {
 pub const RawTouchBeginOpcode = 22;
 
 /// @brief RawTouchBeginEvent
-pub const RawTouchBeginEvent = extern struct {
+pub const RawTouchBeginEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -2548,9 +2548,9 @@ pub const RawTouchBeginEvent = extern struct {
     @"flags": u32,
     @"pad0": [4]u8,
     @"full_sequence": u32,
-    @"valuator_mask": [*]u32,
-    @"axisvalues": [*]xcb.input.FP3232,
-    @"axisvalues_raw": [*]xcb.input.FP3232,
+    @"valuator_mask": []u32,
+    @"axisvalues": []xcb.input.FP3232,
+    @"axisvalues_raw": []xcb.input.FP3232,
 };
 
 /// Opcode for RawTouchUpdate.
@@ -2570,7 +2570,7 @@ pub const BarrierFlags = extern enum(c_uint) {
 pub const BarrierHitOpcode = 25;
 
 /// @brief BarrierHitEvent
-pub const BarrierHitEvent = extern struct {
+pub const BarrierHitEvent = struct {
     @"response_type": u8,
     @"extension": u8,
     @"sequence": u16,
@@ -2601,7 +2601,7 @@ pub const BarrierLeaveEvent = xcb.input.BarrierHitEvent;
 pub const DeviceOpcode = 0;
 
 /// @brief DeviceError
-pub const DeviceError = extern struct {
+pub const DeviceError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -2611,7 +2611,7 @@ pub const DeviceError = extern struct {
 pub const EventOpcode = 1;
 
 /// @brief EventError
-pub const EventError = extern struct {
+pub const EventError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -2621,7 +2621,7 @@ pub const EventError = extern struct {
 pub const ModeOpcode = 2;
 
 /// @brief ModeError
-pub const ModeError = extern struct {
+pub const ModeError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -2631,7 +2631,7 @@ pub const ModeError = extern struct {
 pub const DeviceBusyOpcode = 3;
 
 /// @brief DeviceBusyError
-pub const DeviceBusyError = extern struct {
+pub const DeviceBusyError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,
@@ -2641,7 +2641,7 @@ pub const DeviceBusyError = extern struct {
 pub const ClassOpcode = 4;
 
 /// @brief ClassError
-pub const ClassError = extern struct {
+pub const ClassError = struct {
     @"response_type": u8,
     @"error_code": u8,
     @"sequence": u16,

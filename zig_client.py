@@ -143,9 +143,9 @@ def zig_simple(self, name):
         zig('pub const %s = %s;', self.type_name, _t(self.name))
         zig('')
 
-def zig_complex(self, force_packed = False):
+def zig_complex(self, const_pointers = False):
     zig('/// @brief %s', self.type_name)
-    zig('pub const %s = %s %s {', self.type_name, 'packed' if force_packed else 'extern', self.zig_container)
+    zig('pub const %s = %s {', self.type_name, self.zig_container)
 
     struct_fields = []
 
@@ -153,7 +153,7 @@ def zig_complex(self, force_packed = False):
         if field.wire:
             struct_fields.append(field)
 
-    def zig_complex_field(self, field):
+    def zig_complex_field(self, field, const_pointers):
         value = ''
 
         # We can give a default value to 'minor_opcode' on request types
@@ -164,18 +164,18 @@ def zig_complex(self, force_packed = False):
         if field.type.fixed_size():
             zig('@"%s": %s%s%s,', field.zig_field_name, field.zig_subscript, field.zig_field_type, value)
         elif field.type.is_list:
-            zig('@"%s": [*]%s,', field.zig_field_name, field.zig_field_type)
+            zig('@"%s": []%s%s,', field.zig_field_name, 'const ' if const_pointers else '', field.zig_field_type)
 
 
     if not self.is_switch:
         for field in struct_fields:
-            zig_complex_field(self, field)
+            zig_complex_field(self, field, const_pointers)
     else:
         for b in self.bitcases:
             if b.type.has_name:
                 zig('@"%s": extern struct {', b.zig_field_name)
             for field in b.type.fields:
-                zig_complex_field(self, field)
+                zig_complex_field(self, field, const_pointers)
             if b.type.has_name:
                 zig('},')
 
@@ -210,7 +210,7 @@ def zig_request(self, name):
         zig_cookie(self, name)
 
     # Request structure declaration
-    zig_complex(self)
+    zig_complex(self, True)
 
     if self.reply:
         zig_type_setup(self.reply, name, ('Reply',))
@@ -228,7 +228,6 @@ def zig_event(self, name):
     # events while generating the structure for them. Otherwise we would read
     # garbage (the internal full_sequence) when accessing normal event fields
     # there.
-    force_packed = False
     if hasattr(self, 'is_ge_event') and self.is_ge_event and self.name == name:
         event_size = 0
         for field in self.fields:
@@ -238,11 +237,6 @@ def zig_event(self, name):
                 full_sequence = Field(tcard32, tcard32.name, 'full_sequence', False, True, True)
                 idx = self.fields.index(field)
                 self.fields.insert(idx + 1, full_sequence)
-
-                # If the event contains any 64-bit extended fields, they need
-                # to remain aligned on a 64-bit boundary.  Adding full_sequence
-                # would normally break that; force the struct to be packed.
-                force_packed = any(f.type.size == 8 and f.type.is_simple for f in self.fields[(idx+1):])
                 break
 
     if self.name == name:
@@ -257,7 +251,7 @@ def zig_event(self, name):
     zig_opcode(name, self.opcodes[name])
 
     if self.name == name:
-        zig_complex(self, force_packed)
+        zig_complex(self)
     else:
         zig('pub const %s = %s;', name[-1] + 'Event', _t(self.name) + 'Event')
 
